@@ -9,11 +9,10 @@ import android.graphics.Paint;
 
 public class TheGame extends GameThread{
     private Car car = new Car(mGameView);
-    private int posX = 0;
+    private Track track = new Track(mGameView);
 
     public TheGame(GameView gameView) {
         super(gameView);
-
     }
 
     @Override
@@ -27,6 +26,7 @@ public class TheGame extends GameThread{
         car.angleDeg += 1;
         car.yPos += 1;
         super.doDraw(canvas);
+        track.draw(canvas);
         car.draw(canvas);
     }
 
