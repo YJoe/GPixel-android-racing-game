@@ -23,15 +23,14 @@ public class TheGame extends GameThread{
     @Override
     protected void doDraw(Canvas canvas) {
         if(canvas == null) return;
-        car.angleDeg += 1;
-        car.yPos += 1;
         super.doDraw(canvas);
-        track.draw(canvas);
         car.draw(canvas);
+        track.draw(canvas);
     }
 
     @Override
     protected void actionOnTouch(float x, float y) {
+        track.translateX += 10;
     }
 
     @Override
