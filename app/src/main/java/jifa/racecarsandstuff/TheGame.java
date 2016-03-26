@@ -24,13 +24,12 @@ public class TheGame extends GameThread{
     protected void doDraw(Canvas canvas) {
         if(canvas == null) return;
         super.doDraw(canvas);
-        car.draw(canvas);
         track.draw(canvas);
+        //car.draw(canvas);
     }
 
     @Override
     protected void actionOnTouch(float x, float y) {
-        track.translateX += 10;
     }
 
     @Override
