@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
@@ -27,15 +28,19 @@ public class Track {
     ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
 
     public Track(View view){
-        String [][] array = {
-                {"gra", "gra", "gra", "gra", "gra", "gra", "gra"},
-                {"gra", "rco", "trt", "trt", "trt", "trt", "trt"},
-                {"gra", "trl", "tra", "tra", "tra", "tra", "tra"},
-                {"gra", "trl", "tra", "rci", "trb", "trb", "trb"},
-                {"gra", "trl", "tra", "trr", "gra", "gra", "gra"},
-                {"gra", "trl", "tra", "trr", "gra", "gra", "gra"},
-                {"gra", "trl", "tra", "trr", "gra", "gra", "gra"}};
+        String [][] track3 = {
+                {"grass", "ed000", "track", "cs090", "cb090", "grass", "grass"},
+                {"grass", "cb270", "cs270", "track", "ed180", "grass", "grass"},
+                {"grass", "grass", "ed000", "track", "ed180", "grass", "grass"},
+                {"grass", "cb000", "cs000", "track", "ed180", "grass", "grass"},
+                {"ed090", "cs000", "cs180", "ed270", "cb180", "grass", "grass"},
+                {"track", "track", "ed180", "grass", "grass", "grass", "grass"},
+                {"ed270", "ed270", "cb180", "grass", "grass", "grass", "grass"},
+        };
 
+        String[][] array = track3;
+
+        // entirely assumes the array will be square
         int count = array.length;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -45,32 +50,17 @@ public class Track {
         graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, options);
         // Define graphic spaces
 
-        graphicSpaces.add(new ArrayList<Rect>());
-        graphicSpaces.add(new ArrayList<Rect>());
-        graphicSpaces.add(new ArrayList<Rect>());
-        graphicSpaces.add(new ArrayList<Rect>());
-
-        // grass
-        graphicSpaces.get(0).add(new Rect(0,  0, 10, 10));
-        graphicSpaces.get(0).add(new Rect(10, 0, 20, 10));
-        graphicSpaces.get(0).add(new Rect(20, 0, 30, 10));
-        // track edges
-        graphicSpaces.get(1).add(new Rect(0,  10, 10, 20));
-        graphicSpaces.get(1).add(new Rect(10, 10, 20, 20));
-        graphicSpaces.get(1).add(new Rect(20, 10, 30, 20));
-        graphicSpaces.get(1).add(new Rect(30, 10, 40, 20));
-        // track
-        graphicSpaces.get(2).add(new Rect(0,  20, 10, 30));
-        graphicSpaces.get(2).add(new Rect(10, 20, 20, 30));
-        // curves
-        graphicSpaces.get(3).add(new Rect(0,  30, 10, 40));
-        graphicSpaces.get(3).add(new Rect(10, 30, 20, 40));
-
+        for(int y = 0; y < 5; y++){
+            graphicSpaces.add(new ArrayList<Rect>());
+            for(int x = 0; x < 4; x++){
+                graphicSpaces.get(y).add(new Rect((x*10), (y*10), (x*10)+10, (y*10)+10));
+            }
+        }
 
         int indWidth = graphics.getWidth() / 6;
         int indHeight = graphics.getHeight() / 6;
 
-        scaleRect = new Rect(0, 0, 10*count, 10*count);
+        scaleRect = new Rect(0, 0, indWidth*count, indHeight*count);
         image = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
         Canvas imageCanv = new Canvas(image);
 
@@ -79,38 +69,32 @@ public class Track {
         paint.setAntiAlias(false);
         paint.setDither(false);
 
-        count = 2;
-
         for(int x = 0; x < count; x++){
             for(int y = 0; y < count; y++) {
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
                 getTexture(array[x][y], imageCanv, rect, paint);
+                //imageCanv.drawBitmap(graphics, graphicSpaces.get(1).get(1), rect, paint);
             }
         }
     }
 
     public void getTexture(String str, Canvas canvas, Rect rect, Paint paint){
-        int rowIndex = 0;
-        switch(str){
-            case "gra": rowIndex = 0;
-                break;
-            case "tra": rowIndex = 2;
-                break;
-            case "trl": canvas.drawBitmap(graphics, graphicSpaces.get(1).get(0), rect, paint);
-                return;
-            case "trt": canvas.drawBitmap(graphics, graphicSpaces.get(1).get(1), rect, paint);
-                return;
-            case "trr": canvas.drawBitmap(graphics, graphicSpaces.get(1).get(2), rect, paint);
-                return;
-            case "trb": canvas.drawBitmap(graphics, graphicSpaces.get(1).get(3), rect, paint);
-                return;
-            case "rco": canvas.drawBitmap(graphics, graphicSpaces.get(3).get(0), rect, paint);
-                return;
-            case "rci": canvas.drawBitmap(graphics, graphicSpaces.get(3).get(1), rect, paint);
-                return;
+        int rowIndex = 0, colIndex = 0;
+        if (Character.isDigit(str.charAt(str.length() - 1))){
+            switch(str.substring(0, 2)){
+                case "ed": rowIndex = 1; break;
+                case "cb": rowIndex = 2; break;
+                case "cs": rowIndex = 3; break;
+            }
+            colIndex = Integer.parseInt(str.substring(2, 5)) / 90;
+        } else {
+            switch(str){
+                case "grass": rowIndex = 0; colIndex = 0; break;
+                case "track": rowIndex = 4; colIndex = 0; break;
+            }
         }
-        int colIndex = new Random().nextInt(graphicSpaces.get(rowIndex).size());
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
+
     }
 
     public void draw(Canvas canvas){
