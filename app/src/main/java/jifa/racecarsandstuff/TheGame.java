@@ -8,11 +8,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class TheGame extends GameThread{
-    private Car car = new Car(mGameView);
-    private Track track = new Track(mGameView);
+    private Car car;
+    private Track track;
 
     public TheGame(GameView gameView) {
         super(gameView);
+        track = new Track(gameView);
+        car = new Car(gameView);
     }
 
     @Override

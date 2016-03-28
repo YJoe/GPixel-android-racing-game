@@ -25,16 +25,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_start);
-        final Button button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setContentView(R.layout.activity_main);
-                mGameView = (GameView) findViewById(R.id.gamearea);
-                startGame(mGameView, mGameThread, null);
-            }
-        });
+        setContentView(R.layout.activity_main);
+        mGameView = (GameView)findViewById(R.id.gamearea);
+        this.startGame(mGameView, null, savedInstanceState);
     }
 
     private void startGame(GameView gView, GameThread gThread, Bundle savedInstanceState) {

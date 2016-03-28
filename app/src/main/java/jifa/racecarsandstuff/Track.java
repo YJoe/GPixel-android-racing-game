@@ -38,7 +38,14 @@ public class Track {
                 {"ed270", "ed270", "cb180", "grass", "grass", "grass", "grass"},
         };
 
-        String[][] array = track3;
+        String [][] blank = new String[50][50];
+        for(int i = 0; i < 50; i++){
+            for (int j = 0; j < 50; j++){
+                blank[i][j] = "grass";
+            }
+        }
+
+        String[][] array = blank;
 
         // entirely assumes the array will be square
         int count = array.length;
@@ -88,9 +95,10 @@ public class Track {
             }
             colIndex = Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
+            Random rand = new Random();
             switch(str){
-                case "grass": rowIndex = 0; colIndex = 0; break;
-                case "track": rowIndex = 4; colIndex = 0; break;
+                case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
+                case "track": rowIndex = 4; colIndex = rand.nextInt(2); break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
@@ -98,8 +106,10 @@ public class Track {
     }
 
     public void draw(Canvas canvas){
+        canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate(translateX, translateY);
         canvas.scale(10, 10);
         canvas.drawBitmap(image, null, scaleRect, null);
+        canvas.restore();
     }
 }
