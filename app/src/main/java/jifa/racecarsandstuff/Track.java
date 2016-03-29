@@ -24,6 +24,7 @@ public class Track {
     Rect scaleRect;
     int translateX = 0;
     int translateY = 0;
+    int angle = 0;
     Bitmap graphics;
     ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
 
@@ -41,7 +42,7 @@ public class Track {
         String [][] blank = new String[50][50];
         for(int i = 0; i < 50; i++){
             for (int j = 0; j < 50; j++){
-                blank[i][j] = "grass";
+                blank[i][j] = "track";
             }
         }
 
@@ -64,7 +65,7 @@ public class Track {
             }
         }
 
-        int indWidth = graphics.getWidth() / 6;
+        int indWidth = graphics.getWidth() / 8;
         int indHeight = graphics.getHeight() / 6;
 
         scaleRect = new Rect(0, 0, indWidth*count, indHeight*count);
@@ -98,7 +99,7 @@ public class Track {
             Random rand = new Random();
             switch(str){
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
-                case "track": rowIndex = 4; colIndex = rand.nextInt(2); break;
+                case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);

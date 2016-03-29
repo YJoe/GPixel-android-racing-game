@@ -144,8 +144,10 @@ public abstract class GameThread extends Thread {
 
 
     protected void doDraw(Canvas canvas) {
-        if (canvas == null) return;
-        canvas.drawBitmap(mBackgroundImage, 0, 0, null);
+
+        if(canvas == null) return;
+
+        if(mBackgroundImage != null) canvas.drawBitmap(mBackgroundImage, 0, 0, null);
     }
 
     private void updatePhysics() {
@@ -247,7 +249,7 @@ public abstract class GameThread extends Thread {
                 Bundle b = new Bundle();
                 b.putString("text", "");
                 b.putInt("viz", View.INVISIBLE);
-                b.putBoolean("showAd", true);
+                b.putBoolean("showAd", false);
                 msg.setData(b);
                 mHandler.sendMessage(msg);
             }
@@ -258,16 +260,16 @@ public abstract class GameThread extends Thread {
                 Resources res = mContext.getResources();
                 CharSequence str = "";
                 if (mMode == STATE_READY)
-                    str = "READY";
+                    str = res.getText(R.string.mode_ready);
                 else
                 if (mMode == STATE_PAUSE)
-                    str = "PAUSE";
+                    str = res.getText(R.string.mode_pause);
                 else
                 if (mMode == STATE_LOSE)
-                    str = "LOSE";
+                    str = res.getText(R.string.mode_lose);
                 else
                 if (mMode == STATE_WIN) {
-                    str = "WIN";
+                    str = res.getText(R.string.mode_win);
                 }
 
                 if (message != null) {
