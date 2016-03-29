@@ -1,5 +1,6 @@
 package jifa.racecarsandstuff;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,7 +29,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     Sensor accelerometer;
     Sensor magnetometer;
-
+    public Activity activity;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -154,7 +155,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                     //Start a new thread
                     //Should be this to update screen with old game: new GameThread(this, thread);
                     //The method should set all fields in new thread to the value of old thread's fields
-                    thread = new TheGame(this);
+                    thread = new TheGame(this, activity);
                     thread.setRunning(true);
                     thread.start();
                 }

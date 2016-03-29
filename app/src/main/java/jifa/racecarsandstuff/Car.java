@@ -3,12 +3,9 @@ package jifa.racecarsandstuff;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
-
-import java.util.ArrayList;
 
 /**
  * Created by Joe on 14/03/2016.
@@ -18,10 +15,17 @@ public class Car {
     public Rect scaleRect;
     public Bitmap image;
     public int xPos, yPos, width, height, angleDeg, indWidth, indHeight;
+    public boolean turningLeft, turningRight, accelerating, breaking;
 
     public Car(View view, int xp, int yp){
         xPos = xp;
         yPos = yp;
+        angleDeg = 0;
+        turningLeft = false;
+        turningRight = false;
+        accelerating = false;
+        breaking = false;
+
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
         options.inScaled = false;
@@ -47,6 +51,15 @@ public class Car {
                 Rect rect1 = new Rect(y*indWidth+(indWidth*4), x*indHeight, y*indWidth+(indWidth*5), x*indHeight+indHeight);
                 imageCanv.drawBitmap(graphics, rect1, rect, paint);
             }
+        }
+    }
+
+    public void update(){
+        if (turningLeft) {
+            angleDeg -= 1;
+        }
+        if (turningRight){
+            angleDeg += 1;
         }
     }
 

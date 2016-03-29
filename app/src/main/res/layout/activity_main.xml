@@ -33,5 +33,23 @@
             android:gravity="center_horizontal"
             android:textColor="#ffffffff"
             android:textSize="20sp"/>
+
+        <Button android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Left" />
+
+        <Button android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Right" />
+
+        <Button android:id="@+id/accel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Accelerate" />
     </RelativeLayout>
 </FrameLayout>

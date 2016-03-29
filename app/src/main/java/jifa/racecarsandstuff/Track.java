@@ -56,8 +56,8 @@ public class Track {
         options.inScaled = false;
 
         graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, options);
-        // Define graphic spaces
 
+        // Define graphic spaces
         for(int y = 0; y < 5; y++){
             graphicSpaces.add(new ArrayList<Rect>());
             for(int x = 0; x < 4; x++){

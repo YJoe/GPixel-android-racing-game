@@ -24,24 +24,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setContentView(R.layout.activity_main);
-
         mGameView = (GameView)findViewById(R.id.gamearea);
         mGameView.setStatusView((TextView)findViewById(R.id.text));
         mGameView.setScoreView((TextView)findViewById(R.id.score));
-
+        mGameView.activity = this;
         this.startGame(mGameView, null, savedInstanceState);
     }
 
     private void startGame(GameView gView, GameThread gThread, Bundle savedInstanceState) {
 
         //Set up a new game, we don't care about previous states
-        mGameThread = new TheGame(mGameView);
+        mGameThread = new TheGame(mGameView, this);
         mGameView.setThread(mGameThread);
         mGameThread.setState(GameThread.STATE_READY);
         mGameView.startSensor((SensorManager)getSystemService(Context.SENSOR_SERVICE));
