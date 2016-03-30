@@ -17,8 +17,8 @@ public class Car {
     public int xPos, yPos, width, height, indWidth, indHeight;
     public double currentSpeed = 0;
     public int topSpeed = 15;
-    public double accelerationRate = 0.05;
-    public double decelerationRate = 0.1;
+    public double accelerationRate = 0.1;
+    public double decelerationRate = 0.08;
     public double angleDeg;
     public boolean turningLeft, turningRight, accelerating, breaking;
 
@@ -75,6 +75,13 @@ public class Car {
                 currentSpeed -= decelerationRate;
             } else {
                 currentSpeed = 0;
+            }
+        }
+
+        // does the same again (assuming they aren't also accelerating deceleration is * 2)
+        if (breaking){
+            if(currentSpeed > 0){
+                currentSpeed -= decelerationRate;
             }
         }
 

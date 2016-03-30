@@ -20,7 +20,12 @@ public class TheGame extends GameThread{
     public TheGame(GameView gameView, Activity activity) {
         super(gameView);
         view = gameView;
+        setButtons(activity);
+        track = new Track(gameView);
+        car = new Car(view, -200, 0);
+    }
 
+    public void setButtons(Activity activity){
         // Define buttons
         Button left = (Button) activity.findViewById(R.id.left);
         left.setX(0);
@@ -48,8 +53,22 @@ public class TheGame extends GameThread{
                 return false;
             }
         });
+
+        Button stop = (Button) activity.findViewById(R.id.stop);
+        stop.setX(500);
+        stop.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    car.breaking = true;
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    car.breaking = false;
+                }
+                return false;
+            }
+        });
         Button accel = (Button) activity.findViewById(R.id.accel);
-        accel.setX(400);
+        accel.setX(700);
         accel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -61,9 +80,6 @@ public class TheGame extends GameThread{
                 return false;
             }
         });
-
-        track = new Track(gameView);
-        car = new Car(view, -200, 0);
     }
 
     @Override
