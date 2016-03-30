@@ -60,11 +60,13 @@ public class Car {
     }
 
     public void update(){
-        if (turningLeft) {
-            angleDeg -= 0.5 * (currentSpeed/5);
-        }
-        if (turningRight){
-            angleDeg += 0.5 * (currentSpeed/5);
+        if (currentSpeed > 1) {
+            if (turningLeft) {
+                angleDeg -= 1 - (currentSpeed * 0.005);
+            }
+            if (turningRight) {
+                angleDeg += 1 - (currentSpeed * 0.005);
+            }
         }
         if (accelerating){
             if (currentSpeed < topSpeed) {
@@ -81,7 +83,7 @@ public class Car {
         // does the same again (assuming they aren't also accelerating deceleration is * 2)
         if (breaking){
             if(currentSpeed > 0){
-                currentSpeed -= decelerationRate;
+                currentSpeed -= decelerationRate * 1.5;
             }
         }
 

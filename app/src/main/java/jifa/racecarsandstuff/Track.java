@@ -44,7 +44,7 @@ public class Track {
         String [][] blank = new String[50][50];
         for(int i = 0; i < 50; i++){
             for (int j = 0; j < 50; j++){
-                blank[i][j] = "track";
+                blank[i][j] = "grass";
             }
         }
 
