@@ -91,5 +91,9 @@ public class TheGame extends GameThread{
     @Override
     protected void updateGame(float secondsElapsed) {
         car.update();
+        track.dx = -car.currentSpeed * Math.sin(Math.toRadians(car.angleDeg));
+        track.dy = car.currentSpeed * Math.cos(Math.toRadians(car.angleDeg));
+        track.update();
+        setScore((long)car.currentSpeed);
     }
 }

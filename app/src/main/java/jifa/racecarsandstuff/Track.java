@@ -22,13 +22,15 @@ import java.util.Random;
 public class Track {
     Bitmap image;
     Rect scaleRect;
-    int translateX = 0;
-    int translateY = 0;
+    float translateX = 0;
+    float translateY = 0;
+    double dx, dy;
     int angle = 0;
     Bitmap graphics;
     ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
 
     public Track(View view){
+        dx = 0; dy = 0;
         String [][] track3 = {
                 {"grass", "ed000", "track", "cs090", "cb090", "grass", "grass"},
                 {"grass", "cb270", "cs270", "track", "ed180", "grass", "grass"},
@@ -104,6 +106,11 @@ public class Track {
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
 
+    }
+
+    public void update(){
+        translateX += dx;
+        translateY += dy;
     }
 
     public void draw(Canvas canvas){

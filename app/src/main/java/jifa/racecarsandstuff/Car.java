@@ -14,7 +14,12 @@ public class Car {
     public Bitmap graphics;
     public Rect scaleRect;
     public Bitmap image;
-    public int xPos, yPos, width, height, angleDeg, indWidth, indHeight;
+    public int xPos, yPos, width, height, indWidth, indHeight;
+    public double currentSpeed = 0;
+    public int topSpeed = 15;
+    public double accelerationRate = 0.05;
+    public double decelerationRate = 0.1;
+    public double angleDeg;
     public boolean turningLeft, turningRight, accelerating, breaking;
 
     public Car(View view, int xp, int yp){
@@ -56,18 +61,30 @@ public class Car {
 
     public void update(){
         if (turningLeft) {
-            angleDeg -= 1;
+            angleDeg -= 0.5 * (currentSpeed/5);
         }
         if (turningRight){
-            angleDeg += 1;
+            angleDeg += 0.5 * (currentSpeed/5);
         }
+        if (accelerating){
+            if (currentSpeed < topSpeed) {
+                currentSpeed += accelerationRate;
+            }
+        } else {
+            if(currentSpeed > 0){
+                currentSpeed -= decelerationRate;
+            } else {
+                currentSpeed = 0;
+            }
+        }
+
     }
 
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate(xPos - indWidth*8, yPos - indHeight*8);
         canvas.scale(10, 10);
-        canvas.rotate(angleDeg, width/4, height/4);
+        canvas.rotate((int)angleDeg, width/4, height/4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
     }
