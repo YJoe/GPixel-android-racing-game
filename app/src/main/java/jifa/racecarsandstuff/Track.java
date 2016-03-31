@@ -41,8 +41,10 @@ public class Track {
 
         int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {20, 30}, {29, 30},
                             {29, 22}, {38, 22}, {38, 40}, {5, 40}};
+
         formTrack(track, points, true);
         formEdges(track);
+        formCorners(track);
 
         // entirely assumes the array will be square
         int count = track.length;
@@ -90,37 +92,63 @@ public class Track {
             drawTrackLine(track, p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1], 5);
     }
 
-    public void formEdges(String[][]track){
-        int gCount, tCount;
+    public void formCorners(String[][]track){
         for(int i = 0; i < track.length - 2; i++){
             for(int j = 0; j < track.length - 2; j++){
-                gCount = 0; tCount = 0;
-                // sample
-                for(int k = 0; k < 2; k++){
-                    for(int l = 0; l < 2; l++){
-                        if (track[j+k][i+l].equals("track"))
-                            tCount++;
-                        else
-                            gCount++;
-                    }
+                //      00, 01, 10, 11
+                boolean zz, zo, oz, oo;
+                zz = track[j][i].equals("track");
+                zo = track[j][i+1].equals("track");
+                oz = track[j+1][i].equals("track");
+                oo = track[j+1][i+1].equals("track");
+
+                // Outside corners
+                if(zz && !zo && !oz && !oo){
+                    track[j+1][i+1] = "cb180";
+                } else if(!zz && zo && !oz && !oo){
+                    track[j+1][i] = "cb270";
+                } else if(!zz && !zo && oz && !oo){
+                    track[j][i+1] = "cb090";
+                } else if(!zz && !zo && !oz && oo){
+                    track[j][i] = "cb000";
                 }
-                if (gCount == tCount) {
-                    if (track[j][i].equals("track") && track[j+1][i].equals("track")){
-                        track[j][i+1] = "ed180";
-                        track[j+1][i+1] = "ed180";
-                    } else if (track[j][i].equals("track") && track[j][i+1].equals("track")){
-                        track[j+1][i] = "ed270";
-                        track[j+1][i+1] = "ed270";
-                    } else if (track[j][i+1].equals("track") && track[j+1][i+1].equals("track")){
-                        track[j][i] = "ed000";
-                        track[j+1][i] = "ed000";
-                    } else {
-                        track[j][i] = "ed090";
-                        track[j][i+1] = "ed090";
-                    }
-                } else if (gCount > tCount && tCount != 0){
-                    // an inner corner
-                } else if (gCount < tCount && gCount != 0){
+
+                // Inside corners
+                else if(zz && zo && !oz && oo){
+                    track[j+1][i] = "cs270";
+                } else if(!zz && zo && oz && oo){
+                    track[j][i] = "cs000";
+                } else if(zz && !zo && oz && oo){
+                    track[j][i+1] = "cs090";
+                } else if(zz && zo && oz && !oo){
+                    track[j+1][i+1] = "cs180";
+                }
+            }
+        }
+    }
+
+    public void formEdges(String[][]track){
+        for(int i = 0; i < track.length - 2; i++){
+            for(int j = 0; j < track.length - 2; j++){
+                //      00, 01, 10, 11
+                boolean zz, zo, oz, oo;
+                zz = track[j][i].equals("track");
+                zo = track[j][i+1].equals("track");
+                oz = track[j+1][i].equals("track");
+                oo = track[j+1][i+1].equals("track");
+
+                if (zz && oz && !zo && !oo){
+                    track[j][i+1] = "ed180";
+                    track[j+1][i+1] = "ed180";
+                } else if (zz && zo && !oz && !oo){
+                    track[j+1][i] = "ed270";
+                    track[j+1][i+1] = "ed270";
+                } else if (zo && oo && !oz && !zz){
+                    track[j][i] = "ed000";
+                    track[j+1][i] = "ed000";
+                } else if (oz && oo && !zz && !zo){
+                    track[j][i] = "ed090";
+                    track[j][i+1] = "ed090";
                 }
             }
         }
