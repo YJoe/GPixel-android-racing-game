@@ -43,8 +43,8 @@ public class Track {
                             {29, 22}, {38, 22}, {38, 40}, {5, 40}};
 
         formTrack(track, points, true);
-        formEdges(track);
-        formCorners(track);
+        formStraightEdges(track);
+        formCornerEdges(track);
 
         // entirely assumes the array will be square
         int count = track.length;
@@ -92,7 +92,7 @@ public class Track {
             drawTrackLine(track, p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1], 5);
     }
 
-    public void formCorners(String[][]track){
+    public void formCornerEdges(String[][]track){
         for(int i = 0; i < track.length - 2; i++){
             for(int j = 0; j < track.length - 2; j++){
                 //      00, 01, 10, 11
@@ -127,7 +127,7 @@ public class Track {
         }
     }
 
-    public void formEdges(String[][]track){
+    public void formStraightEdges(String[][]track){
         for(int i = 0; i < track.length - 2; i++){
             for(int j = 0; j < track.length - 2; j++){
                 //      00, 01, 10, 11
@@ -155,6 +155,7 @@ public class Track {
     }
 
     public void drawTrackLine(String[][]track, int x,int y,int x2, int y2, int stroke) {
+        // http://tech-algorithm.com/articles/drawing-line-using-bresenham-algorithm/
         int w = x2 - x ;
         int h = y2 - y ;
         int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
@@ -184,14 +185,6 @@ public class Track {
             } else {
                 x += dx2 ;
                 y += dy2 ;
-            }
-        }
-    }
-
-    public void drawToTrack(String[][] track, int startX, int endX, int startY, int endY, String tag){
-        for(int x = startX; x < endX; x++){
-            for(int y = startY; y < endY; y++){
-                track[y][x] = tag;
             }
         }
     }
