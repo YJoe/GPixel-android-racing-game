@@ -16,7 +16,7 @@ public class Car {
     public Bitmap image;
     public int xPos, yPos, width, height, indWidth, indHeight;
     public double currentSpeed = 0;
-    public int topSpeed = 20;
+    public int topSpeed = 25;
     public double accelerationRate = 0.1;
     public double decelerationRate = 0.08;
     public double angleDeg;
@@ -63,9 +63,16 @@ public class Car {
         if (currentSpeed > 1) {
             if (turningLeft) {
                 angleDeg -= 1.5 - (currentSpeed * 0.007);
+                // move this into hand-break (and the other one down there)
+                if (breaking){
+                    angleDeg -= 0.1 * (currentSpeed / 2);
+                }
             }
             if (turningRight) {
                 angleDeg += 1.5 - (currentSpeed * 0.007);
+                if (breaking){
+                    angleDeg += 0.1 * (currentSpeed / 2);
+                }
             }
         }
         if (accelerating){
@@ -80,10 +87,11 @@ public class Car {
             }
         }
 
-        // does the same again (assuming they aren't also accelerating deceleration is * 2)
+        // does the same again (assuming they aren't also accelerating deceleration is
+        // deceleration * 2 + the previous deceleration)
         if (breaking){
             if(currentSpeed > 0){
-                currentSpeed -= decelerationRate * 2;
+                currentSpeed -= (decelerationRate * 2) - (currentSpeed * 0.002);
             }
         }
 
