@@ -39,8 +39,10 @@ public class Track {
             }
         }
 
-        int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {20, 30}, {29, 30},
-                            {29, 22}, {38, 22}, {38, 40}, {5, 40}};
+        //int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {20, 30}, {29, 30},
+        //                    {29, 22}, {38, 22}, {38, 40}, {5, 40}};
+
+        int [][] points = { {10, 10}, {15, 5}, {25, 5}, {30, 10}, {30, 35}, {25, 40}, {15, 40}, {10, 35}};
 
         formTrack(track, points, true);
         formStraightEdges(track);
@@ -79,7 +81,6 @@ public class Track {
             for(int y = 0; y < count; y++) {
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
                 getTexture(track[x][y], imageCanv, rect, paint);
-                //imageCanv.drawBitmap(graphics, graphicSpaces.get(1).get(1), rect, paint);
             }
         }
     }
