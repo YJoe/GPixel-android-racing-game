@@ -33,20 +33,20 @@ public class Track {
         dx = 0; dy = 0;
 
         String [][] track = new String[50][50];
-        for(int i = 0; i < 50; i++){
-            for (int j = 0; j < 50; j++){
-                track[i][j] = "grass";
-            }
-        }
+        drawTrackSection(track, 0, 0, track.length, track.length, "grass");
 
-        //int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {20, 30}, {29, 30},
-        //                    {29, 22}, {38, 22}, {38, 40}, {5, 40}};
+        // G
+        int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {16, 18} ,{16, 30}, {29, 30},
+                            {29, 22}, {38, 22}, {38, 40}, {5, 40}};
 
-        int [][] points = { {10, 10}, {15, 5}, {25, 5}, {30, 10}, {30, 35}, {25, 40}, {15, 40}, {10, 35}};
+        // oval
+        //int [][] points = { {10, 10}, {15, 5}, {25, 5}, {30, 10}, {30, 35}, {25, 40},
+        //                    {15, 40}, {10, 35}};
 
         formTrack(track, points, true);
         formStraightEdges(track);
         formCornerEdges(track);
+        drawTrackSection(track, 5, 15, 10, 16, "start");
 
         // entirely assumes the array will be square
         int count = track.length;
@@ -103,26 +103,34 @@ public class Track {
                 oz = track[j+1][i].equals("track");
                 oo = track[j+1][i+1].equals("track");
 
-                // Outside corners
-                if(zz && !zo && !oz && !oo){
-                    track[j+1][i+1] = "cb180";
-                } else if(!zz && zo && !oz && !oo){
-                    track[j+1][i] = "cb270";
-                } else if(!zz && !zo && oz && !oo){
-                    track[j][i+1] = "cb090";
-                } else if(!zz && !zo && !oz && oo){
-                    track[j][i] = "cb000";
-                }
-
-                // Inside corners
-                else if(zz && zo && !oz && oo){
-                    track[j+1][i] = "cs270";
-                } else if(!zz && zo && oz && oo){
-                    track[j][i] = "cs000";
-                } else if(zz && !zo && oz && oo){
-                    track[j][i+1] = "cs090";
-                } else if(zz && zo && oz && !oo){
-                    track[j+1][i+1] = "cs180";
+                if (zz) {
+                    if (zo) {
+                        if (!oz && oo){
+                            track[j + 1][i] = "cs270";
+                        } else if (oz && !oo){
+                            track[j + 1][i + 1] = "cs180";
+                        }
+                    } else {
+                        if (!oz && !oo){
+                            track[j + 1][i + 1] = "cb180";
+                        } else if (oz && oo){
+                            track[j][i + 1] = "cs090";
+                        }
+                    }
+                } else {
+                    if (zo) {
+                        if (!oz && !oo){
+                            track[j + 1][i] = "cb270";
+                        } else if (oz && oo){
+                            track[j][i] = "cs000";
+                        }
+                    } else {
+                        if (oz && !oo){
+                            track[j][i + 1] = "cb090";
+                        } else if (!oz && oo){
+                            track[j][i] = "cb000";
+                        }
+                    }
                 }
             }
         }
@@ -138,18 +146,28 @@ public class Track {
                 oz = track[j+1][i].equals("track");
                 oo = track[j+1][i+1].equals("track");
 
-                if (zz && oz && !zo && !oo){
-                    track[j][i+1] = "ed180";
-                    track[j+1][i+1] = "ed180";
-                } else if (zz && zo && !oz && !oo){
-                    track[j+1][i] = "ed270";
-                    track[j+1][i+1] = "ed270";
-                } else if (zo && oo && !oz && !zz){
-                    track[j][i] = "ed000";
-                    track[j+1][i] = "ed000";
-                } else if (oz && oo && !zz && !zo){
-                    track[j][i] = "ed090";
-                    track[j][i+1] = "ed090";
+                if(zz){
+                    if(zo){
+                        if(!oz && !oo){
+                            track[j+1][i] = "ed270";
+                            track[j+1][i+1] = "ed270";
+                        }
+                    } else {
+                        if (oz && !oo){
+                            track[j][i+1] = "ed180";
+                            track[j+1][i+1] = "ed180";
+                        }
+                    }
+                } else {
+                    if(oz){
+                        if(!zo && oo){
+                            track[j][i] = "ed090";
+                            track[j][i+1] = "ed090";
+                        }
+                    } else if(zo && oo){
+                        track[j][i] = "ed000";
+                        track[j+1][i] = "ed000";
+                    }
                 }
             }
         }
@@ -190,6 +208,14 @@ public class Track {
         }
     }
 
+    public void drawTrackSection(String[][]track, int x0, int y0, int x1, int y1, String tag){
+        for(int y = y0; y < y1; y++){
+            for(int x = x0; x < x1; x++){
+                track[y][x] = tag;
+            }
+        }
+    }
+
     public void getTexture(String str, Canvas canvas, Rect rect, Paint paint){
         int rowIndex = 0, colIndex = 0;
         if (Character.isDigit(str.charAt(str.length() - 1))){
@@ -204,6 +230,7 @@ public class Track {
             switch(str){
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
+                case "start": rowIndex = 4; colIndex = 3; break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
