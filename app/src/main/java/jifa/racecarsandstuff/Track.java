@@ -242,7 +242,6 @@ public class Track {
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
         colourCanvas.drawBitmap(colourGraphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
-
     }
 
     public void update(){
@@ -254,8 +253,8 @@ public class Track {
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate(translateX, translateY);
         canvas.scale(scale, scale);
-//        canvas.drawBitmap(image, null, scaleRect, null);
-        canvas.drawBitmap(colourImage, null, scaleRect, null);
+        canvas.drawBitmap(image, null, scaleRect, null);
+        //canvas.drawBitmap(colourImage, null, scaleRect, null);
         canvas.restore();
     }
 }

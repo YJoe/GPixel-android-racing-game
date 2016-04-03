@@ -3,6 +3,7 @@ package jifa.racecarsandstuff;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
@@ -14,9 +15,10 @@ public class Car {
     public Bitmap graphics;
     public Rect scaleRect;
     public Bitmap image;
+    public Track track;
     public int xPos, yPos, width, height, indWidth, indHeight;
     public double currentSpeed = 0;
-    public int topSpeed = 20;
+    public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
     public double accelerationRate = 0.1;
     public double decelerationRate = 0.08;
     public double angleDeg;
@@ -30,6 +32,9 @@ public class Car {
         turningRight = false;
         accelerating = false;
         breaking = false;
+        trackTopSpeed = 20;
+        grassTopSpeed = 7;
+        currentTopSpeed = trackTopSpeed;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
@@ -63,20 +68,13 @@ public class Car {
         if (currentSpeed > 1) {
             if (turningLeft) {
                 angleDeg -= 1.5 - (currentSpeed * 0.01);
-                // move this into hand-break (and the other one down there)
-//                if (breaking){
-//                    angleDeg -= 0.1 * (currentSpeed / 2);
-//                }
             }
             if (turningRight) {
                 angleDeg += 1.5 - (currentSpeed * 0.01);
-//                if (breaking){
-//                    angleDeg += 0.1 * (currentSpeed / 2);
-//                }
             }
         }
         if (accelerating){
-            if (currentSpeed < topSpeed) {
+            if (currentSpeed < currentTopSpeed) {
                 currentSpeed += accelerationRate;
             }
         } else {
@@ -86,15 +84,28 @@ public class Car {
                 currentSpeed = 0;
             }
         }
-
-        // does the same again (assuming they aren't also accelerating deceleration is
-        // deceleration * 2 + the previous deceleration)
         if (breaking){
             if(currentSpeed > 0){
                 currentSpeed -= (decelerationRate * 2) - (currentSpeed * 0.002);
             }
         }
+        trackSurfacePenalties();
+        if(currentSpeed > currentTopSpeed){
+            currentSpeed -= decelerationRate*3;
+        }
+    }
 
+    public void trackSurfacePenalties(){
+        int pixel = track.colourImage.getPixel((int)((-track.translateX) + xPos) / track.scale, (int)((-track.translateY) + yPos) / track.scale);
+        if (Color.blue(pixel) != 0){
+            currentTopSpeed = trackTopSpeed;
+        } else if(Color.green(pixel) != 0){
+            currentTopSpeed = grassTopSpeed;
+        } else if(Color.red(pixel) != 0){
+            // car is on track edge
+        } else{
+            // car is obstructed
+        }
     }
 
     public void draw(Canvas canvas){
