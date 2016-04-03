@@ -110,6 +110,10 @@ public class TheGame extends GameThread{
         track.dx = -car.currentSpeed * Math.sin(Math.toRadians(car.angleDeg));
         track.dy = car.currentSpeed * Math.cos(Math.toRadians(car.angleDeg));
         track.update();
-        setScore((long)car.currentSpeed);
+        int pixel = track.colourImage.getPixel((int)((-track.translateX) + car.xPos) / track.scale, (int)((-track.translateY) + car.yPos) / track.scale);
+        //int red = Color.red(pixel);
+        //int green = Color.green(pixel);
+        //int blue = Color.blue(pixel);
+        setScore("X: " + ((int)-track.translateX + car.xPos)+ " Y: " + ((int)-track.translateY + car.yPos) + " C: " + Color.blue(pixel));
     }
 }

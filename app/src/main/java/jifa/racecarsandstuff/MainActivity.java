@@ -6,9 +6,11 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -19,6 +21,7 @@ public class MainActivity extends Activity {
 
     private GameThread mGameThread;
     private GameView mGameView;
+    private Activity self;
 
     /** Called when the activity is first created. */
     @Override
@@ -26,16 +29,33 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_main);
+
+        //setContentView(R.layout.start_layout);
+
+        self = this;
+        setContentView(R.layout.game_layout);
         mGameView = (GameView)findViewById(R.id.gamearea);
-        mGameView.setStatusView((TextView)findViewById(R.id.text));
-        mGameView.setScoreView((TextView)findViewById(R.id.score));
-        mGameView.activity = this;
+        mGameView.setStatusView((TextView) findViewById(R.id.text));
+        mGameView.setScoreView((TextView) findViewById(R.id.score));
+        mGameView.activity = self;
+
+//        Button startButton = (Button) findViewById(R.id.start_button);
+//        startButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setContentView(R.layout.game_layout);
+//                mGameView = (GameView)findViewById(R.id.gamearea);
+//                mGameView.setStatusView((TextView) findViewById(R.id.text));
+//                mGameView.setScoreView((TextView) findViewById(R.id.score));
+//                mGameView.activity = self;
+//            }
+//        });
+
+//        mGameView = (GameView)findViewById(R.id.start_layout);
         this.startGame(mGameView, null, savedInstanceState);
     }
 
     private void startGame(GameView gView, GameThread gThread, Bundle savedInstanceState) {
-
         //Set up a new game, we don't care about previous states
         mGameThread = new TheGame(mGameView, this);
         mGameView.setThread(mGameThread);

@@ -20,17 +20,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Track {
-    Bitmap image;
-    Rect scaleRect;
-    float translateX = 0;
-    float translateY = 0;
-    double dx, dy;
-    int angle = 0;
-    Bitmap graphics;
-    ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
+    public Bitmap image;
+    public Bitmap colourImage;
+    public Rect scaleRect;
+    public float translateX = -200;
+    public float translateY = -200;
+    public double dx, dy;
+    public Bitmap graphics;
+    public Bitmap colourGraphics;
+    public ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
+    public int scale;
 
     public Track(View view){
         dx = 0; dy = 0;
+        scale = 10;
 
         String [][] track = new String[50][50];
         drawTrackSection(track, 0, 0, track.length, track.length, "grass");
@@ -56,6 +59,7 @@ public class Track {
         options.inScaled = false;
 
         graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, options);
+        colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, options);
 
         // Define graphic spaces
         for(int y = 0; y < 5; y++){
@@ -72,6 +76,9 @@ public class Track {
         image = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
         Canvas imageCanv = new Canvas(image);
 
+        colourImage = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
+        Canvas colourCanv = new Canvas(colourImage);
+
         Paint paint = new Paint();
         paint.setFilterBitmap(false);
         paint.setAntiAlias(false);
@@ -80,7 +87,7 @@ public class Track {
         for(int x = 0; x < count; x++){
             for(int y = 0; y < count; y++) {
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
-                getTexture(track[x][y], imageCanv, rect, paint);
+                getTexture(track[x][y], imageCanv, colourCanv, rect, paint);
             }
         }
     }
@@ -216,7 +223,7 @@ public class Track {
         }
     }
 
-    public void getTexture(String str, Canvas canvas, Rect rect, Paint paint){
+    public void getTexture(String str, Canvas canvas, Canvas colourCanvas, Rect rect, Paint paint){
         int rowIndex = 0, colIndex = 0;
         if (Character.isDigit(str.charAt(str.length() - 1))){
             switch(str.substring(0, 2)){
@@ -234,6 +241,7 @@ public class Track {
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
+        colourCanvas.drawBitmap(colourGraphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
 
     }
 
@@ -245,8 +253,9 @@ public class Track {
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate(translateX, translateY);
-        canvas.scale(10, 10);
-        canvas.drawBitmap(image, null, scaleRect, null);
+        canvas.scale(scale, scale);
+//        canvas.drawBitmap(image, null, scaleRect, null);
+        canvas.drawBitmap(colourImage, null, scaleRect, null);
         canvas.restore();
     }
 }

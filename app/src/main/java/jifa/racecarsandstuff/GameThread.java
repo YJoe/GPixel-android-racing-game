@@ -50,7 +50,7 @@ public abstract class GameThread extends Thread {
 
     protected Bitmap mBackgroundImage;
 
-    protected long score = 0;
+    protected String score = "0";
 
     //Used for time keeping
     private long now;
@@ -101,7 +101,7 @@ public abstract class GameThread extends Thread {
 
             setState(STATE_RUNNING);
 
-            setScore(0);
+            setScore("0");
         }
     }
 
@@ -313,32 +313,22 @@ public abstract class GameThread extends Thread {
 
     //Send a score to the View to view
     //Would it be better to do this inside this thread writing it manually on the screen?
-    public void setScore(long score) {
+    public void setScore(String score) {
         this.score = score;
 
         synchronized (monitor) {
             Message msg = mHandler.obtainMessage();
             Bundle b = new Bundle();
             b.putBoolean("score", true);
-            b.putString("text", getScoreString().toString());
+            b.putString("text", getScore());
             msg.setData(b);
             mHandler.sendMessage(msg);
         }
     }
 
-    public float getScore() {
+    public String getScore() {
         return score;
     }
-
-    public void updateScore(long score) {
-        this.setScore(this.score + score);
-    }
-
-
-    protected CharSequence getScoreString() {
-        return Long.toString(Math.round(this.score));
-    }
-
 }
 
 // This file is part of the course "Begin Programming: Build your first mobile game" from futurelearn.com

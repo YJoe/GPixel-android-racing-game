@@ -89,7 +89,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
         thread = newThread;
 
         setOnTouchListener(new View.OnTouchListener() {
-
             public boolean onTouch(View v, MotionEvent event) {
                 return thread != null && thread.onTouch(event);
             }
