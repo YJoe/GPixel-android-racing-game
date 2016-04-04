@@ -94,10 +94,10 @@ public class Track {
     }
 
     public void formWorldBorders(String[][]track){
-        drawTrackSection(track, 0, 0, track.length, 1, "fe000");
-        drawTrackSection(track, track.length-1, 0, track.length, track.length, "fe000");
-        drawTrackSection(track, 0, track.length-1, track.length, track.length, "fe000");
-        drawTrackSection(track, 0, 0, 1, track.length, "fe000");
+        drawTrackSection(track, 0, 0, track.length, 1, "tires");
+        drawTrackSection(track, track.length-1, 0, track.length, track.length, "tires");
+        drawTrackSection(track, 0, track.length-1, track.length, track.length, "tires");
+        drawTrackSection(track, 0, 0, 1, track.length, "tires");
     }
 
     public void formTrack(String[][]track, int[][]p, boolean link){
@@ -238,7 +238,6 @@ public class Track {
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
-                case "fe": rowIndex = 5; break;
             }
             colIndex = Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
@@ -247,6 +246,7 @@ public class Track {
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
                 case "start": rowIndex = 4; colIndex = 3; break;
+                case "tires": rowIndex = 5; colIndex = rand.nextInt(3); break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
