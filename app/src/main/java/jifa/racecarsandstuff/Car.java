@@ -97,9 +97,9 @@ public class Car {
 
     public void trackSurfacePenalties(){
         int pixel = track.colourImage.getPixel((int)((-track.translateX) + xPos) / track.scale, (int)((-track.translateY) + yPos) / track.scale);
-        if (Color.blue(pixel) != 0){
+        if (Color.blue(pixel) != 0 && currentTopSpeed != trackTopSpeed){
             currentTopSpeed = trackTopSpeed;
-        } else if(Color.green(pixel) != 0){
+        } else if(Color.green(pixel) != 0 && currentTopSpeed != grassTopSpeed){
             currentTopSpeed = grassTopSpeed;
         } else if(Color.red(pixel) != 0){
             // car is on track edge
