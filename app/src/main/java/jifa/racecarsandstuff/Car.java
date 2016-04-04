@@ -75,7 +75,10 @@ public class Car {
         }
         if (accelerating){
             if (currentSpeed < currentTopSpeed) {
-                currentSpeed += accelerationRate;
+                if (currentSpeed > 0)
+                    currentSpeed += accelerationRate;
+                else // just makes it seem better when reversing
+                    currentSpeed += accelerationRate * 2;
             }
         } else {
             if(currentSpeed > 0){
