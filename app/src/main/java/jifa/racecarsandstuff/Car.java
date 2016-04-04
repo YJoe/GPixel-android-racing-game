@@ -33,7 +33,7 @@ public class Car {
         accelerating = false;
         breaking = false;
         trackTopSpeed = 20;
-        grassTopSpeed = 7;
+        grassTopSpeed = 5;
         currentTopSpeed = trackTopSpeed;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -98,7 +98,7 @@ public class Car {
         }
         trackSurfacePenalties();
         if(currentSpeed > currentTopSpeed){
-            currentSpeed -= decelerationRate*3;
+            currentSpeed -= decelerationRate*5;
         }
     }
 

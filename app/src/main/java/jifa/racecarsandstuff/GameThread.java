@@ -151,12 +151,7 @@ public abstract class GameThread extends Thread {
     }
 
     private void updatePhysics() {
-        now = System.currentTimeMillis();
-        elapsed = (now - mLastTime) / 1000.0f;
-
-        updateGame(elapsed);
-
-        mLastTime = now;
+        updateGame(0);
     }
 
     abstract protected void updateGame(float secondsElapsed);

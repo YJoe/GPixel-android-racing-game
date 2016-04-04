@@ -50,6 +50,7 @@ public class Track {
         formStraightEdges(track);
         formCornerEdges(track);
         formWorldBorders(track);
+        formTires(track);
         drawTrackSection(track, 5, 15, 10, 16, "start");
 
         // entirely assumes the array will be square
@@ -93,6 +94,26 @@ public class Track {
         }
     }
 
+    public void formTires(String[][] track){
+        drawTrackSection(track, 2, 2, 10, 4, "tires");
+        drawTrackSection(track, 10, 3, 15, 4, "tires");
+        drawTrackSection(track, 2, 4, 4, 6, "tires");
+        drawTrackSection(track, 3, 6, 4, 8, "tires");
+        drawTrackSection(track, 11, 11, 39, 12, "tires");
+        drawTrackSection(track, 35, 12, 39, 13, "tires");
+        drawTrackSection(track, 23, 20, 49, 21, "tires");
+        drawTrackSection(track, 22, 21, 23, 27, "tires");
+        drawTrackSection(track, 23, 21, 25, 24, "tires");
+        drawTrackSection(track, 35, 28, 37, 39, "tires");
+        drawTrackSection(track, 11, 38, 35, 39, "tires");
+        drawTrackSection(track, 12, 37, 17, 38, "tires");
+        drawTrackSection(track, 12, 36, 14, 37, "tires");
+        drawTrackSection(track, 12, 35, 13, 36, "tires");
+        drawTrackSection(track, 11, 12, 12, 38, "tires");
+        drawTrackSection(track, 12, 12, 14, 14, "tires");
+        drawTrackSection(track, 12, 14, 13, 20, "tires");
+    }
+
     public void formWorldBorders(String[][]track){
         drawTrackSection(track, 0, 0, track.length, 1, "tires");
         drawTrackSection(track, track.length-1, 0, track.length, track.length, "tires");
@@ -122,17 +143,14 @@ public class Track {
                     if (zo) {
                         if (!oz && oo){
                             track[j + 1][i] = "cs270";
-                            track[j + 2][i -1] = "tires";
                         } else if (oz && !oo){
                             track[j + 1][i + 1] = "cs180";
-                            track[j + 2][i + 2] = "tires";
                         }
                     } else {
                         if (!oz && !oo){
                             track[j + 1][i + 1] = "cb180";
                         } else if (oz && oo){
                             track[j][i + 1] = "cs090";
-                            track[j - 1][i + 2] = "tires";
                         }
                     }
                 } else {
@@ -141,7 +159,6 @@ public class Track {
                             track[j + 1][i] = "cb270";
                         } else if (oz && oo){
                             track[j][i] = "cs000";
-                            track[j - 1][i - 1] = "tires";
                         }
                     } else {
                         if (oz && !oo){
@@ -250,7 +267,7 @@ public class Track {
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
                 case "start": rowIndex = 4; colIndex = 3; break;
-                case "tires": rowIndex = 5; colIndex = rand.nextInt(3); break;
+                case "tires": rowIndex = 5; colIndex = 0; break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
