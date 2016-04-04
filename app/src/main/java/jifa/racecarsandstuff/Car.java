@@ -13,13 +13,13 @@ public class Car {
     public Rect scaleRect;
     public Bitmap image;
     public Track track;
-    public int xPos, yPos, width, height, indWidth, indHeight;
+    public int xPos, yPos, width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
     public double accelerationRate = 0.1;
     public double decelerationRate = 0.08;
     public double angleDeg;
-    public boolean turningLeft, turningRight, accelerating, breaking;
+    public boolean turningLeft, turningRight, accelerating, breaking, dead;
 
     public Car(View view, int xp, int yp){
         xPos = xp;
@@ -32,6 +32,8 @@ public class Car {
         trackTopSpeed = 20;
         grassTopSpeed = 5;
         currentTopSpeed = trackTopSpeed;
+        health = 10;
+        dead = false;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
@@ -112,6 +114,10 @@ public class Car {
         } else if(Color.red(pixel) != 0){
             // car is on track edge
         } else{
+            health -= (currentSpeed / 5);
+            if (health < 0){
+                dead = true;
+            }
             currentSpeed+=1;
             currentSpeed = -currentSpeed;
         }
