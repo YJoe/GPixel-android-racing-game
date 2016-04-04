@@ -65,7 +65,7 @@ public class Car {
     }
 
     public void update(){
-        if (currentSpeed > 1) {
+        if (currentSpeed > 1 || currentSpeed < -1) {
             if (turningLeft) {
                 angleDeg -= 1.5 - (currentSpeed * 0.01);
             }
