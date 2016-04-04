@@ -8,9 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-/**
- * Created by Joe on 14/03/2016.
- */
 public class Car {
     public Bitmap graphics;
     public Rect scaleRect;
