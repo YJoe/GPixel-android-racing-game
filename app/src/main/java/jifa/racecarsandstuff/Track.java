@@ -33,7 +33,7 @@ public class Track {
 
     public Track(View view){
         dx = 0; dy = 0;
-        scale = 10;
+        scale = 9;
 
         String [][] track = new String[50][50];
         drawTrackSection(track, 0, 0, track.length, track.length, "grass");
@@ -104,7 +104,13 @@ public class Track {
         drawTrackSection(track, 23, 20, 49, 21, "tires");
         drawTrackSection(track, 22, 21, 23, 27, "tires");
         drawTrackSection(track, 23, 21, 25, 24, "tires");
+        drawTrackSection(track, 23, 24, 24, 25, "tires");
+        drawTrackSection(track, 25, 21, 26, 22, "tires");
+
         drawTrackSection(track, 35, 28, 37, 39, "tires");
+        drawTrackSection(track, 34, 36, 35, 38, "tires");
+        drawTrackSection(track, 33, 37, 34, 38, "tires");
+
         drawTrackSection(track, 11, 38, 35, 39, "tires");
         drawTrackSection(track, 12, 37, 17, 38, "tires");
         drawTrackSection(track, 12, 36, 14, 37, "tires");
