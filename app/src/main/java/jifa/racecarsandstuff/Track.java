@@ -39,8 +39,8 @@ public class Track {
         drawTrackSection(track, 0, 0, track.length, track.length, "grass");
 
         // G
-        int [][] points = { {5, 5}, {40, 5}, {40, 14}, {20, 14}, {16, 18} ,{16, 30}, {29, 30},
-                            {29, 22}, {38, 22}, {38, 40}, {5, 40}};
+        int [][] points = { {5, 5, 5}, {40, 5, 5}, {40, 14, 5}, {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
+                            {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
 
         // oval
         //int [][] points = { {10, 10}, {15, 5}, {25, 5}, {30, 10}, {30, 35}, {25, 40},
@@ -94,10 +94,10 @@ public class Track {
 
     public void formTrack(String[][]track, int[][]p, boolean link){
         for(int i = 0; i < p.length - 1; i++){
-            drawTrackLine(track, p[i][0], p[i][1], p[i+1][0], p[i+1][1], 5);
+            drawTrackLine(track, p[i][0], p[i][1], p[i+1][0], p[i+1][1], p[i][2]);
         }
         if(link)
-            drawTrackLine(track, p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1], 5);
+            drawTrackLine(track, p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1], p[p.length - 1][2]);
     }
 
     public void formCornerEdges(String[][]track){
