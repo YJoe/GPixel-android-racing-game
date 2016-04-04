@@ -49,6 +49,7 @@ public class Track {
         formTrack(track, points, true);
         formStraightEdges(track);
         formCornerEdges(track);
+        formWorldBorders(track);
         drawTrackSection(track, 5, 15, 10, 16, "start");
 
         // entirely assumes the array will be square
@@ -62,7 +63,7 @@ public class Track {
         colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, options);
 
         // Define graphic spaces
-        for(int y = 0; y < 5; y++){
+        for(int y = 0; y < 6; y++){
             graphicSpaces.add(new ArrayList<Rect>());
             for(int x = 0; x < 4; x++){
                 graphicSpaces.get(y).add(new Rect((x*10), (y*10), (x*10)+10, (y*10)+10));
@@ -90,6 +91,13 @@ public class Track {
                 getTexture(track[x][y], imageCanv, colourCanv, rect, paint);
             }
         }
+    }
+
+    public void formWorldBorders(String[][]track){
+        drawTrackSection(track, 0, 0, track.length, 1, "fe000");
+        drawTrackSection(track, track.length-1, 0, track.length, track.length, "fe000");
+        drawTrackSection(track, 0, track.length-1, track.length, track.length, "fe000");
+        drawTrackSection(track, 0, 0, 1, track.length, "fe000");
     }
 
     public void formTrack(String[][]track, int[][]p, boolean link){
@@ -230,6 +238,7 @@ public class Track {
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
+                case "fe": rowIndex = 5; break;
             }
             colIndex = Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
@@ -254,7 +263,6 @@ public class Track {
         canvas.translate(translateX, translateY);
         canvas.scale(scale, scale);
         canvas.drawBitmap(image, null, scaleRect, null);
-        //canvas.drawBitmap(colourImage, null, scaleRect, null);
         canvas.restore();
     }
 }

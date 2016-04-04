@@ -80,6 +80,8 @@ public class Car {
         } else {
             if(currentSpeed > 0){
                 currentSpeed -= decelerationRate;
+            } else if (currentSpeed < -(decelerationRate + 0.1)){
+                currentSpeed += decelerationRate;
             } else {
                 currentSpeed = 0;
             }
@@ -87,6 +89,8 @@ public class Car {
         if (breaking){
             if(currentSpeed > 0){
                 currentSpeed -= (decelerationRate * 2) - (currentSpeed * 0.002);
+            } else {
+                currentSpeed += (decelerationRate * 2);
             }
         }
         trackSurfacePenalties();
@@ -97,14 +101,19 @@ public class Car {
 
     public void trackSurfacePenalties(){
         int pixel = track.colourImage.getPixel((int)((-track.translateX) + xPos) / track.scale, (int)((-track.translateY) + yPos) / track.scale);
-        if (Color.blue(pixel) != 0 && currentTopSpeed != trackTopSpeed){
-            currentTopSpeed = trackTopSpeed;
-        } else if(Color.green(pixel) != 0 && currentTopSpeed != grassTopSpeed){
-            currentTopSpeed = grassTopSpeed;
+        if (Color.blue(pixel) != 0){
+            if(currentTopSpeed != trackTopSpeed) {
+                currentTopSpeed = trackTopSpeed;
+            }
+        } else if(Color.green(pixel) != 0){
+            if(currentTopSpeed != grassTopSpeed) {
+                currentTopSpeed = grassTopSpeed;
+            }
         } else if(Color.red(pixel) != 0){
             // car is on track edge
         } else{
-            // car is obstructed
+            currentSpeed+=1;
+            currentSpeed = -currentSpeed;
         }
     }
 
