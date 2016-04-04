@@ -122,14 +122,17 @@ public class Track {
                     if (zo) {
                         if (!oz && oo){
                             track[j + 1][i] = "cs270";
+                            track[j + 2][i -1] = "tires";
                         } else if (oz && !oo){
                             track[j + 1][i + 1] = "cs180";
+                            track[j + 2][i + 2] = "tires";
                         }
                     } else {
                         if (!oz && !oo){
                             track[j + 1][i + 1] = "cb180";
                         } else if (oz && oo){
                             track[j][i + 1] = "cs090";
+                            track[j - 1][i + 2] = "tires";
                         }
                     }
                 } else {
@@ -138,6 +141,7 @@ public class Track {
                             track[j + 1][i] = "cb270";
                         } else if (oz && oo){
                             track[j][i] = "cs000";
+                            track[j - 1][i - 1] = "tires";
                         }
                     } else {
                         if (oz && !oo){
