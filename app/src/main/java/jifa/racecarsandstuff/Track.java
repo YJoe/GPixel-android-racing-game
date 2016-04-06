@@ -18,11 +18,13 @@ public class Track {
     public Bitmap graphics;
     public Bitmap colourGraphics;
     public ArrayList<ArrayList<Rect>> graphicSpaces;
+    public ArrayList<ArrayList<Integer>> startCoords;
     public int scale;
 
     public Track(View view, int[][] points, int scale){
         // define an array list for graphic spaces
         graphicSpaces = new ArrayList<>();
+        startCoords = new ArrayList<>();
         this.scale = scale;
 
         // define a string to hold the string representation of the track
@@ -90,6 +92,9 @@ public class Track {
         for(int y = 0; y < 8; y+=4){
             for(int x = 0; x < 6; x+= 3) {
                 if (x == 3){y += 2;}
+                startCoords.add(new ArrayList<Integer>());
+                startCoords.get(startCoords.size()-1).add(points[0][1] + 2 + y);
+                startCoords.get(startCoords.size()-1).add(points[0][0] + x);
                 track[points[0][1] + 2 + y][points[0][0] + x] = "sp000";
                 track[points[0][1] + 3 + y][points[0][0] + x] = "sp180";
                 track[points[0][1] + 2 + y][points[0][0] + 1 + x] = "sp090";
@@ -270,7 +275,7 @@ public class Track {
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
-                case "sp": rowIndex = 2; colIndex = 4; System.out.println("HERE");
+                case "sp": rowIndex = 2; colIndex = 4; break;
             }
             colIndex += Integer.parseInt(str.substring(2, 5)) / 90;
         } else {

@@ -24,8 +24,9 @@ public class TheGame extends GameThread{
         int [][] points = { {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
                             {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                             {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
-        world = new World(new Track(gameView, points, 9), 9);
+        world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         player = new Car(view);
+
         player.world = world;
     }
 
@@ -90,6 +91,7 @@ public class TheGame extends GameThread{
     public void setupBeginning() {
         player.xPos = mCanvasWidth/2;
         player.yPos = mCanvasHeight/2;
+        world.setStartTranslate(mCanvasWidth, mCanvasHeight);
     }
 
     @Override
