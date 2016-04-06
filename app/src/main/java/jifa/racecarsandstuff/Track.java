@@ -20,11 +20,10 @@ public class Track {
     public ArrayList<ArrayList<Rect>> graphicSpaces;
     public int scale;
 
-    public Track(View view, int[][] points){
-        // set the scale at which to print the track
-        scale = 9;
+    public Track(View view, int[][] points, int scale){
         // define an array list for graphic spaces
         graphicSpaces = new ArrayList<>();
+        this.scale = scale;
 
         // define a string to hold the string representation of the track
         String [][] track = new String[50][50];

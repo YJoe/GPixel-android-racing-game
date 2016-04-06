@@ -24,7 +24,7 @@ public class TheGame extends GameThread{
         int [][] points = { {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
                             {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                             {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
-        world = new World(new Track(gameView, points), 9);
+        world = new World(new Track(gameView, points, 9), 9);
         player = new Car(view);
         player.world = world;
     }
@@ -111,8 +111,6 @@ public class TheGame extends GameThread{
     @Override
     protected void updateGame(float secondsElapsed) {
         player.update();
-        world.dx = -player.currentSpeed * Math.sin(Math.toRadians(player.angleDeg));
-        world.dy = player.currentSpeed * Math.cos(Math.toRadians(player.angleDeg));
-        world.update();
+        world.update(player);
     }
 }

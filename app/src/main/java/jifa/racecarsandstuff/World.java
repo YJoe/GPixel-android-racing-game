@@ -24,7 +24,9 @@ public class World {
         this.scale = scale;
     }
 
-    public void update(){
+    public void update(Car player){
+        dx = -player.currentSpeed * Math.sin(Math.toRadians(player.angleDeg));
+        dy = player.currentSpeed * Math.cos(Math.toRadians(player.angleDeg));
         track.update(dx, dy);
         for(int i = 0; i < carList.size(); i++){
             carList.get(i).update();
