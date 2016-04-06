@@ -26,7 +26,6 @@ public class TheGame extends GameThread{
                             {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         player = new Car(view);
-
         player.world = world;
     }
 
