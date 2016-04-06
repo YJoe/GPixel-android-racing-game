@@ -21,9 +21,9 @@ public class Car {
     public double angleDeg;
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
 
-    public Car(View view, int xp, int yp){
-        xPos = xp;
-        yPos = yp;
+    public Car(View view){
+        xPos = -200;
+        yPos = 0;
         angleDeg = 0;
         turningLeft = false;
         turningRight = false;
@@ -77,13 +77,13 @@ public class Car {
                 if (currentSpeed > 0)
                     currentSpeed += accelerationRate;
                 else // just makes it seem better when reversing
-                    currentSpeed += accelerationRate * 2;
+                    currentSpeed += accelerationRate * 6;
             }
         } else {
             if(currentSpeed > 0){
                 currentSpeed -= decelerationRate;
-            } else if (currentSpeed < -(decelerationRate + 0.1)){
-                currentSpeed += decelerationRate;
+            } else if (currentSpeed < -(decelerationRate*4 + 0.2)){
+                currentSpeed += decelerationRate * 4;
             } else {
                 currentSpeed = 0;
             }

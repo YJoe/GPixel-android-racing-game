@@ -13,35 +13,40 @@ public class Track {
     public Bitmap image;
     public Bitmap colourImage;
     public Rect scaleRect;
-    public float translateX = -200;
-    public float translateY = -200;
+    public float translateX;
+    public float translateY;
     public double dx, dy;
     public Bitmap graphics;
     public Bitmap colourGraphics;
-    public ArrayList<ArrayList<Rect>> graphicSpaces = new ArrayList<>();
+    public ArrayList<ArrayList<Rect>> graphicSpaces;
     public int scale;
 
-    public Track(View view){
+    public Track(View view, int[][] points){
+        // set initial change x and y
         dx = 0; dy = 0;
+        // set the scale at which to print the track
         scale = 9;
+        // define an array list for graphic spaces
+        graphicSpaces = new ArrayList<>();
 
+        // define a string to hold the string representation of the track
         String [][] track = new String[50][50];
+
+        // fill the entire track with grass
         drawTrackSection(track, 0, 0, track.length, track.length, "grass");
 
-        // G
-        int [][] points = { {5, 5, 5}, {40, 5, 5}, {40, 14, 5}, {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
-                            {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
-
-        // oval
-        //int [][] points = { {10, 10}, {15, 5}, {25, 5}, {30, 10}, {30, 35}, {25, 40},
-        //                    {15, 40}, {10, 35}};
-
+        // create lines of tracks from the points defined
         formTrack(track, points, true);
+        // create track edges (just the straights)
         formStraightEdges(track);
+        // create the track corner edges
         formCornerEdges(track);
+        // create a ring of tires surrounding the world
         formWorldBorders(track);
+        // form all of the tires
         formTires(track);
-        drawTrackSection(track, 5, 15, 10, 16, "start");
+        // draw the start line
+        formStart(track, points);
 
         // entirely assumes the array will be square
         int count = track.length;
@@ -56,7 +61,7 @@ public class Track {
         // Define graphic spaces
         for(int y = 0; y < 6; y++){
             graphicSpaces.add(new ArrayList<Rect>());
-            for(int x = 0; x < 4; x++){
+            for(int x = 0; x < 8; x++){
                 graphicSpaces.get(y).add(new Rect((x*10), (y*10), (x*10)+10, (y*10)+10));
             }
         }
@@ -80,6 +85,20 @@ public class Track {
             for(int y = 0; y < count; y++) {
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
                 getTexture(track[x][y], imageCanv, colourCanv, rect, paint);
+            }
+        }
+    }
+
+    public void formStart(String[][] track, int[][]points){
+        drawTrackSection(track, points[0][0], points[0][1], points[0][0] + points[0][2], points[0][1] + 1, "start");
+        for(int y = 0; y < 8; y+=4){
+            for(int x = 0; x < 6; x+= 3) {
+                if (x == 3){y += 2;}
+                track[points[0][1] + 2 + y][points[0][0] + x] = "sp000";
+                track[points[0][1] + 3 + y][points[0][0] + x] = "sp180";
+                track[points[0][1] + 2 + y][points[0][0] + 1 + x] = "sp090";
+                track[points[0][1] + 3 + y][points[0][0] + 1 + x] = "sp270";
+                if (x == 3){y -= 2;}
             }
         }
     }
@@ -255,8 +274,9 @@ public class Track {
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
+                case "sp": rowIndex = 2; colIndex = 4; System.out.println("HERE");
             }
-            colIndex = Integer.parseInt(str.substring(2, 5)) / 90;
+            colIndex += Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
             Random rand = new Random();
             switch(str){

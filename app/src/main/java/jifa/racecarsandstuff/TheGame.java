@@ -21,8 +21,11 @@ public class TheGame extends GameThread{
         super(gameView);
         view = gameView;
         setButtons(activity);
-        track = new Track(gameView);
-        car = new Car(view, -200, 0);
+        int [][] points = { {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
+                            {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
+                            {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
+        track = new Track(gameView, points);
+        car = new Car(view);
         car.track = track;
     }
 
@@ -91,10 +94,10 @@ public class TheGame extends GameThread{
 
     @Override
     protected void doDraw(Canvas canvas) {
-        if(canvas == null) return;
-        super.doDraw(canvas);
-        track.draw(canvas);
-        car.draw(canvas);
+        if (canvas != null) {
+            track.draw(canvas);
+            car.draw(canvas);
+        }
     }
 
     @Override

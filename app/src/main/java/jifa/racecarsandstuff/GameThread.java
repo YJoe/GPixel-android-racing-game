@@ -144,10 +144,7 @@ public abstract class GameThread extends Thread {
 
 
     protected void doDraw(Canvas canvas) {
-
-        if(canvas == null) return;
-
-        if(mBackgroundImage != null) canvas.drawBitmap(mBackgroundImage, 0, 0, null);
+        //if(mBackgroundImage != null) canvas.drawBitmap(mBackgroundImage, 0, 0, null);
     }
 
     private void updatePhysics() {
