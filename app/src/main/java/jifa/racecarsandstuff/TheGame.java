@@ -14,8 +14,8 @@ import android.widget.RelativeLayout;
 
 public class TheGame extends GameThread{
     private View view;
-    private Car car;
-    private Track track;
+    private Car player;
+    private World world;
 
     public TheGame(GameView gameView, Activity activity) {
         super(gameView);
@@ -24,9 +24,9 @@ public class TheGame extends GameThread{
         int [][] points = { {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
                             {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                             {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
-        track = new Track(gameView, points);
-        car = new Car(view);
-        car.track = track;
+        world = new World(new Track(gameView, points), 9);
+        player = new Car(view);
+        player.world = world;
     }
 
     public void setButtons(Activity activity){
@@ -37,9 +37,9 @@ public class TheGame extends GameThread{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    car.turningLeft = true;
+                    player.turningLeft = true;
                 } else if(event.getAction() == MotionEvent.ACTION_UP){
-                    car.turningLeft = false;
+                    player.turningLeft = false;
                 }
                 return false;
             }
@@ -50,9 +50,9 @@ public class TheGame extends GameThread{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    car.turningRight = true;
+                    player.turningRight = true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    car.turningRight = false;
+                    player.turningRight = false;
                 }
                 return false;
             }
@@ -64,9 +64,9 @@ public class TheGame extends GameThread{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    car.breaking = true;
+                    player.breaking = true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    car.breaking = false;
+                    player.breaking = false;
                 }
                 return false;
             }
@@ -77,9 +77,9 @@ public class TheGame extends GameThread{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    car.accelerating = true;
+                    player.accelerating = true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    car.accelerating = false;
+                    player.accelerating = false;
                 }
                 return false;
             }
@@ -88,15 +88,15 @@ public class TheGame extends GameThread{
 
     @Override
     public void setupBeginning() {
-        car.xPos = mCanvasWidth/2;
-        car.yPos = mCanvasHeight/2;
+        player.xPos = mCanvasWidth/2;
+        player.yPos = mCanvasHeight/2;
     }
 
     @Override
     protected void doDraw(Canvas canvas) {
         if (canvas != null) {
-            track.draw(canvas);
-            car.draw(canvas);
+            world.draw(canvas);
+            player.draw(canvas);
         }
     }
 
@@ -110,9 +110,9 @@ public class TheGame extends GameThread{
 
     @Override
     protected void updateGame(float secondsElapsed) {
-        car.update();
-        track.dx = -car.currentSpeed * Math.sin(Math.toRadians(car.angleDeg));
-        track.dy = car.currentSpeed * Math.cos(Math.toRadians(car.angleDeg));
-        track.update();
+        player.update();
+        world.dx = -player.currentSpeed * Math.sin(Math.toRadians(player.angleDeg));
+        world.dy = player.currentSpeed * Math.cos(Math.toRadians(player.angleDeg));
+        world.update();
     }
 }

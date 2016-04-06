@@ -12,7 +12,7 @@ public class Car {
     public Bitmap graphics;
     public Rect scaleRect;
     public Bitmap image;
-    public Track track;
+    public World world;
     public int xPos, yPos, width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
@@ -102,7 +102,8 @@ public class Car {
     }
 
     public void trackSurfacePenalties(){
-        int pixel = track.colourImage.getPixel((int)((-track.translateX) + xPos) / track.scale, (int)((-track.translateY) + yPos) / track.scale);
+        int pixel = world.track.colourImage.getPixel((int)((-world.track.translateX) + xPos) / world.scale,
+                (int)((-world.track.translateY) + yPos) / world.scale);
         if (Color.blue(pixel) != 0){
             if(currentTopSpeed != trackTopSpeed) {
                 currentTopSpeed = trackTopSpeed;

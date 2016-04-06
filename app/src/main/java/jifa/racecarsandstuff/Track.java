@@ -15,15 +15,12 @@ public class Track {
     public Rect scaleRect;
     public float translateX;
     public float translateY;
-    public double dx, dy;
     public Bitmap graphics;
     public Bitmap colourGraphics;
     public ArrayList<ArrayList<Rect>> graphicSpaces;
     public int scale;
 
     public Track(View view, int[][] points){
-        // set initial change x and y
-        dx = 0; dy = 0;
         // set the scale at which to print the track
         scale = 9;
         // define an array list for graphic spaces
@@ -290,7 +287,7 @@ public class Track {
         colourCanvas.drawBitmap(colourGraphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
     }
 
-    public void update(){
+    public void update(double dx, double dy){
         translateX += dx;
         translateY += dy;
     }
