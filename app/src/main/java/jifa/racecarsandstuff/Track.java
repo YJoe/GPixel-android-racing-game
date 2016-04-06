@@ -291,9 +291,9 @@ public class Track {
         colourCanvas.drawBitmap(colourGraphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
     }
 
-    public void update(double dx, double dy){
-        translateX += dx;
-        translateY += dy;
+    public void update(float translateX, float translateY){
+        this.translateX = translateX;
+        this.translateY = translateY;
     }
 
     public void draw(Canvas canvas){

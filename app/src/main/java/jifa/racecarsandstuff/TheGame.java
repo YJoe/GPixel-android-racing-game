@@ -26,6 +26,11 @@ public class TheGame extends GameThread{
                             {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         player = new Car(view);
+        for(int i = 0; i < 3; i++) {
+            int x = world.track.startCoords.get(i + 1).get(1) * world.scale * 10 + (10 * world.scale) - 10;
+            int y = world.track.startCoords.get(i + 1).get(0) * world.scale * 10 + (10 * world.scale) + 50;
+            world.carList.add(new AICar(view, world, x, y));
+        }
         player.world = world;
     }
 

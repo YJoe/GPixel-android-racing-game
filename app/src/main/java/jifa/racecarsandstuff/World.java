@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class World {
     public Track track;
-    public ArrayList<Car> carList;
-    public int translateX, translateY, scale;
+    public ArrayList<AICar> carList;
+    public int scale;
     public double dx, dy;
+    public float translateX, translateY;
 
     public World(){
         carList = new ArrayList<>();
@@ -32,9 +33,9 @@ public class World {
     }
 
     public void update(Car player){
-        dx = -player.currentSpeed * Math.sin(Math.toRadians(player.angleDeg));
-        dy = player.currentSpeed * Math.cos(Math.toRadians(player.angleDeg));
-        track.update(dx, dy);
+        translateX += -player.currentSpeed * Math.sin(Math.toRadians(player.angleDeg));
+        translateY += player.currentSpeed * Math.cos(Math.toRadians(player.angleDeg));
+        track.update(translateX, translateY);
         for(int i = 0; i < carList.size(); i++){
             carList.get(i).update();
         }
