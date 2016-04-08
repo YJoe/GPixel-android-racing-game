@@ -10,7 +10,6 @@ public class AICar extends Car{
 
     public AICar(View view, World world, int x, int y, int[][] points){
         super(view);
-
         xPos = x;
         yPos = y;
         dx = 0;
@@ -18,8 +17,8 @@ public class AICar extends Car{
         angleDeg = -90;
         this.world = world;
         this.points = points;
-        pointIndex = 0;
-        currentTopSpeed = 15;
+        pointIndex = 1; // skip the start line point
+        currentTopSpeed = 20;
 
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
@@ -33,13 +32,22 @@ public class AICar extends Car{
 
     public void update(){
         super.update();
-        accelerating = false;
+        accelerating = true;
+        breaking = false;
         turningLeft = false;
         turningRight = false;
-        if (collidingTarget()){
+        if (collidingOuterTarget()){
+            if (currentSpeed > 12){
+                accelerating = false;
+                if (currentSpeed > 16){
+                    decelerationRate *= 1.01;
+                }
+            }
+        }
+        if (collidingInnerTarget()){
             pointIndex++;
             if (pointIndex > points.length - 1){
-                pointIndex = 0;
+                pointIndex = 1;
             }
         }
         directAngleToTarget();
@@ -70,8 +78,6 @@ public class AICar extends Car{
                 turningRight = true;
             else turningLeft = true;
         }
-
-        accelerating = true;
     }
 
     public int solveSmallestAngle(int targetAngle, int sourceAngle){
@@ -80,10 +86,22 @@ public class AICar extends Car{
         return smallestAngle;
     }
 
-    public boolean collidingTarget(){
+    public boolean collidingInnerTarget(){
         int tx = points[pointIndex][0] * 10 * world.scale;
         int ty = points[pointIndex][1] * 10 * world.scale;
-        int range = points[pointIndex][2] * 10 * world.scale /2 ;
+        int range = points[pointIndex][2] * 10 * world.scale;
+        if (xPos < tx + range && xPos > tx - range){
+            if(yPos < ty + range && yPos > ty - range){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean collidingOuterTarget(){
+        int tx = points[pointIndex][0] * 10 * world.scale;
+        int ty = points[pointIndex][1] * 10 * world.scale;
+        int range = points[pointIndex][2] * 10 * world.scale * 2;
         if (xPos < tx + range && xPos > tx - range){
             if(yPos < ty + range && yPos > ty - range){
                 return true;
@@ -94,9 +112,9 @@ public class AICar extends Car{
 
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate(xPos - indWidth*8 + (int)world.translateX, yPos - indHeight*8 + (int)world.translateY);
+        canvas.translate(xPos - indWidth * 8 + (int) world.translateX, yPos - indHeight * 8 + (int) world.translateY);
         canvas.scale(9, 9);
-        canvas.rotate((int)angleDeg + 90, width/4, height/4);
+        canvas.rotate((int) angleDeg + 90, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
     }

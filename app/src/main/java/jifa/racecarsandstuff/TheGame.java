@@ -118,5 +118,6 @@ public class TheGame extends GameThread{
     protected void updateGame(float secondsElapsed) {
         player.update();
         world.update(player);
+        setScore(world.carList.get(0).breaking + " " + world.carList.get(0).accelerating + " " + (int)world.carList.get(0).currentSpeed);
     }
 }
