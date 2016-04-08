@@ -64,7 +64,8 @@ public class AICar extends Car{
 
         int smallestAngle = solveSmallestAngle((int)desiredAngle, (int)angleDeg);
 
-        if ((int)angleDeg != angleDeg + smallestAngle){
+        int tolerance = 5;
+        if ((int)angleDeg > angleDeg + smallestAngle + tolerance || (int)angleDeg < angleDeg + smallestAngle - tolerance){
             if ((int)angleDeg < angleDeg + smallestAngle)
                 turningRight = true;
             else turningLeft = true;
