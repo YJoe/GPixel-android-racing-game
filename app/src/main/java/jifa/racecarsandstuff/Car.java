@@ -66,10 +66,10 @@ public class Car {
     public void update(){
         if (currentSpeed > 1 || currentSpeed < -1) {
             if (turningLeft) {
-                angleDeg -= 1.5 - (currentSpeed * 0.01);
+                angleDeg -= solveCurrentTurnRate();
             }
             if (turningRight) {
-                angleDeg += 1.5 - (currentSpeed * 0.01);
+                angleDeg += solveCurrentTurnRate();
             }
         }
         if (accelerating){
@@ -99,6 +99,10 @@ public class Car {
         if(currentSpeed > currentTopSpeed){
             currentSpeed -= decelerationRate*5;
         }
+    }
+
+    public double solveCurrentTurnRate(){
+        return 1.5 - (currentSpeed * 0.01);
     }
 
     public void trackSurfacePenalties(){

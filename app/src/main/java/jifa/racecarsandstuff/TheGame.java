@@ -21,15 +21,15 @@ public class TheGame extends GameThread{
         super(gameView);
         view = gameView;
         setButtons(activity);
-        int [][] points = { {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
-                            {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
-                            {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
+        int[][] points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
+                                {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
+                                {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         player = new Car(view);
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 1; i++) {
             int x = world.track.startCoords.get(i + 1).get(1) * world.scale * 10 + (10 * world.scale) - 10;
             int y = world.track.startCoords.get(i + 1).get(0) * world.scale * 10 + (10 * world.scale) + 50;
-            world.carList.add(new AICar(view, world, x, y));
+            world.carList.add(new AICar(view, world, x, y, points));
         }
         player.world = world;
     }
