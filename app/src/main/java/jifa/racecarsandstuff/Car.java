@@ -19,7 +19,9 @@ public class Car {
     public double accelerationRate = 0.1;
     public double decelerationRate = 0.08;
     public double angleDeg;
+    public double turningRate;
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
+    protected Canvas imageCanv;
 
     public Car(View view){
         xPos = -200;
@@ -31,6 +33,7 @@ public class Car {
         breaking = false;
         trackTopSpeed = 20;
         grassTopSpeed = 5;
+        turningRate = 1.5;
         currentTopSpeed = trackTopSpeed;
         health = 10;
         dead = false;
@@ -45,7 +48,7 @@ public class Car {
 
         scaleRect = new Rect(0, 0, indWidth*4, indHeight*4);
         image = Bitmap.createBitmap(indWidth * 4, indHeight * 4, Bitmap.Config.ARGB_4444);
-        Canvas imageCanv = new Canvas(image);
+        imageCanv = new Canvas(image);
         width = image.getWidth();
         height = image.getHeight();
 
@@ -102,7 +105,7 @@ public class Car {
     }
 
     public double solveCurrentTurnRate(){
-        return 1.5 - (currentSpeed * 0.01);
+        return turningRate - (currentSpeed * 0.01);
     }
 
     public void trackSurfacePenalties(){

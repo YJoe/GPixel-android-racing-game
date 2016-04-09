@@ -1,12 +1,17 @@
 package jifa.racecarsandstuff;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
+
+import java.util.Random;
 
 public class AICar extends Car{
     private int[][] points;
     private int pointIndex;
     public double dx, dy, desiredAngle;
+    private Random rand = new Random();
 
     public AICar(View view, World world, int x, int y, int[][] points){
         super(view);
@@ -18,11 +23,23 @@ public class AICar extends Car{
         this.world = world;
         this.points = points;
         pointIndex = 1; // skip the start line point
-        currentTopSpeed = 20;
+        currentTopSpeed = rand.nextInt(5) + 16;
+        turningRate += rand.nextInt(5) * 0.1;
+        accelerationRate += rand.nextInt(5) * 0.02;
 
-        for(int i = 0; i < points.length; i++){
-            points[i][0] += points[i][2] /2;
-            points[i][1] += points[i][2] /2;
+        Paint paint = new Paint();
+        paint.setFilterBitmap(false);
+        paint.setAntiAlias(false);
+        paint.setDither(false);
+
+        for(int x1 = 0; x1 < 2; x1++){
+            for(int y1 = 0; y1 < 2; y1++) {
+                // where to place it on the canvas
+                Rect rect = new Rect(indWidth*y1, indHeight*x1, indWidth*y1 + indWidth, indHeight*x1 + indHeight);
+                // where in the graphics sheet
+                Rect rect1 = new Rect(y1*indWidth+(indWidth*6), x1*indHeight, y1*indWidth+(indWidth*7), x1*indHeight+indHeight);
+                imageCanv.drawBitmap(graphics, rect1, rect, paint);
+            }
         }
     }
 
@@ -37,9 +54,9 @@ public class AICar extends Car{
         turningLeft = false;
         turningRight = false;
         if (collidingOuterTarget()){
-            if (currentSpeed > 12){
+            if (currentSpeed > 8 * turningRate){
                 accelerating = false;
-                if (currentSpeed > 16){
+                if (currentSpeed > 10.6 * turningRate){
                     decelerationRate *= 1.01;
                 }
             }
