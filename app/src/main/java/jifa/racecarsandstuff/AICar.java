@@ -33,41 +33,6 @@ public class AICar extends Car{
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
     }
 
-    public void trackSurfacePenalties(){
-
-    }
-
-    public void update(){
-        super.update();
-        accelerating = true;
-        breaking = false;
-        turningLeft = false;
-        turningRight = false;
-        if (collidingOuterTarget()){
-            if (currentSpeed > 8 * turningRate){
-                accelerating = false;
-                if (currentSpeed > 10.6 * turningRate){
-                    decelerationRate *= 1.01;
-                }
-            }
-        }
-        if (collidingInnerTarget()){
-            pointIndex++;
-            if (pointIndex > points.length - 1){
-                pointIndex = 1;
-            }
-        }
-        directAngleToTarget();
-        dx = currentSpeed * Math.cos(Math.toRadians(angleDeg));
-        dy = currentSpeed * Math.sin(Math.toRadians(angleDeg));
-        xPos += dx;
-        yPos += dy;
-    }
-
-    public int readTrack(){
-        return world.track.colourImage.getPixel(xPos / world.scale, yPos) / world.scale;
-    }
-
     public double getAngleTo(int x1, int y1, int x2, int y2){
         return Math.atan2(y2 - y1, x2 - x1);
     }
@@ -128,5 +93,40 @@ public class AICar extends Car{
         canvas.rotate((int) angleDeg + 90, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
+    }
+
+    public void trackSurfacePenalties(){
+
+    }
+
+    public void update(){
+        super.update();
+        accelerating = true;
+        breaking = false;
+        turningLeft = false;
+        turningRight = false;
+        if (collidingOuterTarget()){
+            if (currentSpeed > 8 * turningRate){
+                accelerating = false;
+                if (currentSpeed > 10.6 * turningRate){
+                    decelerationRate *= 1.01;
+                }
+            }
+        }
+        if (collidingInnerTarget()){
+            pointIndex++;
+            if (pointIndex > points.length - 1){
+                pointIndex = 1;
+            }
+        }
+        directAngleToTarget();
+        dx = currentSpeed * Math.cos(Math.toRadians(angleDeg));
+        dy = currentSpeed * Math.sin(Math.toRadians(angleDeg));
+        xPos += dx;
+        yPos += dy;
+    }
+
+    public int readTrack(){
+        return world.track.colourImage.getPixel(xPos / world.scale, yPos) / world.scale;
     }
 }

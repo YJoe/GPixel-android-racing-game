@@ -50,6 +50,69 @@ public class Car {
         height = image.getHeight();
     }
 
+    public double solveCurrentTurnRate(){
+        return turningRate - (currentSpeed * 0.01);
+    }
+
+    public void loadCar(Canvas imageCanv, String style){
+        Paint paint = new Paint();
+        paint.setFilterBitmap(false);
+        paint.setAntiAlias(false);
+        paint.setDither(false);
+
+        int col = 0, row = 0;
+
+        switch(style){
+            case "blue": col = 0; row = 0; break;
+            case "red" : col = 2; row = 0; break;
+            case "purple" : col = 0; row = 1; break;
+            case "green" : col = 2; row = 1; break;
+            case "yellow" : col = 0; row = 2; break;
+            case "white" : col = 2; row = 2; break;
+        }
+
+        for(int x = 0; x < 2; x++){
+            for(int y = 0; y < 2; y++) {
+                Rect rect = new Rect(indWidth*y, indHeight*x, indWidth*y + indWidth, indHeight*x + indHeight);
+                Rect rect1 = new Rect(  y*indWidth+(indWidth*4) + (indWidth * col),
+                        x*indHeight+(indWidth * row) + (indHeight * row),
+                        y*indWidth+(indWidth*4) + (indWidth * (col + 1)),
+                        x*indHeight+(indHeight * row) + (indHeight * (row + 1)));
+                imageCanv.drawBitmap(graphics, rect1, rect, paint);
+            }
+        }
+    }
+
+    public void trackSurfacePenalties(){
+        int pixel = readTrack();
+        if (Color.blue(pixel) != 0){
+            if(currentTopSpeed != trackTopSpeed) {
+                currentTopSpeed = trackTopSpeed;
+            }
+        } else if(Color.green(pixel) != 0){
+            if(currentTopSpeed != grassTopSpeed) {
+                currentTopSpeed = grassTopSpeed;
+            }
+        } else if(Color.red(pixel) != 0){
+            // car is on track edge
+        } else{
+            health -= (currentSpeed / 5);
+            if (health < 0){
+                dead = true;
+            }
+            currentSpeed+=1;
+            currentSpeed = -currentSpeed;
+        }
+    }
+
+    public int readTrack(){
+        return 0;
+    }
+
+    public void draw(Canvas canvas){
+
+    }
+
     public void update(){
         if (currentSpeed > 1 || currentSpeed < -1) {
             if (turningLeft) {
@@ -85,69 +148,6 @@ public class Car {
         trackSurfacePenalties();
         if(currentSpeed > currentTopSpeed){
             currentSpeed -= decelerationRate*5;
-        }
-    }
-
-    public double solveCurrentTurnRate(){
-        return turningRate - (currentSpeed * 0.01);
-    }
-
-    public void trackSurfacePenalties(){
-        int pixel = readTrack();
-        if (Color.blue(pixel) != 0){
-            if(currentTopSpeed != trackTopSpeed) {
-                currentTopSpeed = trackTopSpeed;
-            }
-        } else if(Color.green(pixel) != 0){
-            if(currentTopSpeed != grassTopSpeed) {
-                currentTopSpeed = grassTopSpeed;
-            }
-        } else if(Color.red(pixel) != 0){
-            // car is on track edge
-        } else{
-            health -= (currentSpeed / 5);
-            if (health < 0){
-                dead = true;
-            }
-            currentSpeed+=1;
-            currentSpeed = -currentSpeed;
-        }
-    }
-
-    public int readTrack(){
-        return 0;
-    }
-
-    public void draw(Canvas canvas){
-
-    }
-
-    public void loadCar(Canvas imageCanv, String style){
-        Paint paint = new Paint();
-        paint.setFilterBitmap(false);
-        paint.setAntiAlias(false);
-        paint.setDither(false);
-
-        int col = 0, row = 0;
-
-        switch(style){
-            case "blue": col = 0; row = 0; break;
-            case "red" : col = 2; row = 0; break;
-            case "purple" : col = 0; row = 1; break;
-            case "green" : col = 2; row = 1; break;
-            case "yellow" : col = 0; row = 2; break;
-            case "white" : col = 2; row = 2; break;
-        }
-
-        for(int x = 0; x < 2; x++){
-            for(int y = 0; y < 2; y++) {
-                Rect rect = new Rect(indWidth*y, indHeight*x, indWidth*y + indWidth, indHeight*x + indHeight);
-                Rect rect1 = new Rect(  y*indWidth+(indWidth*4) + (indWidth * col),
-                                        x*indHeight+(indWidth * row) + (indHeight * row),
-                                        y*indWidth+(indWidth*4) + (indWidth * (col + 1)),
-                                        x*indHeight+(indHeight * row) + (indHeight * (row + 1)));
-                imageCanv.drawBitmap(graphics, rect1, rect, paint);
-            }
         }
     }
 }
