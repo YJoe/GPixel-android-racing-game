@@ -16,27 +16,24 @@ public class Car {
     public int xPos, yPos, width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
-    public double accelerationRate = 0.1;
-    public double decelerationRate = 0.08;
+    public double accelerationRate;
+    public double decelerationRate;
     public double angleDeg;
     public double turningRate;
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
     protected Canvas imageCanv;
 
-    public Car(View view){
+    public Car(View view, World world){
         xPos = -200;
         yPos = 0;
-        angleDeg = 0;
+        breaking = false;
         turningLeft = false;
         turningRight = false;
         accelerating = false;
-        breaking = false;
-        trackTopSpeed = 20;
-        grassTopSpeed = 5;
-        turningRate = 1.5;
-        currentTopSpeed = trackTopSpeed;
         health = 10;
         dead = false;
+        this.world = world;
+        decelerationRate = 0.08;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
@@ -51,8 +48,6 @@ public class Car {
         imageCanv = new Canvas(image);
         width = image.getWidth();
         height = image.getHeight();
-
-        loadCar(imageCanv, "yellow");
     }
 
     public void update(){
@@ -98,8 +93,7 @@ public class Car {
     }
 
     public void trackSurfacePenalties(){
-        int pixel = world.track.colourImage.getPixel((int)((-world.track.translateX) + xPos) / world.scale,
-                (int)((-world.track.translateY) + yPos) / world.scale);
+        int pixel = readTrack();
         if (Color.blue(pixel) != 0){
             if(currentTopSpeed != trackTopSpeed) {
                 currentTopSpeed = trackTopSpeed;
@@ -120,13 +114,12 @@ public class Car {
         }
     }
 
+    public int readTrack(){
+        return 0;
+    }
+
     public void draw(Canvas canvas){
-        canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate(xPos - indWidth*8, yPos - indHeight*8);
-        canvas.scale(9, 9);
-        canvas.rotate((int)angleDeg, width/4, height/4);
-        canvas.drawBitmap(image, null, scaleRect, null);
-        canvas.restore();
+
     }
 
     public void loadCar(Canvas imageCanv, String style){

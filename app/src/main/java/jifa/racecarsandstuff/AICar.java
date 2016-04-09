@@ -14,18 +14,20 @@ public class AICar extends Car{
     private Random rand = new Random();
 
     public AICar(View view, World world, int x, int y, int[][] points){
-        super(view);
+        super(view, world);
         xPos = x;
         yPos = y;
         dx = 0;
         dy = 0;
         angleDeg = -90;
-        this.world = world;
         this.points = points;
         pointIndex = 1; // skip the start line point
-        currentTopSpeed = rand.nextInt(5) + 16;
-        turningRate += rand.nextInt(5) * 0.1;
-        accelerationRate += rand.nextInt(5) * 0.02;
+
+        trackTopSpeed = 16 + rand.nextInt(5);
+        grassTopSpeed = trackTopSpeed/4;
+        turningRate = 1.5 + rand.nextInt(5) * 0.1;
+        accelerationRate = 0.1 + rand.nextInt(5) * 0.02;
+        currentTopSpeed = trackTopSpeed;
 
         String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
@@ -60,6 +62,10 @@ public class AICar extends Car{
         dy = currentSpeed * Math.sin(Math.toRadians(angleDeg));
         xPos += dx;
         yPos += dy;
+    }
+
+    public int readTrack(){
+        return world.track.colourImage.getPixel(xPos / world.scale, yPos) / world.scale;
     }
 
     public double getAngleTo(int x1, int y1, int x2, int y2){
