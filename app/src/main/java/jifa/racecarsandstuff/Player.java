@@ -1,4 +1,9 @@
 package jifa.racecarsandstuff;
 
-public class Player {
+import android.view.View;
+
+public class Player extends Car{
+    public Player(View view){
+        super(view);
+    }
 }

@@ -27,20 +27,8 @@ public class AICar extends Car{
         turningRate += rand.nextInt(5) * 0.1;
         accelerationRate += rand.nextInt(5) * 0.02;
 
-        Paint paint = new Paint();
-        paint.setFilterBitmap(false);
-        paint.setAntiAlias(false);
-        paint.setDither(false);
-
-        for(int x1 = 0; x1 < 2; x1++){
-            for(int y1 = 0; y1 < 2; y1++) {
-                // where to place it on the canvas
-                Rect rect = new Rect(indWidth*y1, indHeight*x1, indWidth*y1 + indWidth, indHeight*x1 + indHeight);
-                // where in the graphics sheet
-                Rect rect1 = new Rect(y1*indWidth+(indWidth*6), x1*indHeight, y1*indWidth+(indWidth*7), x1*indHeight+indHeight);
-                imageCanv.drawBitmap(graphics, rect1, rect, paint);
-            }
-        }
+        String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
+        loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
     }
 
     public void trackSurfacePenalties(){

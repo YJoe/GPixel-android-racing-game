@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 public class TheGame extends GameThread{
     private View view;
-    private Car player;
+    private Player player;
     private World world;
 
     public TheGame(GameView gameView, Activity activity) {
@@ -25,7 +25,7 @@ public class TheGame extends GameThread{
                                 {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                                 {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
-        player = new Car(view);
+        player = new Player(view);
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;

@@ -57,7 +57,7 @@ public class Track {
         colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, options);
 
         // Define graphic spaces
-        for(int y = 0; y < 6; y++){
+        for(int y = 0; y < 8; y++){
             graphicSpaces.add(new ArrayList<Rect>());
             for(int x = 0; x < 8; x++){
                 graphicSpaces.get(y).add(new Rect((x*10), (y*10), (x*10)+10, (y*10)+10));
@@ -65,7 +65,7 @@ public class Track {
         }
 
         int indWidth = graphics.getWidth() / 8;
-        int indHeight = graphics.getHeight() / 6;
+        int indHeight = graphics.getHeight() / 8;
 
         scaleRect = new Rect(0, 0, indWidth*count, indHeight*count);
         image = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
@@ -275,7 +275,7 @@ public class Track {
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
-                case "sp": rowIndex = 2; colIndex = 4; break;
+                case "sp": rowIndex = 5; break;
             }
             colIndex += Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
@@ -284,7 +284,7 @@ public class Track {
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
                 case "start": rowIndex = 4; colIndex = 3; break;
-                case "tires": rowIndex = 5; colIndex = 0; break;
+                case "tires": rowIndex = 6; colIndex = 0; break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);

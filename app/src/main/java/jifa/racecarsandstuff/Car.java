@@ -44,7 +44,7 @@ public class Car {
         graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, options);
 
         indWidth = graphics.getWidth() / 8;
-        indHeight = graphics.getHeight() / 6;
+        indHeight = graphics.getHeight() / 8;
 
         scaleRect = new Rect(0, 0, indWidth*4, indHeight*4);
         image = Bitmap.createBitmap(indWidth * 4, indHeight * 4, Bitmap.Config.ARGB_4444);
@@ -52,18 +52,7 @@ public class Car {
         width = image.getWidth();
         height = image.getHeight();
 
-        Paint paint = new Paint();
-        paint.setFilterBitmap(false);
-        paint.setAntiAlias(false);
-        paint.setDither(false);
-
-        for(int x = 0; x < 2; x++){
-            for(int y = 0; y < 2; y++) {
-                Rect rect = new Rect(indWidth*y, indHeight*x, indWidth*y + indWidth, indHeight*x + indHeight);
-                Rect rect1 = new Rect(y*indWidth+(indWidth*4), x*indHeight, y*indWidth+(indWidth*5), x*indHeight+indHeight);
-                imageCanv.drawBitmap(graphics, rect1, rect, paint);
-            }
-        }
+        loadCar(imageCanv, "yellow");
     }
 
     public void update(){
@@ -138,5 +127,34 @@ public class Car {
         canvas.rotate((int)angleDeg, width/4, height/4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
+    }
+
+    public void loadCar(Canvas imageCanv, String style){
+        Paint paint = new Paint();
+        paint.setFilterBitmap(false);
+        paint.setAntiAlias(false);
+        paint.setDither(false);
+
+        int col = 0, row = 0;
+
+        switch(style){
+            case "blue": col = 0; row = 0; break;
+            case "red" : col = 2; row = 0; break;
+            case "purple" : col = 0; row = 1; break;
+            case "green" : col = 2; row = 1; break;
+            case "yellow" : col = 0; row = 2; break;
+            case "white" : col = 2; row = 2; break;
+        }
+
+        for(int x = 0; x < 2; x++){
+            for(int y = 0; y < 2; y++) {
+                Rect rect = new Rect(indWidth*y, indHeight*x, indWidth*y + indWidth, indHeight*x + indHeight);
+                Rect rect1 = new Rect(  y*indWidth+(indWidth*4) + (indWidth * col),
+                                        x*indHeight+(indWidth * row) + (indHeight * row),
+                                        y*indWidth+(indWidth*4) + (indWidth * (col + 1)),
+                                        x*indHeight+(indHeight * row) + (indHeight * (row + 1)));
+                imageCanv.drawBitmap(graphics, rect1, rect, paint);
+            }
+        }
     }
 }
