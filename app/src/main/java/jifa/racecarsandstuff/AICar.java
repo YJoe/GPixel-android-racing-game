@@ -27,7 +27,13 @@ public class AICar extends Car{
         grassTopSpeed = trackTopSpeed/4;
         turningRate = 1.5 + rand.nextInt(5) * 0.1;
         accelerationRate = 0.1 + rand.nextInt(5) * 0.02;
-        currentTopSpeed = trackTopSpeed;
+
+//        PRO SETTINGS
+//        trackTopSpeed = 21;
+//        grassTopSpeed = 5;
+//        turningRate = 2;
+//        accelerationRate = 0.2;
+//        currentTopSpeed = trackTopSpeed;
 
         String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
@@ -95,10 +101,6 @@ public class AICar extends Car{
         canvas.restore();
     }
 
-    public void trackSurfacePenalties(){
-
-    }
-
     public void update(){
         super.update();
         accelerating = true;
@@ -127,6 +129,6 @@ public class AICar extends Car{
     }
 
     public int readTrack(){
-        return world.track.colourImage.getPixel(xPos / world.scale, yPos) / world.scale;
+        return world.track.colourImage.getPixel(xPos / world.scale, yPos / world.scale);
     }
 }

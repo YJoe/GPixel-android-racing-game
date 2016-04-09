@@ -21,11 +21,13 @@ public class Car {
     public double angleDeg;
     public double turningRate;
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
+    public int turnLockTime;
     protected Canvas imageCanv;
 
     public Car(View view, World world){
         xPos = -200;
         yPos = 0;
+        turnLockTime = 0;
         breaking = false;
         turningLeft = false;
         turningRight = false;
@@ -100,8 +102,9 @@ public class Car {
             if (health < 0){
                 dead = true;
             }
-            currentSpeed+=1;
+            currentSpeed += 1;
             currentSpeed = -currentSpeed;
+            turnLockTime += 10;
         }
     }
 
@@ -114,12 +117,15 @@ public class Car {
     }
 
     public void update(){
-        if (currentSpeed > 1 || currentSpeed < -1) {
-            if (turningLeft) {
-                angleDeg -= solveCurrentTurnRate();
-            }
-            if (turningRight) {
-                angleDeg += solveCurrentTurnRate();
+        turnLockDecay();
+        if(turnLockTime == 0) {
+            if (currentSpeed > 1 || currentSpeed < -1) {
+                if (turningLeft) {
+                    angleDeg -= solveCurrentTurnRate();
+                }
+                if (turningRight) {
+                    angleDeg += solveCurrentTurnRate();
+                }
             }
         }
         if (accelerating){
@@ -148,6 +154,15 @@ public class Car {
         trackSurfacePenalties();
         if(currentSpeed > currentTopSpeed){
             currentSpeed -= decelerationRate*5;
+        }
+    }
+
+    public void turnLockDecay(){
+        turnLockTime -= 1;
+        if(turnLockTime < 0)
+            turnLockTime = 0;
+        else if(turnLockTime > 20){
+            turnLockTime = 20;
         }
     }
 }
