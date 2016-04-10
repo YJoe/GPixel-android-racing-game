@@ -13,6 +13,7 @@ public class Car {
     public Rect scaleRect;
     public Bitmap image;
     public World world;
+    double dx, dy;
     public int xPos, yPos, width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
@@ -22,16 +23,23 @@ public class Car {
     public double turningRate;
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
     public int turnLockTime;
+    public int id;
     protected Canvas imageCanv;
+    public int collisionRange;
+    public int collisionVoidTime;
 
-    public Car(View view, World world){
+    public Car(View view, World world, int id){
         xPos = -200;
         yPos = 0;
+        dx = 0;
+        dy = 0;
+        this.id = id;
         turnLockTime = 0;
         breaking = false;
         turningLeft = false;
         turningRight = false;
         accelerating = false;
+        collisionVoidTime = 0;
         health = 10;
         dead = false;
         this.world = world;
@@ -50,6 +58,7 @@ public class Car {
         imageCanv = new Canvas(image);
         width = image.getWidth();
         height = image.getHeight();
+        collisionRange = height;
     }
 
     public double solveCurrentTurnRate(){
@@ -108,6 +117,22 @@ public class Car {
         }
     }
 
+    public void checkCollides(){
+        int x1 = xPos + (int) world.translateX + 7;
+        int y1 = yPos + (int) world.translateY + 7;
+        for(int i = 0; i < world.carList.size(); i++){
+            if(world.carList.get(i).id != id) {
+                int x2 = world.carList.get(i).xPos + (int) world.translateX + 7;
+                int y2 = world.carList.get(i).yPos + (int) world.translateY + 7;
+                if (Math.pow((double) (x1 - x2), 2) + Math.pow((double) (y1 - y2), 2) < Math.pow((double) height * 2, 2)) {
+                    health -= 1;
+                    collisionVoidTime += 10;
+                    world.carList.get(i).collisionVoidTime += 10;
+                }
+            }
+        }
+    }
+
     public int readTrack(){
         return 0;
     }
@@ -117,6 +142,10 @@ public class Car {
     }
 
     public void update(){
+        collisionVoidDecay();
+        if(collisionVoidTime == 0) {
+            checkCollides();
+        }
         turnLockDecay();
         if(turnLockTime == 0) {
             if (currentSpeed > 1 || currentSpeed < -1) {
@@ -163,6 +192,15 @@ public class Car {
             turnLockTime = 0;
         else if(turnLockTime > 20){
             turnLockTime = 20;
+        }
+    }
+    
+    public void collisionVoidDecay(){
+        collisionVoidTime -= 1;
+        if(collisionVoidTime < 0)
+            collisionVoidTime = 0;
+        else if(collisionVoidTime > 20){
+            collisionVoidTime = 20;
         }
     }
 }

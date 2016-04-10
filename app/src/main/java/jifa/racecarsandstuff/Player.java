@@ -1,11 +1,14 @@
 package jifa.racecarsandstuff;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.View;
 
+import java.util.Random;
+
 public class Player extends Car{
-    public Player(View view, World world){
-        super(view, world);
+    public Player(View view, World world, int id){
+        super(view, world, id);
         angleDeg = 0;
         trackTopSpeed = 20;
         grassTopSpeed = 5;
@@ -13,7 +16,8 @@ public class Player extends Car{
         accelerationRate = 0.1;
         currentTopSpeed = trackTopSpeed;
 
-        loadCar(imageCanv, "yellow");
+        String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
+        loadCar(imageCanv, colours[new Random().nextInt(colours.length)]);
     }
 
     public int readTrack(){
@@ -24,9 +28,9 @@ public class Player extends Car{
 
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate(xPos - indWidth*8, yPos - indHeight*8);
+        canvas.translate(xPos - indWidth * 8, yPos - indHeight * 8);
         canvas.scale(9, 9);
-        canvas.rotate((int)angleDeg, width/4, height/4);
+        canvas.rotate((int) angleDeg, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
     }

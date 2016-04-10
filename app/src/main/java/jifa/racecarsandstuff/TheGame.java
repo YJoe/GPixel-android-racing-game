@@ -25,15 +25,17 @@ public class TheGame extends GameThread{
                                 {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                                 {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
-        player = new Player(view, world);
+        int id = 0;
+        player = new Player(view, world, id);
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;
         }
         for(int i = 0; i < 3; i++) {
+            id++;
             int x = world.track.startCoords.get(i + 1).get(1) * world.scale * 10 + (10 * world.scale) - 10;
             int y = world.track.startCoords.get(i + 1).get(0) * world.scale * 10 + (10 * world.scale) + 50;
-            world.carList.add(new AICar(view, world, x, y, points));
+            world.carList.add(new AICar(view, world, x, y, points, id));
         }
         player.world = world;
     }

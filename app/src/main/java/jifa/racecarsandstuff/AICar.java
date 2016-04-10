@@ -10,15 +10,13 @@ import java.util.Random;
 public class AICar extends Car{
     private int[][] points;
     private int pointIndex;
-    public double dx, dy, desiredAngle;
+    public double desiredAngle;
     private Random rand = new Random();
 
-    public AICar(View view, World world, int x, int y, int[][] points){
-        super(view, world);
+    public AICar(View view, World world, int x, int y, int[][] points, int id){
+        super(view, world, id);
         xPos = x;
         yPos = y;
-        dx = 0;
-        dy = 0;
         angleDeg = -90;
         this.points = points;
         pointIndex = 1; // skip the start line point
@@ -29,10 +27,10 @@ public class AICar extends Car{
         accelerationRate = 0.1 + rand.nextInt(5) * 0.02;
 
 //        PRO SETTINGS
-//        trackTopSpeed = 21;
+//        trackTopSpeed = 19 + rand.nextInt(3);
 //        grassTopSpeed = 5;
-//        turningRate = 2;
-//        accelerationRate = 0.2;
+//        turningRate = 2 + (rand.nextInt(5) * 0.1);
+//        accelerationRate = 0.15 + (rand.nextInt(5) * 0.1);
 //        currentTopSpeed = trackTopSpeed;
 
         String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
