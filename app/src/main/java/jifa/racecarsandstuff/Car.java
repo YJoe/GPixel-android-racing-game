@@ -81,7 +81,7 @@ public class Car {
             case "red" : col = 2; row = 0; break;
             case "purple" : col = 0; row = 1; break;
             case "green" : col = 2; row = 1; break;
-            case "yellow" : col = 0; row = 2; break;
+            case "blue_green" : col = 0; row = 2; break;
             case "white" : col = 2; row = 2; break;
         }
 

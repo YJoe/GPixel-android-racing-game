@@ -31,7 +31,7 @@ public class AICar extends Car{
 //        accelerationRate = 0.15 + (rand.nextInt(5) * 0.1);
 //        currentTopSpeed = trackTopSpeed;
 
-        String[] colours = {"blue", "red", "purple", "green", "yellow", "white"};
+        String[] colours = {"blue", "red", "purple", "green", "blue_green", "white"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
     }
 
