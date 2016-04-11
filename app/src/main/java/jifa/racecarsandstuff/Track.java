@@ -89,7 +89,7 @@ public class Track {
 
     public void formStart(String[][] track, int[][]points){
         drawTrackSection(track, points[0][0], points[0][1], points[0][0] + points[0][2], points[0][1] + 1, "start");
-        for(int y = 0; y < 8; y+=4){
+        for(int y = 0; y < 16; y+=4){
             for(int x = 0; x < 6; x+= 3) {
                 if (x == 3){y += 2;}
                 startCoords.add(new ArrayList<Integer>());

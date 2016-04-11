@@ -26,8 +26,8 @@ public class World {
     }
 
     public void setStartTranslate(int screenWidth, int screenHeight){
-        this.translateX = -track.startCoords.get(0).get(1) * 10 * scale + screenWidth/2 - (10 * scale) + 10;
-        this.translateY = -track.startCoords.get(0).get(0) * 10 * scale + screenHeight/2 - (10 * scale) - 50;
+        this.translateX = -track.startCoords.get(carList.size()).get(1) * 10 * scale + screenWidth/2 - (10 * scale) + 10;
+        this.translateY = -track.startCoords.get(carList.size()).get(0) * 10 * scale + screenHeight/2 - (10 * scale) - 50;
         track.translateX = this.translateX;
         track.translateY = this.translateY;
     }

@@ -31,10 +31,10 @@ public class TheGame extends GameThread{
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;
         }
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 7; i++) {
             id++;
-            int x = world.track.startCoords.get(i + 1).get(1) * world.scale * 10 + (10 * world.scale) - 10;
-            int y = world.track.startCoords.get(i + 1).get(0) * world.scale * 10 + (10 * world.scale) + 50;
+            int x = world.track.startCoords.get(i).get(1) * world.scale * 10 + (10 * world.scale) - 10;
+            int y = world.track.startCoords.get(i).get(0) * world.scale * 10 + (10 * world.scale) + 50;
             world.carList.add(new AICar(view, world, x, y, points, id));
         }
         player.world = world;
