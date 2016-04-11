@@ -8,17 +8,15 @@ import android.view.View;
 import java.util.Random;
 
 public class AICar extends Car{
-    private int[][] points;
     private int pointIndex;
     public double desiredAngle;
     private Random rand = new Random();
 
     public AICar(View view, World world, int x, int y, int[][] points, int id){
-        super(view, world, id);
+        super(view, world, id, points);
         xPos = x;
         yPos = y;
         angleDeg = -90;
-        this.points = points;
         pointIndex = 1; // skip the start line point
 
         trackTopSpeed = 16 + rand.nextInt(5);
@@ -106,17 +104,22 @@ public class AICar extends Car{
         turningLeft = false;
         turningRight = false;
         if (collidingOuterTarget()){
-            if (currentSpeed > 8 * turningRate){
-                accelerating = false;
-                if (currentSpeed > 10.6 * turningRate){
-                    decelerationRate *= 1.01;
+            if (pointIndex != 0) {
+                if (currentSpeed > 8 * turningRate) {
+                    accelerating = false;
+                    if (currentSpeed > 10.6 * turningRate) {
+                        decelerationRate *= 1.01;
+                    }
                 }
             }
         }
         if (collidingInnerTarget()){
+            if(pointIndex == 0){
+                lapCount++;
+            }
             pointIndex++;
             if (pointIndex > points.length - 1){
-                pointIndex = 1;
+                pointIndex = 0;
             }
         }
         directAngleToTarget();

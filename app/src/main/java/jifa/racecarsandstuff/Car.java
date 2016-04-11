@@ -24,16 +24,19 @@ public class Car {
     public boolean turningLeft, turningRight, accelerating, breaking, dead;
     public int turnLockTime;
     public int id;
+    public int lapCount;
     protected Canvas imageCanv;
     public int collisionRange;
     public int collisionVoidTime;
+    public int[][] points;
 
-    public Car(View view, World world, int id){
+    public Car(View view, World world, int id, int[][]points){
         xPos = -200;
         yPos = 0;
         dx = 0;
         dy = 0;
         this.id = id;
+        this.points = points;
         turnLockTime = 0;
         breaking = false;
         turningLeft = false;
@@ -44,7 +47,7 @@ public class Car {
         dead = false;
         this.world = world;
         decelerationRate = 0.08;
-
+        lapCount = 0;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
         options.inScaled = false;
@@ -111,7 +114,7 @@ public class Car {
             if (health < 0){
                 dead = true;
             }
-            currentSpeed += 1;
+            currentSpeed += 3;
             currentSpeed = -currentSpeed;
             turnLockTime += 10;
         }

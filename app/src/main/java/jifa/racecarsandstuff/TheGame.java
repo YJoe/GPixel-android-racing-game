@@ -26,7 +26,7 @@ public class TheGame extends GameThread{
                                 {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         int id = 0;
-        player = new Player(view, world, id);
+        player = new Player(view, world, id, points);
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;
