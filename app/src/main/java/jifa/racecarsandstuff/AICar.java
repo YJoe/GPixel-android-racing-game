@@ -19,17 +19,29 @@ public class AICar extends Car{
         angleDeg = -90;
         pointIndex = 1; // skip the start line point
 
-        trackTopSpeed = 16 + rand.nextInt(5);
-        grassTopSpeed = trackTopSpeed/4;
-        turningRate = 1.5 + rand.nextInt(5) * 0.1;
-        accelerationRate = 0.1 + rand.nextInt(5) * 0.02;
+//        Beginner
+//        trackTopSpeed = 12 + rand.nextInt(5);
+//        grassTopSpeed = trackTopSpeed/4;
+//        turningRate = 0.9 + rand.nextInt(7) * 0.1;
+//        accelerationRate = 0.02 + rand.nextInt(8) * 0.02;
 
-//        PRO SETTINGS
-//        trackTopSpeed = 19 + rand.nextInt(3);
+//        Regular
+//        trackTopSpeed = 14 + rand.nextInt(5);
+//        grassTopSpeed = trackTopSpeed/4;
+//        turningRate = 1.1 + rand.nextInt(7) * 0.1;
+//        accelerationRate = 0.04 + rand.nextInt(7) * 0.02;
+
+//        Pro
+        trackTopSpeed = 17 + rand.nextInt(3);
+        grassTopSpeed = trackTopSpeed/4;
+        turningRate = 1.6 + rand.nextInt(5) * 0.1;
+        accelerationRate = 0.11 + rand.nextInt(5) * 0.02;
+
+//        Impossible
+//        trackTopSpeed = 17 + rand.nextInt(3);
 //        grassTopSpeed = 5;
 //        turningRate = 2 + (rand.nextInt(5) * 0.1);
 //        accelerationRate = 0.15 + (rand.nextInt(5) * 0.1);
-//        currentTopSpeed = trackTopSpeed;
 
         String[] colours = {"blue", "red", "purple", "green", "blue_green", "white"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
