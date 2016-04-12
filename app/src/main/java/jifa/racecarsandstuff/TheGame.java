@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class TheGame extends GameThread{
@@ -51,21 +52,19 @@ public class TheGame extends GameThread{
 
     public void setButtons(Activity activity){
         // Define buttons
-        Button left = (Button) activity.findViewById(R.id.left);
-        left.setX(50);
+        ImageButton left = (ImageButton) activity.findViewById(R.id.left);
         left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     player.turningLeft = true;
-                } else if(event.getAction() == MotionEvent.ACTION_UP){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     player.turningLeft = false;
                 }
                 return false;
             }
         });
-        Button right = (Button) activity.findViewById(R.id.right);
-        right.setX(200);
+        ImageButton right = (ImageButton) activity.findViewById(R.id.right);
         right.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -79,7 +78,6 @@ public class TheGame extends GameThread{
         });
 
         Button stop = (Button) activity.findViewById(R.id.stop);
-        stop.setX(400);
         stop.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -92,7 +90,6 @@ public class TheGame extends GameThread{
             }
         });
         Button accel = (Button) activity.findViewById(R.id.accel);
-        accel.setX(550);
         accel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

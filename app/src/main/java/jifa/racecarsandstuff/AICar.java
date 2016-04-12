@@ -26,16 +26,16 @@ public class AICar extends Car{
 //        accelerationRate = 0.02 + rand.nextInt(8) * 0.02;
 
 //        Regular
-//        trackTopSpeed = 14 + rand.nextInt(5);
-//        grassTopSpeed = trackTopSpeed/4;
-//        turningRate = 1.1 + rand.nextInt(7) * 0.1;
-//        accelerationRate = 0.04 + rand.nextInt(7) * 0.02;
+        trackTopSpeed = 14 + rand.nextInt(5);
+        grassTopSpeed = trackTopSpeed/4;
+        turningRate = 1.1 + rand.nextInt(7) * 0.1;
+        accelerationRate = 0.04 + rand.nextInt(7) * 0.02;
 
 //        Pro
-        trackTopSpeed = 17 + rand.nextInt(3);
-        grassTopSpeed = trackTopSpeed/4;
-        turningRate = 1.6 + rand.nextInt(5) * 0.1;
-        accelerationRate = 0.11 + rand.nextInt(5) * 0.02;
+//        trackTopSpeed = 16 + rand.nextInt(3);
+//        grassTopSpeed = trackTopSpeed/4;
+//        turningRate = 1.6 + rand.nextInt(5) * 0.1;
+//        accelerationRate = 0.11 + rand.nextInt(5) * 0.02;
 
 //        Impossible
 //        trackTopSpeed = 17 + rand.nextInt(3);
@@ -43,7 +43,7 @@ public class AICar extends Car{
 //        turningRate = 2 + (rand.nextInt(5) * 0.1);
 //        accelerationRate = 0.15 + (rand.nextInt(5) * 0.1);
 
-        String[] colours = {"blue", "red", "purple", "flame", "blue_green", "orange"};
+        String[] colours = {"blue", "red", "green_white", "flame", "blue_red", "pink", "black", "green"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
     }
 
@@ -58,7 +58,7 @@ public class AICar extends Car{
         if(angleDeg > 360) angleDeg -= 360;
         else if (angleDeg < 0) angleDeg += 360;
 
-        desiredAngle = Math.toDegrees(getAngleTo(xPos, yPos, tx, ty));
+        desiredAngle = Math.toDegrees(getAngleTo((int)xPos, (int)yPos, tx, ty));
 
         int smallestAngle = solveSmallestAngle((int)desiredAngle, (int)angleDeg);
 
@@ -102,7 +102,7 @@ public class AICar extends Car{
 
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate(xPos - indWidth * 8 + (int) world.translateX, yPos - indHeight * 8 + (int) world.translateY);
+        canvas.translate((int)xPos - indWidth * 8 + (int) world.translateX, (int)yPos - indHeight * 8 + (int) world.translateY);
         canvas.scale(9, 9);
         canvas.rotate((int) angleDeg + 90, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
@@ -142,6 +142,6 @@ public class AICar extends Car{
     }
 
     public int readTrack(){
-        return world.track.colourImage.getPixel(xPos / world.scale, yPos / world.scale);
+        return world.track.colourImage.getPixel((int)xPos / world.scale, (int)yPos / world.scale);
     }
 }

@@ -21,7 +21,7 @@ public class Player extends Car{
         accelerationRate = 0.1;
         currentTopSpeed = trackTopSpeed;
 
-        String[] colours = {"blue", "red", "purple", "flame", "blue_green", "orange"};
+        String[] colours = {"blue", "red", "green_white", "flame", "blue_red", "pink", "black", "green"};
         loadCar(imageCanv, colours[new Random().nextInt(colours.length)]);
     }
 
@@ -58,7 +58,7 @@ public class Player extends Car{
 
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate(xPos - indWidth * 8, yPos - indHeight * 8);
+        canvas.translate((int)xPos - indWidth * 8, (int)yPos - indHeight * 8);
         canvas.scale(9, 9);
         canvas.rotate((int) angleDeg, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);

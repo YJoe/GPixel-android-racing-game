@@ -13,8 +13,8 @@ public class Car {
     public Rect scaleRect;
     public Bitmap image;
     public World world;
-    double dx, dy;
-    public int xPos, yPos, width, height, indWidth, indHeight, health;
+    double dx, dy, xPos, yPos;
+    public int width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
     public double accelerationRate;
@@ -79,10 +79,12 @@ public class Car {
         switch(style){
             case "blue": col = 0; row = 0; break;
             case "red" : col = 2; row = 0; break;
-            case "purple" : col = 0; row = 1; break;
+            case "green_white" : col = 0; row = 1; break;
             case "flame" : col = 2; row = 1; break;
-            case "blue_green" : col = 0; row = 2; break;
-            case "orange" : col = 2; row = 2; break;
+            case "blue_red" : col = 0; row = 2; break;
+            case "pink" : col = 2; row = 2; break;
+            case "black" : col = 0; row = 3; break;
+            case "green" : col = 2; row = 3; break;
         }
 
         for(int x = 0; x < 2; x++){
@@ -121,12 +123,12 @@ public class Car {
     }
 
     public void checkCollides(){
-        int x1 = xPos + (int) world.translateX + 7;
-        int y1 = yPos + (int) world.translateY + 7;
+        int x1 = (int)xPos + (int) world.translateX + 7;
+        int y1 = (int)yPos + (int) world.translateY + 7;
         for(int i = 0; i < world.carList.size(); i++){
             if(world.carList.get(i).id != id) {
-                int x2 = world.carList.get(i).xPos + (int) world.translateX + 7;
-                int y2 = world.carList.get(i).yPos + (int) world.translateY + 7;
+                int x2 = (int)world.carList.get(i).xPos + (int) world.translateX + 7;
+                int y2 = (int)world.carList.get(i).yPos + (int) world.translateY + 7;
                 if (Math.pow((double) (x1 - x2), 2) + Math.pow((double) (y1 - y2), 2) < Math.pow((double) height * 2, 2)) {
                     health -= 1;
                     collisionVoidTime += 10;
