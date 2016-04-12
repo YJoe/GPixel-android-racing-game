@@ -17,13 +17,22 @@ public class TheGame extends GameThread{
     private Player player;
     private World world;
 
-    public TheGame(GameView gameView, Activity activity) {
+    public TheGame(GameView gameView, Activity activity, int trackFlag) {
         super(gameView);
         view = gameView;
         setButtons(activity);
-        int[][] points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
-                                {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
-                                {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
+        int[][] points;
+        switch(trackFlag){
+            case 0: points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
+                    {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
+                    {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
+                    break;
+            case 1: points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {30, 5, 5}, {35, 5, 5},{35,10,5}, {40, 10, 5},
+                    {40, 20, 5}, {20, 20, 4}, {20, 30, 5}, {40, 30, 4}, {40, 40, 4}, {10, 40, 4}, {5,40,5}};
+                    break;
+            default: points = new int[][]{{}};
+        }
+
         world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
         int id = 0;
         player = new Player(view, world, id, points);
@@ -43,7 +52,7 @@ public class TheGame extends GameThread{
     public void setButtons(Activity activity){
         // Define buttons
         Button left = (Button) activity.findViewById(R.id.left);
-        left.setX(0);
+        left.setX(50);
         left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -70,7 +79,7 @@ public class TheGame extends GameThread{
         });
 
         Button stop = (Button) activity.findViewById(R.id.stop);
-        stop.setX(500);
+        stop.setX(400);
         stop.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -83,7 +92,7 @@ public class TheGame extends GameThread{
             }
         });
         Button accel = (Button) activity.findViewById(R.id.accel);
-        accel.setX(700);
+        accel.setX(550);
         accel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -124,6 +133,5 @@ public class TheGame extends GameThread{
     protected void updateGame(float secondsElapsed) {
         player.update();
         world.update(player);
-        setScore(world.carList.get(0).breaking + " " + world.carList.get(0).accelerating + " " + (int)world.carList.get(0).currentSpeed);
     }
 }

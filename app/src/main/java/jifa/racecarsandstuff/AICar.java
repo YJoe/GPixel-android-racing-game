@@ -43,7 +43,7 @@ public class AICar extends Car{
 //        turningRate = 2 + (rand.nextInt(5) * 0.1);
 //        accelerationRate = 0.15 + (rand.nextInt(5) * 0.1);
 
-        String[] colours = {"blue", "red", "purple", "green", "blue_green", "white"};
+        String[] colours = {"blue", "red", "purple", "flame", "blue_green", "orange"};
         loadCar(imageCanv, colours[rand.nextInt(colours.length)]);
     }
 

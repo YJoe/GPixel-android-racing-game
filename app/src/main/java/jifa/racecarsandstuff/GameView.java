@@ -17,19 +17,16 @@ import android.widget.TextView;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener {
     private volatile GameThread thread;
-
     //private SensorEventListener sensorAccelerometer;
-
     //Handle communication from the GameThread to the View/Activity Thread
     private Handler mHandler;
-
     //Pointers to the views
     private TextView mScoreView;
     private TextView mStatusView;
-
     Sensor accelerometer;
     Sensor magnetometer;
     public Activity activity;
+    public int trackFlag;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -154,7 +151,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                     //Start a new thread
                     //Should be this to update screen with old game: new GameThread(this, thread);
                     //The method should set all fields in new thread to the value of old thread's fields
-                    thread = new TheGame(this, activity);
+                    thread = new TheGame(this, activity, trackFlag);
                     thread.setRunning(true);
                     thread.start();
                 }

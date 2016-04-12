@@ -18,8 +18,8 @@ import android.view.View;
 public abstract class GameThread extends Thread {
     //Different mMode states
     public static final int STATE_LOSE = 1;
-    public static final int STATE_PAUSE = 2;
     public static final int STATE_READY = 3;
+    public static final int STATE_PAUSE = 2;
     public static final int STATE_RUNNING = 4;
     public static final int STATE_WIN = 5;
 

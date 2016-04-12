@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
     private GameThread mGameThread;
     private GameView mGameView;
     private Activity self;
+    private int trackFlag;
 
     /** Called when the activity is first created. */
     @Override
@@ -30,34 +32,42 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        //setContentView(R.layout.start_layout);
-
         self = this;
-        setContentView(R.layout.game_layout);
-        mGameView = (GameView)findViewById(R.id.gamearea);
-        mGameView.setStatusView((TextView) findViewById(R.id.text));
-        mGameView.setScoreView((TextView) findViewById(R.id.score));
-        mGameView.activity = self;
 
-//        Button startButton = (Button) findViewById(R.id.start_button);
-//        startButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setContentView(R.layout.game_layout);
-//                mGameView = (GameView)findViewById(R.id.gamearea);
-//                mGameView.setStatusView((TextView) findViewById(R.id.text));
-//                mGameView.setScoreView((TextView) findViewById(R.id.score));
-//                mGameView.activity = self;
-//            }
-//        });
-
-//        mGameView = (GameView)findViewById(R.id.start_layout);
-        this.startGame(mGameView, null, savedInstanceState);
+        setContentView(R.layout.start_layout);
+        final Button track1btn = (Button) findViewById(R.id.track1);
+        track1btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.game_layout);
+                mGameView = (GameView) findViewById(R.id.gamearea);
+                mGameView.setStatusView((TextView) findViewById(R.id.text));
+                mGameView.setScoreView((TextView) findViewById(R.id.score));
+                mGameView.activity = self;
+                trackFlag = 0;
+                mGameView.trackFlag = 0;
+                startGame();
+            }
+        });
+        final Button track2btn = (Button) findViewById(R.id.track2);
+        track2btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.game_layout);
+                mGameView = (GameView) findViewById(R.id.gamearea);
+                mGameView.setStatusView((TextView) findViewById(R.id.text));
+                mGameView.setScoreView((TextView) findViewById(R.id.score));
+                mGameView.activity = self;
+                trackFlag = 1;
+                mGameView.trackFlag = 1;
+                startGame();
+            }
+        });
     }
 
-    private void startGame(GameView gView, GameThread gThread, Bundle savedInstanceState) {
+    private void startGame() {
         //Set up a new game, we don't care about previous states
-        mGameThread = new TheGame(mGameView, this);
+        mGameThread = new TheGame(mGameView, this, trackFlag);
         mGameView.setThread(mGameThread);
         mGameThread.setState(GameThread.STATE_READY);
         mGameView.startSensor((SensorManager)getSystemService(Context.SENSOR_SERVICE));
@@ -71,8 +81,10 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        if(mGameThread.getMode() == GameThread.STATE_RUNNING) {
-            mGameThread.setState(GameThread.STATE_PAUSE);
+        if(mGameThread != null) {
+            if (mGameThread.getMode() == GameThread.STATE_RUNNING) {
+                mGameThread.setState(GameThread.STATE_PAUSE);
+            }
         }
     }
 
@@ -82,7 +94,7 @@ public class MainActivity extends Activity {
         super.onDestroy();
 
         mGameView.cleanup();
-        mGameView.removeSensor((SensorManager)getSystemService(Context.SENSOR_SERVICE));
+        mGameView.removeSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
         mGameThread = null;
         mGameView = null;
     }
