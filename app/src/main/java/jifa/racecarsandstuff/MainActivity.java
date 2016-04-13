@@ -2,6 +2,7 @@ package jifa.racecarsandstuff;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -119,15 +120,6 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case MENU_START:
-                mGameThread.doStart();
-                return true;
-            case MENU_STOP:
-                mGameThread.setState(GameThread.STATE_LOSE,  getText(R.string.message_stopped));
-                return true;
-            case MENU_RESUME:
-                mGameThread.unpause();
-                return true;
         }
 
         return false;

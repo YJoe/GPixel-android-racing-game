@@ -19,11 +19,9 @@ import android.view.View;
 
 public abstract class GameThread extends Thread {
     //Different mMode states
-    public static final int STATE_LOSE = 1;
-    public static final int STATE_READY = 3;
+    public static final int STATE_READY = 1;
     public static final int STATE_PAUSE = 2;
-    public static final int STATE_RUNNING = 4;
-    public static final int STATE_WIN = 5;
+    public static final int STATE_RUNNING = 3;
 
     //Control variable for the mode of the game (e.g. STATE_WIN)
     protected int mMode = 1;
@@ -72,10 +70,6 @@ public abstract class GameThread extends Thread {
         mSurfaceHolder = gameView.getHolder();
         mHandler = gameView.getmHandler();
         mContext = gameView.getContext();
-
-        mBackgroundImage = BitmapFactory.decodeResource
-                (gameView.getContext().getResources(),
-                        R.drawable.back);
     }
 
     /*
@@ -112,6 +106,12 @@ public abstract class GameThread extends Thread {
     public void run() {
         Canvas canvasRun;
         while (mRun) {
+            // Stops the game from hanging for some reason?
+            try {
+                sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             canvasRun = null;
             try {
                 canvasRun = mSurfaceHolder.lockCanvas(null);
@@ -140,7 +140,7 @@ public abstract class GameThread extends Thread {
             mCanvasHeight = height;
 
             // don't forget to resize the background image
-            mBackgroundImage = Bitmap.createScaledBitmap(mBackgroundImage, width, height, true);
+            //mBackgroundImage = Bitmap.createScaledBitmap(mBackgroundImage, width, height, true);
         }
     }
 
@@ -164,7 +164,7 @@ public abstract class GameThread extends Thread {
     public boolean onTouch(MotionEvent e) {
         if(e.getAction() != MotionEvent.ACTION_DOWN) return false;
 
-        if(mMode == STATE_READY || mMode == STATE_LOSE || mMode == STATE_WIN) {
+        if(mMode == STATE_READY) {
             doStart();
             return true;
         }
@@ -216,7 +216,7 @@ public abstract class GameThread extends Thread {
      */
     public void pause() {
         synchronized (monitor) {
-            if (mMode == STATE_RUNNING) setState(STATE_PAUSE);
+            setState(STATE_PAUSE);
         }
     }
 
@@ -260,12 +260,6 @@ public abstract class GameThread extends Thread {
                 if (mMode == STATE_PAUSE)
                     str = res.getText(R.string.mode_pause);
                 else
-                if (mMode == STATE_LOSE)
-                    str = res.getText(R.string.mode_lose);
-                else
-                if (mMode == STATE_WIN) {
-                    str = res.getText(R.string.mode_win);
-                }
 
                 if (message != null) {
                     str = message + "\n" + str;
