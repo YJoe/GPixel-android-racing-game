@@ -114,6 +114,7 @@ public class TheGame extends GameThread{
     @Override
     protected void doDraw(Canvas canvas) {
         if (canvas != null) {
+            super.doDraw(canvas);
             world.draw(canvas);
             player.draw(canvas);
         }
@@ -131,6 +132,6 @@ public class TheGame extends GameThread{
     protected void updateGame(float secondsElapsed) {
         player.update();
         world.update(player);
-        setScore("" + player.lastLapTime / 1000.0);
+        setScore( "LapCount [" + player.lapCount + "] LapTime [" + player.lastLapTime / 1000.0 + "]");
     }
 }

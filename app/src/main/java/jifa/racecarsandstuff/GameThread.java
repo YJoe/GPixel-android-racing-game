@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -144,6 +146,7 @@ public abstract class GameThread extends Thread {
 
 
     protected void doDraw(Canvas canvas) {
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         //if(mBackgroundImage != null) canvas.drawBitmap(mBackgroundImage, 0, 0, null);
     }
 
