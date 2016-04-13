@@ -21,7 +21,7 @@ public class Track {
     public ArrayList<ArrayList<Integer>> startCoords;
     public int scale;
 
-    public Track(View view, int[][] points, int scale){
+    public Track(View view, int[][] points, int scale, int trackFlag){
         // define an array list for graphic spaces
         graphicSpaces = new ArrayList<>();
         startCoords = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Track {
         // create a ring of tires surrounding the world
         formWorldBorders(track);
         // form all of the tires
-        formTires(track);
+        formTires(track, trackFlag);
         // draw the start line
         formStart(track, points);
 
@@ -104,30 +104,52 @@ public class Track {
         }
     }
 
-    public void formTires(String[][] track){
-        drawTrackSection(track, 2, 2, 10, 4, "tires");
-        drawTrackSection(track, 10, 3, 15, 4, "tires");
-        drawTrackSection(track, 2, 4, 4, 6, "tires");
-        drawTrackSection(track, 3, 6, 4, 8, "tires");
-        drawTrackSection(track, 11, 11, 39, 12, "tires");
-        drawTrackSection(track, 35, 12, 39, 13, "tires");
-        drawTrackSection(track, 23, 20, 49, 21, "tires");
-        drawTrackSection(track, 22, 21, 23, 27, "tires");
-        drawTrackSection(track, 23, 21, 25, 24, "tires");
-        drawTrackSection(track, 23, 24, 24, 25, "tires");
-        drawTrackSection(track, 25, 21, 26, 22, "tires");
+    public void formTires(String[][] track, int trackFlag){
+        if (trackFlag == 0) {
+            drawTrackSection(track, 2, 2, 10, 4, "tires");
+            drawTrackSection(track, 10, 3, 15, 4, "tires");
+            drawTrackSection(track, 2, 4, 4, 6, "tires");
+            drawTrackSection(track, 3, 6, 4, 8, "tires");
+            drawTrackSection(track, 11, 11, 39, 12, "tires");
+            drawTrackSection(track, 35, 12, 39, 13, "tires");
+            drawTrackSection(track, 23, 20, 49, 21, "tires");
+            drawTrackSection(track, 22, 21, 23, 27, "tires");
+            drawTrackSection(track, 23, 21, 25, 24, "tires");
+            drawTrackSection(track, 23, 24, 24, 25, "tires");
+            drawTrackSection(track, 25, 21, 26, 22, "tires");
+            drawTrackSection(track, 35, 28, 37, 39, "tires");
+            drawTrackSection(track, 34, 36, 35, 38, "tires");
+            drawTrackSection(track, 33, 37, 34, 38, "tires");
+            drawTrackSection(track, 11, 38, 35, 39, "tires");
+            drawTrackSection(track, 12, 37, 17, 38, "tires");
+            drawTrackSection(track, 12, 36, 14, 37, "tires");
+            drawTrackSection(track, 12, 35, 13, 36, "tires");
+            drawTrackSection(track, 11, 12, 12, 38, "tires");
+            drawTrackSection(track, 12, 12, 14, 14, "tires");
+            drawTrackSection(track, 12, 14, 13, 20, "tires");
+        }
+        else if (trackFlag == 2){
+            drawTrackSection(track, 20, 21, 21, 23, "tires");
+            drawTrackSection(track, 21, 22, 22, 34, "tires");
+            drawTrackSection(track, 10, 20, 20, 23, "tires");
+            drawTrackSection(track, 10, 16, 12, 20, "tires");
+            drawTrackSection(track, 29, 1, 30, 25, "tires");
+            drawTrackSection(track, 30, 20, 31, 26, "tires");
+            drawTrackSection(track, 31, 22, 32, 25, "tires");
+            drawTrackSection(track, 39, 12, 40, 30, "tires");
+            drawTrackSection(track, 40, 11, 41, 19, "tires");
+            drawTrackSection(track, 41, 12, 42, 15, "tires");
+            drawTrackSection(track, 22, 31, 23, 34, "tires");
+            drawTrackSection(track, 23, 32, 24, 35, "tires");
+            drawTrackSection(track, 24, 33, 25, 36, "tires");
+            drawTrackSection(track, 25, 33, 26, 36, "tires");
+            drawTrackSection(track, 26, 34, 27, 37, "tires");
 
-        drawTrackSection(track, 35, 28, 37, 39, "tires");
-        drawTrackSection(track, 34, 36, 35, 38, "tires");
-        drawTrackSection(track, 33, 37, 34, 38, "tires");
-
-        drawTrackSection(track, 11, 38, 35, 39, "tires");
-        drawTrackSection(track, 12, 37, 17, 38, "tires");
-        drawTrackSection(track, 12, 36, 14, 37, "tires");
-        drawTrackSection(track, 12, 35, 13, 36, "tires");
-        drawTrackSection(track, 11, 12, 12, 38, "tires");
-        drawTrackSection(track, 12, 12, 14, 14, "tires");
-        drawTrackSection(track, 12, 14, 13, 20, "tires");
+            drawTrackSection(track, 27, 35, 38, 37, "tires");
+            drawTrackSection(track, 36, 34, 39, 35, "tires");
+            drawTrackSection(track, 39, 29, 40, 35, "tires");
+            drawTrackSection(track, 38, 33, 39, 36, "tires");
+        }
     }
 
     public void formWorldBorders(String[][]track){

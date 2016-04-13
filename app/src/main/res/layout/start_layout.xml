@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="CAR GAME"
+            android:text="GP-IXEL"
             android:id="@+id/title"
+            android:textSize="70sp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="66dp" />
@@ -22,6 +26,9 @@
             android:layout_height="wrap_content"
             android:text="Track 1"
             android:id="@+id/track1"
+            android:textSize= "20sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
             android:layout_marginTop="44dp"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true" />
@@ -31,6 +38,9 @@
             android:layout_height="wrap_content"
             android:text="Track 2"
             android:id="@+id/track2"
+            android:textSize= "20sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
             android:layout_marginTop="18dp"
             android:layout_below="@+id/track1"
             android:layout_centerHorizontal="true" />
@@ -40,6 +50,9 @@
             android:layout_height="wrap_content"
             android:text="Track 3"
             android:id="@+id/track3"
+            android:textSize= "20sp"
+            android:paddingLeft="50sp"
+            android:paddingRight="50sp"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/track2"
             android:layout_centerHorizontal="true" />

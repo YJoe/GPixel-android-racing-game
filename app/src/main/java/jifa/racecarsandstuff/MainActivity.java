@@ -2,7 +2,11 @@ package jifa.racecarsandstuff;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +17,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
@@ -69,6 +76,20 @@ public class MainActivity extends Activity {
                 startGame();
             }
         });
+        final Button track3btn = (Button) findViewById(R.id.track3);
+        track3btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.game_layout);
+                mGameView = (GameView) findViewById(R.id.gamearea);
+                mGameView.setStatusView((TextView) findViewById(R.id.text));
+                mGameView.setScoreView((TextView) findViewById(R.id.score));
+                mGameView.activity = self;
+                trackFlag = 2;
+                mGameView.trackFlag = 2;
+                startGame();
+            }
+        });
     }
 
     private void startGame() {
@@ -84,6 +105,29 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
         setButtons();
+    }
+
+    public void displaySinglePlayerStats(ArrayList<Long>lapTimes, int damage){
+        setContentView(R.layout.single_player_stats);
+        final Button track1btn = (Button) findViewById(R.id.return_home);
+        track1btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMain();
+            }
+        });
+
+        double average = 0;
+        TextView lapInput = (TextView) findViewById(R.id.lap_input);
+        for(int i = 0; i < lapTimes.size(); i++){
+            lapInput.append(lapTimes.get(i)/1000.f + "\n");
+            average += lapTimes.get(i)/1000.f;
+        }
+        average/=(double)lapTimes.size();
+        TextView averageInput = (TextView) findViewById(R.id.average_input);
+        averageInput.append(Math.round(average * 100.0) / 100.0 + "");
+        TextView scoreInput = (TextView) findViewById(R.id.score_input);
+        scoreInput.append(Math.round(average * (double)(10 - damage) * 100.0) / 100.0 + "");
     }
 
 	/*

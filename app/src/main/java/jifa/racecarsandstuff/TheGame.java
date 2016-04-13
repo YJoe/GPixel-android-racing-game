@@ -33,10 +33,14 @@ public class TheGame extends GameThread{
             case 1: points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {30, 5, 5}, {35, 5, 5},{35,10,5}, {40, 10, 5},
                     {40, 20, 5}, {20, 20, 4}, {20, 30, 5}, {40, 30, 4}, {40, 40, 4}, {10, 40, 4}, {5,40,5}};
                     break;
+            case 2: points = new int[][]{   {15, 29, 5}, {15, 24, 5}, {5, 24, 4}, {5, 10, 5}, {10, 5, 5},
+                    {18, 5, 5}, {23, 10, 5}, {23, 25, 5}, {28, 29, 5}, {33, 25, 5}, {33, 7, 5}, {38, 3, 5}, {43, 7, 5},
+                    {43, 37, 5}, {38, 42, 5},  {15, 42, 5}};
+                    break;
             default: points = new int[][]{{}};
         }
 
-        world = new World(new Track(gameView, points, 9), 9, mCanvasWidth, mCanvasHeight);
+        world = new World(new Track(gameView, points, 9, trackFlag), 9, mCanvasWidth, mCanvasHeight);
         int id = 0;
         player = new Player(view, world, id, points);
         for(int i = 0; i < points.length; i++){
@@ -132,11 +136,11 @@ public class TheGame extends GameThread{
 
     @Override
     protected void updateGame(float secondsElapsed) {
-        if(player.lapCount > 0){
+        if(player.lapCount > 2){
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.backToMain();
+                    activity.displaySinglePlayerStats(player.lapTimes, player.health);
                 }
             });
         }
