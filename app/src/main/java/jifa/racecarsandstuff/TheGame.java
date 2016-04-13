@@ -17,10 +17,12 @@ public class TheGame extends GameThread{
     private View view;
     private Player player;
     private World world;
+    private MainActivity activity;
 
-    public TheGame(GameView gameView, Activity activity, int trackFlag) {
+    public TheGame(GameView gameView, MainActivity activity, int trackFlag) {
         super(gameView);
         view = gameView;
+        this.activity = activity;
         setButtons(activity);
         int[][] points;
         switch(trackFlag){
@@ -130,8 +132,15 @@ public class TheGame extends GameThread{
 
     @Override
     protected void updateGame(float secondsElapsed) {
+        if(player.lapCount > 0){
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    activity.backToMain();
+                }
+            });
+        }
         player.update();
         world.update(player);
-        setScore( "LapCount [" + player.lapCount + "] LapTime [" + player.lastLapTime / 1000.0 + "]");
     }
 }

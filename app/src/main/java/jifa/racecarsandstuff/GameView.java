@@ -25,7 +25,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private TextView mStatusView;
     Sensor accelerometer;
     Sensor magnetometer;
-    public Activity activity;
+    public MainActivity activity;
     public int trackFlag;
 
     public GameView(Context context, AttributeSet attrs) {

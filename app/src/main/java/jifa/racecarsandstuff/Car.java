@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-public class Car {
+public abstract class Car {
     public Bitmap graphics;
     public Rect scaleRect;
     public Bitmap image;

@@ -1,7 +1,9 @@
 package jifa.racecarsandstuff;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -10,11 +12,13 @@ import java.util.Random;
 
 public class Player extends Car{
     public int checkPointIndex;
+    public ArrayList<Long> lapTimes;
     public long lapStartTime;
     public long lastLapTime;
 
     public Player(View view, World world, int id, int[][]points){
         super(view, world, id, points);
+        lapTimes = new ArrayList<>();
         checkPointIndex = 1;
         angleDeg = 0;
         trackTopSpeed = 20;
@@ -55,6 +59,7 @@ public class Player extends Car{
 
     public void stopLapTimer(){
         lastLapTime = System.currentTimeMillis() - lapStartTime;
+        lapTimes.add(lastLapTime);
     }
 
     public boolean collidingCheckPoint(){
@@ -70,11 +75,21 @@ public class Player extends Car{
     }
 
     public void draw(Canvas canvas){
+        // draw player car
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
-        canvas.translate((int)xPos - indWidth * 8, (int)yPos - indHeight * 8);
+        canvas.translate((int) xPos - indWidth * 8, (int) yPos - indHeight * 8);
         canvas.scale(9, 9);
         canvas.rotate((int) angleDeg, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();
+
+        // draw player information
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(60);
+        canvas.drawText("Lap time: " + lastLapTime / 1000.0, 10, 50, paint);
+        canvas.drawText("Lap: " + lapCount, 10, 110, paint);
+        canvas.drawText("Speed: " + (int)currentSpeed, 10, 170, paint);
+        canvas.drawText("Damage: " + (10 - health), 10, 230, paint);
     }
 }

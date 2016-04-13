@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 
     private GameThread mGameThread;
     private GameView mGameView;
-    private Activity self;
+    private MainActivity self;
     private int trackFlag;
 
     /** Called when the activity is first created. */
@@ -36,7 +36,10 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         self = this;
+        setButtons();
+    }
 
+    private void setButtons(){
         setContentView(R.layout.start_layout);
         final Button track1btn = (Button) findViewById(R.id.track1);
         track1btn.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +76,14 @@ public class MainActivity extends Activity {
         mGameThread = new TheGame(mGameView, this, trackFlag);
         mGameView.setThread(mGameThread);
         mGameThread.setState(GameThread.STATE_READY);
-        mGameView.startSensor((SensorManager)getSystemService(Context.SENSOR_SERVICE));
+        mGameView.startSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+    }
+
+    public void backToMain(){
+        setContentView(R.layout.start_layout);
+        mGameThread = null;
+        mGameView = null;
+        setButtons();
     }
 
 	/*
