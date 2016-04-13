@@ -1,23 +1,33 @@
 package jifa.racecarsandstuff;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,6 +58,11 @@ public class MainActivity extends Activity {
 
     private void setButtons(){
         setContentView(R.layout.start_layout);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(100000);
+
         final Button track1btn = (Button) findViewById(R.id.track1);
         track1btn.setOnClickListener(new View.OnClickListener() {
             @Override
