@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class Player extends Car{
     public int checkPointIndex;
+    public long lapStartTime;
+    public long lastLapTime;
 
     public Player(View view, World world, int id, int[][]points){
         super(view, world, id, points);
@@ -34,6 +36,8 @@ public class Player extends Car{
         super.update();
         if (collidingCheckPoint()) {
             if(checkPointIndex == 0){
+                stopLapTimer();
+                startLapTimer();
                 lapCount++;
             }
             checkPointIndex += 1;
@@ -41,6 +45,14 @@ public class Player extends Car{
                 checkPointIndex = 0;
             }
         }
+    }
+
+    public void startLapTimer(){
+        lapStartTime = System.currentTimeMillis();
+    }
+
+    public void stopLapTimer(){
+        lastLapTime = System.currentTimeMillis() - lapStartTime;
     }
 
     public boolean collidingCheckPoint(){

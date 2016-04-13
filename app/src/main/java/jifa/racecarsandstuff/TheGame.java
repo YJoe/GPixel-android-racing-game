@@ -41,7 +41,7 @@ public class TheGame extends GameThread{
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;
         }
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 0; i++) {
             id++;
             int x = world.track.startCoords.get(i).get(1) * world.scale * 10 + (10 * world.scale) - 10;
             int y = world.track.startCoords.get(i).get(0) * world.scale * 10 + (10 * world.scale) + 50;
@@ -105,6 +105,7 @@ public class TheGame extends GameThread{
 
     @Override
     public void setupBeginning() {
+        player.startLapTimer();
         player.xPos = mCanvasWidth/2;
         player.yPos = mCanvasHeight/2;
         world.setStartTranslate(mCanvasWidth, mCanvasHeight);
@@ -130,5 +131,6 @@ public class TheGame extends GameThread{
     protected void updateGame(float secondsElapsed) {
         player.update();
         world.update(player);
+        setScore("" + player.lastLapTime / 1000.0);
     }
 }
