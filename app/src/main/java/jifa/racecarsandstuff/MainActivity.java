@@ -65,10 +65,6 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
 
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
-        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
-        transition.startTransition(100000);
-
         final Button play = (Button) findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
