@@ -45,6 +45,8 @@ public class Track {
         formTires(track, trackFlag);
         // form all oil spills
         formOil(track);
+        // form all track cracks
+        formCracks(track);
         // draw the start line
         formStart(track, points);
 
@@ -100,6 +102,19 @@ public class Track {
                         track[i][j+1] = "2_oil";
                         track[i+1][j] = "3_oil";
                         track[i+1][j+1] = "4_oil";
+                    }
+                }
+            }
+        }
+    }
+
+    public void formCracks(String[][]track){
+        Random rand = new Random();
+        for(int i = 0; i < track.length; i++){
+            for(int j = 0; j < track.length; j++){
+                if(track[i][j].equals("track")){
+                    if(rand.nextInt(100) == 0) {
+                        track[i][j] = "crack";
                     }
                 }
             }
@@ -330,6 +345,7 @@ public class Track {
                 case "2_oil": rowIndex = 6; colIndex = 1; break;
                 case "3_oil": rowIndex = 7; colIndex = 0; break;
                 case "4_oil": rowIndex = 7; colIndex = 1; break;
+                case "crack": rowIndex = 6; colIndex = rand.nextInt(2) + 2; break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
