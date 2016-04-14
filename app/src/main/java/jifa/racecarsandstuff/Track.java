@@ -43,6 +43,8 @@ public class Track {
         formWorldBorders(track);
         // form all of the tires
         formTires(track, trackFlag);
+        // form all oil spills
+        formOil(track);
         // draw the start line
         formStart(track, points);
 
@@ -83,6 +85,23 @@ public class Track {
             for(int y = 0; y < count; y++) {
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
                 getTexture(track[x][y], imageCanv, colourCanv, rect, paint);
+            }
+        }
+    }
+
+    public void formOil(String[][]track){
+        Random rand = new Random();
+        for(int i = 0; i < track.length; i++){
+            for(int j = 0; j < track.length; j++){
+                if(track[i][j].equals("track") && track[i+1][j+1].equals("track") &&
+                        track[i][j+1].equals("track") && track[i+1][j].equals("track")){
+                    if (rand.nextInt(300) == 0){
+                        track[i][j] = "1_oil";
+                        track[i][j+1] = "2_oil";
+                        track[i+1][j] = "3_oil";
+                        track[i+1][j+1] = "4_oil";
+                    }
+                }
             }
         }
     }
@@ -307,6 +326,10 @@ public class Track {
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
                 case "start": rowIndex = 4; colIndex = 3; break;
                 case "tires": rowIndex = 0; colIndex = 3; break;
+                case "1_oil": rowIndex = 6; colIndex = 0; break;
+                case "2_oil": rowIndex = 6; colIndex = 1; break;
+                case "3_oil": rowIndex = 7; colIndex = 0; break;
+                case "4_oil": rowIndex = 7; colIndex = 1; break;
             }
         }
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);

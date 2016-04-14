@@ -16,7 +16,7 @@ public abstract class Car {
     double dx, dy, xPos, yPos;
     public int width, height, indWidth, indHeight, health;
     public double currentSpeed = 0;
-    public int currentTopSpeed, trackTopSpeed, grassTopSpeed;
+    public int currentTopSpeed, trackTopSpeed, grassTopSpeed, oilTopSpeed;
     public double accelerationRate;
     public double decelerationRate;
     public double angleDeg;
@@ -42,6 +42,7 @@ public abstract class Car {
         turningLeft = false;
         turningRight = false;
         accelerating = false;
+        oilTopSpeed = 4;
         collisionVoidTime = 0;
         health = 10;
         dead = false;
@@ -102,24 +103,26 @@ public abstract class Car {
 
     public void trackSurfacePenalties(){
         int pixel = readTrack();
-        if (Color.blue(pixel) != 0){
+        if (Color.blue(pixel) == 255){
             if(currentTopSpeed != trackTopSpeed) {
                 currentTopSpeed = trackTopSpeed;
             }
-        } else if(Color.green(pixel) != 0){
+        } else if(Color.green(pixel) == 255){
             if(currentTopSpeed != grassTopSpeed) {
                 currentTopSpeed = grassTopSpeed;
             }
-        } else if(Color.red(pixel) != 0){
+        } else if(Color.red(pixel) == 255){
             // car is on track edge
-        } else{
+        } else if(Color.red(pixel) == 0){
             health -= (currentSpeed / 5);
-            if (health < 0){
-                dead = true;
-            }
+            if (health < 0) dead = true;
             currentSpeed += 3;
             currentSpeed = -currentSpeed;
             turnLockTime += 10;
+        } else {
+            if (currentTopSpeed != oilTopSpeed) {
+                currentTopSpeed = oilTopSpeed;
+            }
         }
     }
 
@@ -189,6 +192,9 @@ public abstract class Car {
         trackSurfacePenalties();
         if(currentSpeed > currentTopSpeed){
             currentSpeed -= decelerationRate*5;
+            if(currentTopSpeed == oilTopSpeed){
+                currentSpeed -= decelerationRate*5;
+            }
         }
     }
 
@@ -196,8 +202,8 @@ public abstract class Car {
         turnLockTime -= 1;
         if(turnLockTime < 0)
             turnLockTime = 0;
-        else if(turnLockTime > 20){
-            turnLockTime = 20;
+        else if(turnLockTime > 200){
+            turnLockTime = 200;
         }
     }
     
