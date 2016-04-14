@@ -19,13 +19,13 @@ public class TheGame extends GameThread{
     private World world;
     private MainActivity activity;
 
-    public TheGame(GameView gameView, MainActivity activity, int trackFlag) {
+    public TheGame(GameView gameView, MainActivity activity, Options options) {
         super(gameView);
         view = gameView;
         this.activity = activity;
         setButtons(activity);
         int[][] points;
-        switch(trackFlag){
+        switch(options.trackFlag){
             case 0: points = new int[][]{   {5, 15, 5}, {5, 5, 5}, {40, 5, 5}, {40, 14, 5},
                     {20, 14, 4}, {16, 18, 5} ,{16, 30, 5}, {29, 30, 5},
                     {29, 22, 5}, {38, 22, 5}, {38, 40, 5}, {5, 40, 5}};
@@ -40,9 +40,9 @@ public class TheGame extends GameThread{
             default: points = new int[][]{{}};
         }
 
-        world = new World(new Track(gameView, points, 9, trackFlag), 9, mCanvasWidth, mCanvasHeight);
+        world = new World(new Track(gameView, points, 9, options.trackFlag), 9, mCanvasWidth, mCanvasHeight);
         int id = 0;
-        player = new Player(view, world, id, points);
+        player = new Player(view, world, id, points, options);
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;

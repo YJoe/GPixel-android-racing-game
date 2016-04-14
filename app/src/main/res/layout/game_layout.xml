@@ -52,11 +52,8 @@
             android:src = "@drawable/right"
             android:background="@null"
             android:padding="20dp"
-            android:layout_alignTop="@+id/left"
-            android:layout_toRightOf="@+id/left"
-            android:layout_toEndOf="@+id/left"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp" />
+            android:layout_alignTop="@+id/accel"
+            android:layout_centerHorizontal="true" />
 
         <Button android:id="@+id/accel"
             android:layout_width="wrap_content"

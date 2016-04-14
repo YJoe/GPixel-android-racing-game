@@ -41,7 +41,6 @@ public class MainActivity extends Activity {
     private GameThread mGameThread;
     private GameView mGameView;
     private MainActivity self;
-    private int trackFlag;
     private Options options;
 
     /** Called when the activity is first created. */
@@ -173,8 +172,8 @@ public class MainActivity extends Activity {
                 mGameView.setStatusView((TextView) findViewById(R.id.text));
                 mGameView.setScoreView((TextView) findViewById(R.id.score));
                 mGameView.activity = self;
-                trackFlag = 0;
-                mGameView.trackFlag = 0;
+                options.trackFlag = 0;
+                mGameView.options = options;
                 startGame();
             }
         });
@@ -187,8 +186,8 @@ public class MainActivity extends Activity {
                 mGameView.setStatusView((TextView) findViewById(R.id.text));
                 mGameView.setScoreView((TextView) findViewById(R.id.score));
                 mGameView.activity = self;
-                trackFlag = 1;
-                mGameView.trackFlag = 1;
+                options.trackFlag = 1;
+                mGameView.options = options;
                 startGame();
             }
         });
@@ -201,8 +200,8 @@ public class MainActivity extends Activity {
                 mGameView.setStatusView((TextView) findViewById(R.id.text));
                 mGameView.setScoreView((TextView) findViewById(R.id.score));
                 mGameView.activity = self;
-                trackFlag = 2;
-                mGameView.trackFlag = 2;
+                options.trackFlag = 2;
+                mGameView.options = options;
                 startGame();
             }
         });
@@ -233,7 +232,7 @@ public class MainActivity extends Activity {
 
     private void startGame() {
         //Set up a new game, we don't care about previous states
-        mGameThread = new TheGame(mGameView, this, trackFlag);
+        mGameThread = new TheGame(mGameView, this, options);
         mGameView.setThread(mGameThread);
         mGameThread.setState(GameThread.STATE_READY);
         mGameView.startSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));

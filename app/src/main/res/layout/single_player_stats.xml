@@ -23,7 +23,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Lap Times"
             android:id="@+id/lap_times"
-            android:layout_marginTop="69dp"
+            android:layout_marginTop="43dp"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/return_home"
             android:layout_alignEnd="@+id/return_home" />
@@ -34,7 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Average Lap"
             android:id="@+id/average_lap"
-            android:layout_marginTop="79dp"
+            android:layout_marginTop="53dp"
             android:layout_below="@+id/lap_input"
             android:layout_centerHorizontal="true" />
 
@@ -44,7 +44,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Score"
             android:id="@+id/score"
-            android:layout_marginTop="81dp"
+            android:layout_marginTop="47dp"
             android:layout_below="@+id/average_input"
             android:layout_centerHorizontal="true" />
 

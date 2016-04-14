@@ -15,8 +15,9 @@ public class Player extends Car{
     public ArrayList<Long> lapTimes;
     public long lapStartTime;
     public long lastLapTime;
+    public Options options;
 
-    public Player(View view, World world, int id, int[][]points){
+    public Player(View view, World world, int id, int[][]points, Options options){
         super(view, world, id, points);
         lapTimes = new ArrayList<>();
         checkPointIndex = 1;
@@ -27,9 +28,7 @@ public class Player extends Car{
         accelerationRate = 0.1;
         currentTopSpeed = trackTopSpeed;
 
-        String[] colours = {"blue", "red", "green", "flame", "toothpaste",
-                "pokemon", "black", "herbie"};
-        loadCar(imageCanv, colours[new Random().nextInt(colours.length)]);
+        loadCar(imageCanv, options.car);
     }
 
     public int readTrack(){
