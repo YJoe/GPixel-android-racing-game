@@ -43,12 +43,12 @@ public class Track {
         formWorldBorders(track);
         // form all of the tires
         formTires(track, trackFlag);
+        // draw the start line
+        formStart(track, points);
         // form all oil spills
         formOil(track);
         // form all track cracks
         formCracks(track);
-        // draw the start line
-        formStart(track, points);
 
         // entirely assumes the array will be square
         int count = track.length;
