@@ -63,12 +63,14 @@
             android:layout_height="wrap_content"
             android:text="Accelerate"
             android:layout_above="@+id/stop"
+            android:padding="20sp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
         <Button android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="20sp"
             android:text="Brake"
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/accel"
