@@ -84,9 +84,8 @@ public abstract class Car {
             case "flame" : col = 2; row = 1; break;
             case "blue_red" : col = 0; row = 2; break;
             case "pokemon" : col = 2; row = 2; break;
-            case "black" : col = 0; row = 3; break;
-            case "green" : col = 2; row = 3; break;
-            case "herbie" : col = -2; row = 3; break;
+            case "black" : col = 2; row = 3; break;
+            case "herbie" : col = 0; row = 3; break;
         }
 
         for(int x = 0; x < 2; x++){
