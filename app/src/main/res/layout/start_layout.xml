@@ -22,6 +22,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="66dp" />
 
+        <Button
+            android:layout_width="200sp"
+            android:layout_height="40sp"
+            android:id="@+id/play"
+            android:text="PLAY"
+            android:background="@drawable/button_black"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,42 +42,6 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="48dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track 1"
-            android:id="@+id/track1"
-            android:textSize= "20sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:layout_marginTop="44dp"
-            android:layout_below="@+id/title"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track 2"
-            android:id="@+id/track2"
-            android:textSize= "20sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:layout_marginTop="18dp"
-            android:layout_below="@+id/track1"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track 3"
-            android:id="@+id/track3"
-            android:textSize= "20sp"
-            android:paddingLeft="50sp"
-            android:paddingRight="50sp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/track2"
-            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back">
+
+    <RelativeLayout
+        android:id="@+id/rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/red_state">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TRACK"
+            android:id="@+id/pick_car"
+            android:textSize="60sp"
+            android:layout_marginTop="44dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRACK 1"
+            android:id="@+id/track1"
+            android:textSize= "20sp"
+            android:width="200dp"
+            android:height="50dp"
+            android:background="@drawable/button_red"
+            android:layout_marginTop="72dp"
+            android:layout_below="@+id/pick_car"
+            android:layout_alignLeft="@+id/track2"
+            android:layout_alignStart="@+id/track2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRACK 2"
+            android:id="@+id/track2"
+            android:textSize= "20sp"
+            android:width="200dp"
+            android:height="50dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_green"
+            android:layout_below="@+id/track1"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRACK 3"
+            android:id="@+id/track3"
+            android:textSize= "20sp"
+            android:width="200dp"
+            android:height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_blue"
+            android:layout_below="@+id/track2"
+            android:layout_alignLeft="@+id/track2"
+            android:layout_alignStart="@+id/track2" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
     private GameView mGameView;
     private MainActivity self;
     private int trackFlag;
+    private Options options;
 
     /** Called when the activity is first created. */
     @Override
@@ -52,16 +53,120 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        options = new Options();
+
         self = this;
-        setButtons();
+        setHomeScreen();
     }
 
-    private void setButtons(){
+    private void setHomeScreen(){
         setContentView(R.layout.start_layout);
+
+        mGameThread = null;
+        mGameView = null;
 
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
         TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
         transition.startTransition(100000);
+
+        final Button play = (Button) findViewById(R.id.play);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.game_layout);
+                carPicker();
+            }
+        });
+    }
+
+    public void carPicker(){
+        setContentView(R.layout.car_picker);
+
+        Button blue = (Button) findViewById(R.id.button);
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "blue";
+                trackPicker();
+            }
+        });
+
+        Button red = (Button) findViewById(R.id.button2);
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "red";
+                trackPicker();
+            }
+        });
+
+        Button green = (Button) findViewById(R.id.button3);
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "green";
+                trackPicker();
+            }
+        });
+
+        Button black = (Button) findViewById(R.id.button8);
+        black.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "black";
+                trackPicker();
+            }
+        });
+
+        Button toothpaste = (Button) findViewById(R.id.button5);
+        toothpaste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "toothpaste";
+                trackPicker();
+            }
+        });
+
+        Button pokemon = (Button) findViewById(R.id.button6);
+        pokemon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "pokemon";
+                trackPicker();
+            }
+        });
+
+        Button herbie = (Button) findViewById(R.id.button7);
+        herbie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "herbie";
+                trackPicker();
+            }
+        });
+
+        Button flame = (Button) findViewById(R.id.button9);
+        flame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "flame";
+                trackPicker();
+            }
+        });
+
+        Button random = (Button) findViewById(R.id.random);
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                options.car = "toothpaste";
+                trackPicker();
+            }
+        });
+
+    }
+
+    public void trackPicker(){
+        setContentView(R.layout.track_picker);
 
         final Button track1btn = (Button) findViewById(R.id.track1);
         track1btn.setOnClickListener(new View.OnClickListener() {
@@ -107,28 +212,13 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void startGame() {
-        //Set up a new game, we don't care about previous states
-        mGameThread = new TheGame(mGameView, this, trackFlag);
-        mGameView.setThread(mGameThread);
-        mGameThread.setState(GameThread.STATE_READY);
-        mGameView.startSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
-    }
-
-    public void backToMain(){
-        setContentView(R.layout.start_layout);
-        mGameThread = null;
-        mGameView = null;
-        setButtons();
-    }
-
-    public void displaySinglePlayerStats(ArrayList<Long>lapTimes, int damage){
+    public void singlePlayerStatsScreen(ArrayList<Long>lapTimes, int damage){
         setContentView(R.layout.single_player_stats);
         final Button track1btn = (Button) findViewById(R.id.return_home);
         track1btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMain();
+                setHomeScreen();
             }
         });
 
@@ -142,12 +232,16 @@ public class MainActivity extends Activity {
         TextView averageInput = (TextView) findViewById(R.id.average_input);
         averageInput.append(Math.round(average * 100.0) / 100.0 + "");
         TextView scoreInput = (TextView) findViewById(R.id.score_input);
-        scoreInput.append(Math.round(average * (double)(10 - damage) * 100.0) / 100.0 + "");
+        scoreInput.append(Math.round(average * (double) (10 - damage) * 100.0) / 100.0 + "");
     }
 
-	/*
-	 * Activity state functions
-	 */
+    private void startGame() {
+        //Set up a new game, we don't care about previous states
+        mGameThread = new TheGame(mGameView, this, trackFlag);
+        mGameView.setThread(mGameThread);
+        mGameThread.setState(GameThread.STATE_READY);
+        mGameView.startSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+    }
 
     @Override
     protected void onPause() {
@@ -165,8 +259,10 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        mGameView.cleanup();
-        mGameView.removeSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+        if (mGameView != null) {
+            mGameView.cleanup();
+            mGameView.removeSensor((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+        }
         mGameThread = null;
         mGameView = null;
     }

@@ -80,9 +80,9 @@ public abstract class Car {
         switch(style){
             case "blue": col = 0; row = 0; break;
             case "red" : col = 2; row = 0; break;
-            case "green_white" : col = 0; row = 1; break;
+            case "green" : col = 0; row = 1; break;
             case "flame" : col = 2; row = 1; break;
-            case "blue_red" : col = 0; row = 2; break;
+            case "toothpaste" : col = 0; row = 2; break;
             case "pokemon" : col = 2; row = 2; break;
             case "black" : col = 2; row = 3; break;
             case "herbie" : col = 0; row = 3; break;

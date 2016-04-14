@@ -140,7 +140,7 @@ public class TheGame extends GameThread{
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.displaySinglePlayerStats(player.lapTimes, player.health);
+                    activity.singlePlayerStatsScreen(player.lapTimes, player.health);
                 }
             });
         }

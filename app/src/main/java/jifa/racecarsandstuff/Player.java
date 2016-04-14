@@ -27,7 +27,7 @@ public class Player extends Car{
         accelerationRate = 0.1;
         currentTopSpeed = trackTopSpeed;
 
-        String[] colours = {"blue", "red", "green_white", "flame", "blue_red",
+        String[] colours = {"blue", "red", "green", "flame", "toothpaste",
                 "pokemon", "black", "herbie"};
         loadCar(imageCanv, colours[new Random().nextInt(colours.length)]);
     }
