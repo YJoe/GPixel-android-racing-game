@@ -74,8 +74,8 @@ public abstract class GameThread extends Thread {
 
     /*
      * Called when app is destroyed, so not really that important here
-     * But if (later) the game involves more thread, we might need to stop a thread, and then we would need this
      * Dare I say memory leak...
+     * But if (later) the game involves more thread, we might need to stop a thread, and then we would need this
      */
     public void cleanup() {
         this.mContext = null;
@@ -96,8 +96,6 @@ public abstract class GameThread extends Thread {
             mLastTime = System.currentTimeMillis() + 100;
 
             setState(STATE_RUNNING);
-
-            setScore("0");
         }
     }
 
@@ -295,28 +293,6 @@ public abstract class GameThread extends Thread {
 
     public void setMode(int mMode) {
         this.mMode = mMode;
-    }
-	
-	
-	/* ALL ABOUT SCORES */
-
-    //Send a score to the View to view
-    //Would it be better to do this inside this thread writing it manually on the screen?
-    public void setScore(String score) {
-        this.score = score;
-
-        synchronized (monitor) {
-            Message msg = mHandler.obtainMessage();
-            Bundle b = new Bundle();
-            b.putBoolean("score", true);
-            b.putString("text", getScore());
-            msg.setData(b);
-            mHandler.sendMessage(msg);
-        }
-    }
-
-    public String getScore() {
-        return score;
     }
 }
 

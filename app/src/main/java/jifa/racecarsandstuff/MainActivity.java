@@ -9,10 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,7 +28,6 @@ public class MainActivity extends Activity {
     private MainActivity self;
     private Options options;
 
-    /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +42,7 @@ public class MainActivity extends Activity {
         setHomeScreen();
     }
 
-    private void setHomeScreen(){
+    private void setHomeScreen() {
         setContentView(R.layout.start_layout);
 
         mGameThread = null;
@@ -70,7 +67,7 @@ public class MainActivity extends Activity {
 
     }
 
-    public void optionsMenu(){
+    public void optionsMenu() {
         setContentView(R.layout.options_menu);
 
         ToggleButton ai = (ToggleButton) findViewById(R.id.toggleAI);
@@ -119,7 +116,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void carPicker(){
+    public void carPicker() {
         setContentView(R.layout.car_picker);
 
         Button blue = (Button) findViewById(R.id.button);
@@ -206,7 +203,7 @@ public class MainActivity extends Activity {
 
     }
 
-    public void trackPicker(){
+    public void trackPicker() {
         setContentView(R.layout.track_picker);
 
         final Button track1btn = (Button) findViewById(R.id.track1);
@@ -253,7 +250,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void singlePlayerStatsScreen(ArrayList<Long>lapTimes, int damage){
+    public void singlePlayerStatsScreen(ArrayList<Long> lapTimes, int damage) {
         setContentView(R.layout.single_player_stats);
         final Button track1btn = (Button) findViewById(R.id.return_home);
         track1btn.setOnClickListener(new View.OnClickListener() {
@@ -265,11 +262,11 @@ public class MainActivity extends Activity {
 
         double average = 0;
         TextView lapInput = (TextView) findViewById(R.id.lap_input);
-        for(int i = 0; i < lapTimes.size(); i++){
-            lapInput.append(lapTimes.get(i)/1000.f + "\n");
-            average += lapTimes.get(i)/1000.f;
+        for (int i = 0; i < lapTimes.size(); i++) {
+            lapInput.append(lapTimes.get(i) / 1000.f + "\n");
+            average += lapTimes.get(i) / 1000.f;
         }
-        average/=(double)lapTimes.size();
+        average /= (double) lapTimes.size();
         TextView averageInput = (TextView) findViewById(R.id.average_input);
         averageInput.append(Math.round(average * 100.0) / 100.0 + "");
         TextView scoreInput = (TextView) findViewById(R.id.score_input);
@@ -288,13 +285,12 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        if(mGameThread != null) {
+        if (mGameThread != null) {
             if (mGameThread.getMode() == GameThread.STATE_RUNNING) {
                 mGameThread.setState(GameThread.STATE_PAUSE);
             }
         }
     }
-
 
     @Override
     protected void onDestroy() {
@@ -307,10 +303,6 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
     }
-
-    /*
-     * UI Functions
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -330,24 +322,4 @@ public class MainActivity extends Activity {
 
         return false;
     }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // Do nothing if nothing is selected
-    }
 }
-
-// This file is part of the course "Begin Programming: Build your first mobile game" from futurelearn.com
-// Copyright: University of Reading and Karsten Lundqvist
-// It is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// It is is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-//
-// You should have received a copy of the GNU General Public License
-// along with it.  If not, see <http://www.gnu.org/licenses/>.
