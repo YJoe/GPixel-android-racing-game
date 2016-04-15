@@ -5,93 +5,87 @@
     android:background="@drawable/back">
 
     <RelativeLayout
+        android:id="@+id/rel_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue_state">
+        android:background="@drawable/transition">
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="OPTIONS"
-            android:id="@+id/title"
-            android:textSize="70sp"
-            android:layout_above="@+id/toggleAI"
+            android:textSize="40sp"
+            android:id="@+id/textView4"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="23dp" />
+            android:layout_marginTop="49dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AI"
             android:id="@+id/textView3"
-            android:textSize="40sp"
-            android:layout_marginTop="152dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/apply"
-            android:layout_toStartOf="@+id/apply"
-            android:layout_marginRight="19dp"
-            android:layout_marginEnd="19dp" />
+            android:textSize="20sp"
+            android:layout_marginTop="120dp"
+            android:layout_centerHorizontal="true" />
 
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New ToggleButton"
             android:id="@+id/toggleAI"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_toRightOf="@+id/apply"
-            android:layout_toEndOf="@+id/apply" />
+            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/toggleOil"
+            android:layout_alignStart="@+id/toggleOil"
+            android:layout_marginTop="56dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OIL"
             android:id="@+id/textView2"
-            android:textSize="40sp"
-            android:layout_marginTop="54dp"
+            android:textSize="20sp"
             android:layout_below="@+id/toggleAI"
-            android:layout_toLeftOf="@+id/apply"
-            android:layout_toStartOf="@+id/apply" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp" />
 
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New ToggleButton"
             android:id="@+id/toggleOil"
-            android:layout_alignTop="@+id/textView2"
-            android:layout_toRightOf="@+id/apply"
-            android:layout_toEndOf="@+id/apply" />
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CRACKS"
             android:id="@+id/textView"
-            android:textSize="40sp"
-            android:layout_marginLeft="65dp"
-            android:layout_marginStart="65dp"
-            android:layout_alignBottom="@+id/toggleCracks"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="20sp"
+            android:layout_below="@+id/toggleOil"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp" />
 
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New ToggleButton"
             android:id="@+id/toggleCracks"
-            android:layout_marginTop="51dp"
-            android:layout_below="@+id/toggleOil"
-            android:layout_toRightOf="@+id/apply"
-            android:layout_toEndOf="@+id/apply" />
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/toggleOil"
+            android:layout_alignStart="@+id/toggleOil" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Apply"
             android:id="@+id/apply"
-            android:layout_marginTop="35dp"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="33dp"
+            android:layout_below="@+id/toggleCracks"
+            android:layout_alignLeft="@+id/toggleCracks"
+            android:layout_alignStart="@+id/toggleCracks" />
 
 
     </RelativeLayout>

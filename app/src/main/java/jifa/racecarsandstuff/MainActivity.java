@@ -2,6 +2,7 @@ package jifa.racecarsandstuff;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -48,6 +50,10 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
 
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
+
         final Button play = (Button) findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,10 +71,24 @@ public class MainActivity extends Activity {
             }
         });
 
+        final Button about = (Button) findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aboutScreen();
+            }
+        });
+
+
+
     }
 
     public void optionsMenu() {
         setContentView(R.layout.options_menu);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
 
         ToggleButton ai = (ToggleButton) findViewById(R.id.toggleAI);
         ai.setChecked(options.ai);
@@ -116,8 +136,28 @@ public class MainActivity extends Activity {
         });
     }
 
+    public void aboutScreen(){
+        setContentView(R.layout.about);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
+
+        Button button = (Button) findViewById(R.id.button4);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHomeScreen();
+            }
+        });
+    }
+
     public void carPicker() {
         setContentView(R.layout.car_picker);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
 
         Button blue = (Button) findViewById(R.id.button);
         blue.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +246,10 @@ public class MainActivity extends Activity {
     public void trackPicker() {
         setContentView(R.layout.track_picker);
 
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
+
         final Button track1btn = (Button) findViewById(R.id.track1);
         track1btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,6 +296,11 @@ public class MainActivity extends Activity {
 
     public void singlePlayerStatsScreen(ArrayList<Long> lapTimes, int damage) {
         setContentView(R.layout.single_player_stats);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
+
         final Button track1btn = (Button) findViewById(R.id.return_home);
         track1btn.setOnClickListener(new View.OnClickListener() {
             @Override

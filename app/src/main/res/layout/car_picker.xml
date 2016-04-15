@@ -8,14 +8,14 @@
         android:id="@+id/rel_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue_state">
+        android:background="@drawable/transition">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="CAR COLOUR"
             android:id="@+id/pick_car"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:layout_marginTop="18dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
