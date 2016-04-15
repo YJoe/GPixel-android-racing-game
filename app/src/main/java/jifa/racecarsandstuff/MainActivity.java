@@ -5,10 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,8 +15,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MainActivity extends Activity {
@@ -81,7 +83,13 @@ public class MainActivity extends Activity {
             }
         });
 
-
+        final Button highScores = (Button) findViewById(R.id.highScores);
+        highScores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                highScoresScreen();
+            }
+        });
 
     }
 
@@ -142,7 +150,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void aboutScreen(){
+    public void aboutScreen() {
         setContentView(R.layout.about);
 
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
@@ -156,6 +164,7 @@ public class MainActivity extends Activity {
                 setHomeScreen();
             }
         });
+
     }
 
     public void carPicker() {
@@ -325,7 +334,77 @@ public class MainActivity extends Activity {
         TextView averageInput = (TextView) findViewById(R.id.average_input);
         averageInput.append(Math.round(average * 100.0) / 100.0 + "");
         TextView scoreInput = (TextView) findViewById(R.id.score_input);
-        scoreInput.append(50 - (int)average * 5 + (10 * (21 - damage)) + "");
+        scoreInput.append(50 - (int) average * 5 + (10 * (21 - damage)) + "");
+    }
+
+    public void highScoresScreen() {
+        setContentView(R.layout.high_scores);
+        TextView textView = (TextView) findViewById(R.id.high_scores);
+        ArrayList<String> scores = loadScores();
+        for(int i = 0; i < scores.size(); i++){
+            textView.append(((double)Integer.parseInt(scores.get(i))/ 1000.0) + "\n");
+        }
+    }
+
+    public void tryForHighScore(ArrayList<Long> lapTimes){
+        ArrayList<String> highScores = loadScores();
+        ArrayList<Long> longHighScores = new ArrayList<>();
+
+        // add all original high scores
+        for(int i = 0; i < highScores.size(); i++){
+            longHighScores.add(Long.parseLong(highScores.get(i)));
+        }
+
+        // add all lap times
+        for(int i = 0; i < lapTimes.size(); i++){
+            longHighScores.add(lapTimes.get(i));
+        }
+
+        Collections.sort(longHighScores);
+
+        // remove lowest high scores
+        while(longHighScores.size() > 5){
+            longHighScores.remove(longHighScores.size() - 1);
+        }
+
+        saveScores(longHighScores);
+    }
+
+    public void saveScores(ArrayList<Long>scores){
+        String filename = "high_scores.txt";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            for (Long score : scores) {
+                outputStream.write((score.toString() + "\n").getBytes());
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> loadScores() {
+        File file = new File(getFilesDir(), "high_scores.txt");
+        ArrayList<String> scores = new ArrayList<>();
+
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while((line = br.readLine()) != null){
+                scores.add(line);
+            }
+            br.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        return scores;
+    }
+
+    public void addToHighScores(ArrayList<Long> lapTimes) {
+
     }
 
     private void startGame() {
@@ -370,11 +449,4 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        }
-
-        return false;
-    }
 }

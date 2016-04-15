@@ -1,17 +1,11 @@
 package jifa.racecarsandstuff;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 public class TheGame extends GameThread{
     private View view;
@@ -144,6 +138,7 @@ public class TheGame extends GameThread{
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    activity.tryForHighScore(player.lapTimes);
                     activity.singlePlayerStatsScreen(player.lapTimes, player.damage);
                 }
             });
