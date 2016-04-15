@@ -28,7 +28,7 @@ public class AICar extends Car{
 //        Regular
         trackTopSpeed = 14 + rand.nextInt(5);
         grassTopSpeed = trackTopSpeed/4;
-        turningRate = 1.1 + rand.nextInt(7) * 0.1;
+        turningRate = 1.5 + rand.nextInt(7) * 0.1;
         accelerationRate = 0.04 + rand.nextInt(7) * 0.02;
 
 //        Pro

@@ -40,18 +40,20 @@ public class TheGame extends GameThread{
             default: points = new int[][]{{}};
         }
 
-        world = new World(new Track(gameView, points, 9, options.trackFlag), 9, mCanvasWidth, mCanvasHeight);
+        world = new World(new Track(gameView, points, 9, options), 9, mCanvasWidth, mCanvasHeight);
         int id = 0;
         player = new Player(view, world, id, points, options);
         for(int i = 0; i < points.length; i++){
             points[i][0] += points[i][2] /2;
             points[i][1] += points[i][2] /2;
         }
-        for(int i = 0; i < 0; i++) {
-            id++;
-            int x = world.track.startCoords.get(i).get(1) * world.scale * 10 + (10 * world.scale) - 10;
-            int y = world.track.startCoords.get(i).get(0) * world.scale * 10 + (10 * world.scale) + 50;
-            world.carList.add(new AICar(view, world, x, y, points, id));
+        if(options.ai) {
+            for (int i = 0; i < 7; i++) {
+                id++;
+                int x = world.track.startCoords.get(i).get(1) * world.scale * 10 + (10 * world.scale) - 10;
+                int y = world.track.startCoords.get(i).get(0) * world.scale * 10 + (10 * world.scale) + 50;
+                world.carList.add(new AICar(view, world, x, y, points, id));
+            }
         }
         player.world = world;
     }

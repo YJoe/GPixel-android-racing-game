@@ -19,13 +19,15 @@ public class Track {
     public Bitmap colourGraphics;
     public ArrayList<ArrayList<Rect>> graphicSpaces;
     public ArrayList<ArrayList<Integer>> startCoords;
+    private Options options;
     public int scale;
 
-    public Track(View view, int[][] points, int scale, int trackFlag){
+    public Track(View view, int[][] points, int scale, Options options){
         // define an array list for graphic spaces
         graphicSpaces = new ArrayList<>();
         startCoords = new ArrayList<>();
         this.scale = scale;
+        this.options = options;
 
         // define a string to hold the string representation of the track
         String [][] track = new String[50][50];
@@ -42,23 +44,27 @@ public class Track {
         // create a ring of tires surrounding the world
         formWorldBorders(track);
         // form all of the tires
-        formTires(track, trackFlag);
+        formTires(track, options.trackFlag);
         // draw the start line
         formStart(track, points);
         // form all oil spills
-        formOil(track);
+        if(options.oil) {
+            formOil(track);
+        }
         // form all track cracks
-        formCracks(track);
+        if (options.cracks) {
+            formCracks(track);
+        }
 
         // entirely assumes the array will be square
         int count = track.length;
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inDither = false;
-        options.inScaled = false;
+        BitmapFactory.Options paintOptions = new BitmapFactory.Options();
+        paintOptions.inDither = false;
+        paintOptions.inScaled = false;
 
-        graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, options);
-        colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, options);
+        graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, paintOptions);
+        colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, paintOptions);
 
         // Define graphic spaces
         for(int y = 0; y < 9; y++){

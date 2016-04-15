@@ -24,13 +24,36 @@
 
         <Button
             android:layout_width="200sp"
-            android:layout_height="40sp"
+            android:layout_height="50sp"
             android:id="@+id/play"
             android:text="PLAY"
             android:background="@drawable/button_black"
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="34dp" />
+
+        <Button
+            android:layout_width="200sp"
+            android:layout_height="50sp"
+            android:id="@+id/options"
+            android:text="OPTIONS"
+            android:background="@drawable/button_black"
+            android:layout_below="@+id/play"
+            android:layout_alignLeft="@+id/play"
+            android:layout_alignStart="@+id/play"
+            android:layout_marginTop="25dp" />
+
+
+        <Button
+            android:layout_width="200sp"
+            android:layout_height="50sp"
+            android:id="@+id/about"
+            android:text="ABOUT"
+            android:background="@drawable/button_black"
+            android:layout_below="@+id/options"
+            android:layout_alignLeft="@+id/options"
+            android:layout_alignStart="@+id/options"
+            android:layout_marginTop="25dp" />
 
         <TextView
             android:layout_width="wrap_content"

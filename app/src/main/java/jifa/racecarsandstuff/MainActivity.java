@@ -1,34 +1,20 @@
 package jifa.racecarsandstuff;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Shader;
-import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -71,6 +57,64 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 setContentView(R.layout.game_layout);
                 carPicker();
+            }
+        });
+
+        final Button options = (Button) findViewById(R.id.options);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionsMenu();
+            }
+        });
+
+    }
+
+    public void optionsMenu(){
+        setContentView(R.layout.options_menu);
+
+        ToggleButton ai = (ToggleButton) findViewById(R.id.toggleAI);
+        ai.setChecked(options.ai);
+        ai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    options.ai = true;
+                } else {
+                    options.ai = false;
+                }
+            }
+        });
+
+        ToggleButton oil = (ToggleButton) findViewById(R.id.toggleOil);
+        oil.setChecked(options.oil);
+        oil.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    options.oil = true;
+                } else {
+                    options.oil = false;
+                }
+            }
+        });
+
+        ToggleButton cracks = (ToggleButton) findViewById(R.id.toggleCracks);
+        cracks.setChecked(options.cracks);
+        cracks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    options.cracks = true;
+                } else {
+                    options.cracks = false;
+                }
+            }
+        });
+
+        Button apply = (Button) findViewById(R.id.apply);
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set options here
+                setHomeScreen();
             }
         });
     }
