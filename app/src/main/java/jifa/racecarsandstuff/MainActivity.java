@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends Activity {
 
@@ -153,7 +154,8 @@ public class MainActivity extends Activity {
         random.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                options.car = "toothpaste";
+                String[] opt = {"blue", "red", "green", "black", "toothpaste", "pokemon", "herbie", "fire"};
+                options.car = opt[new Random().nextInt(opt.length)];
                 trackPicker();
             }
         });
