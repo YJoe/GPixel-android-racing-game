@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -58,7 +61,6 @@ public class MainActivity extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.game_layout);
                 carPicker();
             }
         });
@@ -126,11 +128,15 @@ public class MainActivity extends Activity {
             }
         });
 
+        final EditText laps = (EditText) findViewById(R.id.editText);
+        laps.setText(options.lapCount + "");
+
         Button apply = (Button) findViewById(R.id.apply);
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // set options here
+                options.lapCount = Integer.parseInt(laps.getText().toString());
                 setHomeScreen();
             }
         });
@@ -319,7 +325,7 @@ public class MainActivity extends Activity {
         TextView averageInput = (TextView) findViewById(R.id.average_input);
         averageInput.append(Math.round(average * 100.0) / 100.0 + "");
         TextView scoreInput = (TextView) findViewById(R.id.score_input);
-        scoreInput.append(Math.round(average * (double) (10 - damage) * 100.0) / 100.0 + "");
+        scoreInput.append(50 - (int)average * 5 + (10 * (21 - damage)) + "");
     }
 
     private void startGame() {

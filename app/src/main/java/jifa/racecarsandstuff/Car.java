@@ -14,14 +14,14 @@ public abstract class Car {
     public Bitmap image;
     public World world;
     double dx, dy, xPos, yPos;
-    public int width, height, indWidth, indHeight, health;
+    public int width, height, indWidth, indHeight, damage;
     public double currentSpeed = 0;
     public int currentTopSpeed, trackTopSpeed, grassTopSpeed, oilTopSpeed;
     public double accelerationRate;
     public double decelerationRate;
     public double angleDeg;
     public double turningRate;
-    public boolean turningLeft, turningRight, accelerating, breaking, dead;
+    public boolean turningLeft, turningRight, accelerating, breaking;
     public int turnLockTime;
     public int id;
     public int lapCount;
@@ -44,8 +44,7 @@ public abstract class Car {
         accelerating = false;
         oilTopSpeed = 4;
         collisionVoidTime = 0;
-        health = 10;
-        dead = false;
+        damage = 0;
         this.world = world;
         decelerationRate = 0.08;
         lapCount = 0;
@@ -113,8 +112,8 @@ public abstract class Car {
         } else if(Color.red(pixel) == 255){
             // car is on track edge
         } else if(Color.red(pixel) == 0){
-            health -= (currentSpeed / 5);
-            if (health < 0) dead = true;
+            damage += (currentSpeed / 5);
+            if (damage > 20) damage = 20;
             currentSpeed += 3;
             currentSpeed = -currentSpeed;
             turnLockTime += 10;
@@ -133,7 +132,7 @@ public abstract class Car {
                 int x2 = (int)world.carList.get(i).xPos + (int) world.translateX + 7;
                 int y2 = (int)world.carList.get(i).yPos + (int) world.translateY + 7;
                 if (Math.pow((double) (x1 - x2), 2) + Math.pow((double) (y1 - y2), 2) < Math.pow((double) height * 2, 2)) {
-                    health -= 1;
+                    damage += 1;
                     collisionVoidTime += 10;
                     world.carList.get(i).collisionVoidTime += 10;
                 }

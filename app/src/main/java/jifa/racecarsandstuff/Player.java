@@ -20,6 +20,7 @@ public class Player extends Car{
     public Player(View view, World world, int id, int[][]points, Options options){
         super(view, world, id, points);
         lapTimes = new ArrayList<>();
+        this.options = options;
         checkPointIndex = 1;
         angleDeg = 0;
         trackTopSpeed = 20;
@@ -86,9 +87,11 @@ public class Player extends Car{
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(60);
-        canvas.drawText("Lap time: " + lastLapTime / 1000.0, 10, 50, paint);
-        canvas.drawText("Lap: " + lapCount, 10, 110, paint);
-        canvas.drawText("Speed: " + (int)currentSpeed, 10, 170, paint);
-        canvas.drawText("Damage: " + (10 - health), 10, 230, paint);
+        canvas.drawText("Latest lap time: " + lastLapTime / 1000.0, 10, 50, paint);
+        double time = (System.currentTimeMillis() / 1000.0) - (lapStartTime / 1000.0);
+        canvas.drawText("Current lap time: " + (double)Math.round(time * 100) / 100, 10, 110, paint);
+        canvas.drawText("Lap: " + (lapCount + 1) + " / " + options.lapCount, 10, 170, paint);
+        canvas.drawText("Speed: " + (int)currentSpeed, 10, 230, paint);
+        canvas.drawText("Damage: " + damage, 10, 280, paint);
     }
 }

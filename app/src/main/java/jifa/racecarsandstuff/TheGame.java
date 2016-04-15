@@ -18,11 +18,13 @@ public class TheGame extends GameThread{
     private Player player;
     private World world;
     private MainActivity activity;
+    private Options options;
 
     public TheGame(GameView gameView, MainActivity activity, Options options) {
         super(gameView);
         view = gameView;
         this.activity = activity;
+        this.options = options;
         setButtons(activity);
         int[][] points;
         switch(options.trackFlag){
@@ -138,11 +140,11 @@ public class TheGame extends GameThread{
 
     @Override
     protected void updateGame(float secondsElapsed) {
-        if(player.lapCount > 2){
+        if(player.lapCount == options.lapCount){
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.singlePlayerStatsScreen(player.lapTimes, player.health);
+                    activity.singlePlayerStatsScreen(player.lapTimes, player.damage);
                 }
             });
         }

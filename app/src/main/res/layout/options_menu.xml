@@ -27,7 +27,7 @@
             android:text="AI"
             android:id="@+id/textView3"
             android:textSize="20sp"
-            android:layout_marginTop="120dp"
+            android:layout_below="@+id/textView4"
             android:layout_centerHorizontal="true" />
 
         <ToggleButton
@@ -35,10 +35,9 @@
             android:layout_height="wrap_content"
             android:text="New ToggleButton"
             android:id="@+id/toggleAI"
-            android:layout_below="@+id/textView4"
+            android:layout_below="@+id/textView3"
             android:layout_alignLeft="@+id/toggleOil"
-            android:layout_alignStart="@+id/toggleOil"
-            android:layout_marginTop="56dp" />
+            android:layout_alignStart="@+id/toggleOil" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,8 +46,7 @@
             android:id="@+id/textView2"
             android:textSize="20sp"
             android:layout_below="@+id/toggleAI"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp" />
+            android:layout_centerHorizontal="true" />
 
         <ToggleButton
             android:layout_width="wrap_content"
@@ -65,8 +63,7 @@
             android:id="@+id/textView"
             android:textSize="20sp"
             android:layout_below="@+id/toggleOil"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="29dp" />
+            android:layout_centerHorizontal="true" />
 
         <ToggleButton
             android:layout_width="wrap_content"
@@ -82,10 +79,31 @@
             android:layout_height="wrap_content"
             android:text="Apply"
             android:id="@+id/apply"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="114dp"
             android:layout_below="@+id/toggleCracks"
             android:layout_alignLeft="@+id/toggleCracks"
             android:layout_alignStart="@+id/toggleCracks" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_below="@+id/textView8"
+            android:layout_alignRight="@+id/toggleCracks"
+            android:layout_alignEnd="@+id/toggleCracks"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LAPS"
+            android:id="@+id/textView8"
+            android:textSize="20sp"
+            android:layout_below="@+id/toggleCracks"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
