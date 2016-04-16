@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRACK1"
+            android:textSize="20sp"
             android:id="@+id/textView10"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"/>
@@ -31,8 +32,45 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/high_scores"
+            android:id="@+id/track1"
             android:layout_below="@+id/textView10"
             android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRACK2"
+            android:textSize="20sp"
+            android:id="@+id/textView11"
+            android:layout_below="@+id/track1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="74dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/track2"
+            android:layout_below="@+id/textView11"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/track3"
+            android:layout_marginTop="90dp"
+            android:layout_below="@+id/track2"
+            android:layout_alignLeft="@+id/track2"
+            android:layout_alignStart="@+id/track2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRACK3"
+            android:textSize="20sp"
+            android:id="@+id/textView14"
+            android:layout_marginBottom="20dp"
+            android:layout_alignBottom="@+id/track3"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11" />
     </RelativeLayout>
 </LinearLayout>

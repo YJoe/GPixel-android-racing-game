@@ -13,12 +13,14 @@ public class TheGame extends GameThread{
     private World world;
     private MainActivity activity;
     private Options options;
+    private Boolean notTriedYet;
 
     public TheGame(GameView gameView, MainActivity activity, Options options) {
         super(gameView);
         view = gameView;
         this.activity = activity;
         this.options = options;
+        notTriedYet = true;
         setButtons(activity);
         int[][] points;
         switch(options.trackFlag){
@@ -134,11 +136,13 @@ public class TheGame extends GameThread{
 
     @Override
     protected void updateGame(float secondsElapsed) {
-        if(player.lapCount == options.lapCount){
+        if(player.lapCount == options.lapCount && notTriedYet){
+            // not tried yet stops this update from happening twice
+            notTriedYet = false;
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.tryForHighScore(player.lapTimes);
+                    activity.tryForHighScore(player.lapTimes, options.trackFlag);
                     activity.singlePlayerStatsScreen(player.lapTimes, player.damage);
                 }
             });

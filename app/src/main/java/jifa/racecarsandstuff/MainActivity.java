@@ -339,15 +339,25 @@ public class MainActivity extends Activity {
 
     public void highScoresScreen() {
         setContentView(R.layout.high_scores);
-        TextView textView = (TextView) findViewById(R.id.high_scores);
-        ArrayList<String> scores = loadScores();
+        TextView track1 = (TextView) findViewById(R.id.track1);
+        TextView track2 = (TextView) findViewById(R.id.track2);
+        TextView track3 = (TextView) findViewById(R.id.track3);
+        ArrayList<String> scores = loadScores(0);
         for(int i = 0; i < scores.size(); i++){
-            textView.append(((double)Integer.parseInt(scores.get(i))/ 1000.0) + "\n");
+            track1.append(((double) Integer.parseInt(scores.get(i)) / 1000.0) + "\n");
+        }
+        scores = loadScores(1);
+        for(int i = 0; i < scores.size(); i++){
+            track2.append(((double)Integer.parseInt(scores.get(i))/ 1000.0) + "\n");
+        }
+        scores = loadScores(2);
+        for(int i = 0; i < scores.size(); i++){
+            track3.append(((double)Integer.parseInt(scores.get(i))/ 1000.0) + "\n");
         }
     }
 
-    public void tryForHighScore(ArrayList<Long> lapTimes){
-        ArrayList<String> highScores = loadScores();
+    public void tryForHighScore(ArrayList<Long> lapTimes, int trackFlag){
+        ArrayList<String> highScores = loadScores(trackFlag);
         ArrayList<Long> longHighScores = new ArrayList<>();
 
         // add all original high scores
@@ -355,23 +365,39 @@ public class MainActivity extends Activity {
             longHighScores.add(Long.parseLong(highScores.get(i)));
         }
 
+        System.out.println("Starting");
+        for(int i = 0; i < longHighScores.size(); i++) {
+            System.out.println(longHighScores.get(i));
+        }
+
         // add all lap times
         for(int i = 0; i < lapTimes.size(); i++){
             longHighScores.add(lapTimes.get(i));
         }
 
+        System.out.println("Pre sort");
+        for(int i = 0; i < longHighScores.size(); i++) {
+            System.out.println(longHighScores.get(i));
+        }
+
         Collections.sort(longHighScores);
+
+        System.out.println("Post sort");
+        for(int i = 0; i < longHighScores.size(); i++) {
+            System.out.println(longHighScores.get(i));
+        }
+
 
         // remove lowest high scores
         while(longHighScores.size() > 5){
             longHighScores.remove(longHighScores.size() - 1);
         }
 
-        saveScores(longHighScores);
+        saveScores(longHighScores, trackFlag);
     }
 
-    public void saveScores(ArrayList<Long>scores){
-        String filename = "high_scores.txt";
+    public void saveScores(ArrayList<Long>scores, int trackFlag){
+        String filename = "high_scores" + trackFlag + ".txt";
         FileOutputStream outputStream;
 
         try {
@@ -385,8 +411,8 @@ public class MainActivity extends Activity {
         }
     }
 
-    public ArrayList<String> loadScores() {
-        File file = new File(getFilesDir(), "high_scores.txt");
+    public ArrayList<String> loadScores(int trackFlag) {
+        File file = new File(getFilesDir(), "high_scores" + trackFlag + ".txt");
         ArrayList<String> scores = new ArrayList<>();
 
         try{
