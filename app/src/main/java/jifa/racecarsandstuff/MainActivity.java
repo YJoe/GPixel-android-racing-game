@@ -339,9 +339,16 @@ public class MainActivity extends Activity {
 
     public void highScoresScreen() {
         setContentView(R.layout.high_scores);
+
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
+        TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
+        transition.startTransition(500);
+
         TextView track1 = (TextView) findViewById(R.id.track1);
         TextView track2 = (TextView) findViewById(R.id.track2);
         TextView track3 = (TextView) findViewById(R.id.track3);
+        Button home = (Button) findViewById(R.id.button10);
+
         ArrayList<String> scores = loadScores(0);
         for(int i = 0; i < scores.size(); i++){
             track1.append(((double) Integer.parseInt(scores.get(i)) / 1000.0) + "\n");
@@ -354,6 +361,13 @@ public class MainActivity extends Activity {
         for(int i = 0; i < scores.size(); i++){
             track3.append(((double)Integer.parseInt(scores.get(i))/ 1000.0) + "\n");
         }
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHomeScreen();
+            }
+        });
     }
 
     public void tryForHighScore(ArrayList<Long> lapTimes, int trackFlag){

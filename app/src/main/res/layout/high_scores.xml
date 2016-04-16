@@ -6,9 +6,9 @@
 
 
     <RelativeLayout
+        android:id="@+id/rel_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
         android:background="@drawable/transition">
 
         <TextView
@@ -24,53 +24,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRACK1"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:id="@+id/textView10"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/textView9"
+            android:layout_alignLeft="@+id/textView9"
+            android:layout_alignStart="@+id/textView9" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/track1"
+            android:textSize="18sp"
             android:layout_below="@+id/textView10"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRACK2"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:id="@+id/textView11"
-            android:layout_below="@+id/track1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="74dp" />
+            android:layout_alignTop="@+id/textView10"
+            android:layout_alignRight="@+id/textView9"
+            android:layout_alignEnd="@+id/textView9" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/track2"
+            android:textSize="18sp"
             android:layout_below="@+id/textView11"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/track3"
-            android:layout_marginTop="90dp"
-            android:layout_below="@+id/track2"
-            android:layout_alignLeft="@+id/track2"
-            android:layout_alignStart="@+id/track2" />
+            android:textSize="18sp"
+            android:layout_below="@+id/textView14"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRACK3"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:id="@+id/textView14"
-            android:layout_marginBottom="20dp"
-            android:layout_alignBottom="@+id/track3"
-            android:layout_alignLeft="@+id/textView11"
-            android:layout_alignStart="@+id/textView11" />
+            android:layout_marginTop="58dp"
+            android:layout_below="@+id/track2"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAIN MENU"
+            android:id="@+id/button10"
+            android:background="@drawable/button_black"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="29dp" />
     </RelativeLayout>
 </LinearLayout>
