@@ -78,7 +78,7 @@ public class Player extends Car{
         // draw player car
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate((int) xPos - indWidth * 8, (int) yPos - indHeight * 8);
-        canvas.scale(9, 9);
+        canvas.scale(world.scale, world.scale);
         canvas.rotate((int) angleDeg, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();

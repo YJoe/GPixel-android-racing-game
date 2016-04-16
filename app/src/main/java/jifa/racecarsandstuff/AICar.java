@@ -104,7 +104,7 @@ public class AICar extends Car{
     public void draw(Canvas canvas){
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate((int)xPos - indWidth * 8 + (int) world.translateX, (int)yPos - indHeight * 8 + (int) world.translateY);
-        canvas.scale(9, 9);
+        canvas.scale(world.scale, world.scale);
         canvas.rotate((int) angleDeg + 90, width / 4, height / 4);
         canvas.drawBitmap(image, null, scaleRect, null);
         canvas.restore();

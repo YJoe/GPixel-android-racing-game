@@ -38,7 +38,13 @@ public class TheGame extends GameThread{
             default: points = new int[][]{{}};
         }
 
-        world = new World(new Track(gameView, points, 9, options), 9, mCanvasWidth, mCanvasHeight);
+        // scale was tested originally at a scale of 9, for other phones (screen sizes)
+        // this would not be the case as 9 may scale too much or too little, so by doing
+        // 9 / the width of the screen tested on (1080) 120 is the factor that is needed
+        // to divide the screen width by in order to get the correct scale for the phone.
+        int scale = activity.width / 120;
+
+        world = new World(new Track(gameView, points, scale, options), scale, mCanvasWidth, mCanvasHeight);
         int id = 0;
         player = new Player(view, world, id, points, options);
         for(int i = 0; i < points.length; i++){
@@ -115,6 +121,7 @@ public class TheGame extends GameThread{
         player.xPos = mCanvasWidth/2;
         player.yPos = mCanvasHeight/2;
         world.setStartTranslate(mCanvasWidth, mCanvasHeight);
+        System.out.println(mCanvasWidth + " " + mCanvasHeight);
     }
 
     @Override

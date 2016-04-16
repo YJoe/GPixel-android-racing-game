@@ -2,9 +2,11 @@ package jifa.racecarsandstuff;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.TransitionDrawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +36,8 @@ public class MainActivity extends Activity {
     private GameView mGameView;
     private MainActivity self;
     private Options options;
+    public int width;
+    public int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,13 @@ public class MainActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+        System.out.println(width + " " + height);
 
         options = new Options();
 
@@ -444,7 +455,6 @@ public class MainActivity extends Activity {
     }
 
     private void startGame() {
-        //Set up a new game, we don't care about previous states
         mGameThread = new TheGame(mGameView, this, options);
         mGameView.setThread(mGameThread);
         mGameThread.setState(GameThread.STATE_READY);
