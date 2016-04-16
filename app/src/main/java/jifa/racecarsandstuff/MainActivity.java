@@ -429,10 +429,6 @@ public class MainActivity extends Activity {
         return scores;
     }
 
-    public void addToHighScores(ArrayList<Long> lapTimes) {
-
-    }
-
     private void startGame() {
         //Set up a new game, we don't care about previous states
         mGameThread = new TheGame(mGameView, this, options);
