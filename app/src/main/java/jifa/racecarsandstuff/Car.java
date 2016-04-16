@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
+import java.util.Random;
+
 public abstract class Car {
     public Bitmap graphics;
     public Rect scaleRect;
@@ -25,9 +27,11 @@ public abstract class Car {
     public int turnLockTime;
     public int id;
     public int lapCount;
+    protected int slipDirection;
     protected Canvas imageCanv;
     public int collisionRange;
     public int collisionVoidTime;
+    protected int oilSlipTime;
     public int[][] points;
 
     public Car(View view, World world, int id, int[][]points){
@@ -118,9 +122,11 @@ public abstract class Car {
             currentSpeed = -currentSpeed;
             turnLockTime += 10;
         } else {
-            if (currentTopSpeed != oilTopSpeed) {
-                currentTopSpeed = oilTopSpeed;
+            if(oilSlipTime == 0) {
+                if(new Random().nextInt(2) == 0) slipDirection = -1;
+                else slipDirection = 1;
             }
+            oilSlipTime += 20;
         }
     }
 
@@ -149,11 +155,9 @@ public abstract class Car {
     }
 
     public void update(){
-        collisionVoidDecay();
-        if(collisionVoidTime == 0) {
-            checkCollides();
-        }
-        turnLockDecay();
+        if(collisionVoidTime == 0) checkCollides();
+        else collisionVoidDecay();
+
         if(turnLockTime == 0) {
             if (currentSpeed > 1 || currentSpeed < -1) {
                 if (turningLeft) {
@@ -163,7 +167,13 @@ public abstract class Car {
                     angleDeg += solveCurrentTurnRate();
                 }
             }
+        } else turnLockDecay();
+
+        if (oilSlipTime != 0){
+            angleDeg += 2 * slipDirection;
+            oilSlipDecay();
         }
+
         if (accelerating){
             if (currentSpeed < currentTopSpeed) {
                 if (currentSpeed > 0)
@@ -211,6 +221,15 @@ public abstract class Car {
             collisionVoidTime = 0;
         else if(collisionVoidTime > 20){
             collisionVoidTime = 20;
+        }
+    }
+
+    public void oilSlipDecay(){
+        oilSlipTime -= 1;
+        if(oilSlipTime < 0)
+            oilSlipTime = 0;
+        else if(oilSlipTime > 20){
+            oilSlipTime = 20;
         }
     }
 }
