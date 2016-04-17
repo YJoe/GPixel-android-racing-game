@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ABOUT"
+            android:text="@string/about"
             android:textSize="40sp"
             android:id="@+id/textView4"
             android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Created by Joe Pauely 2016"
+            android:text="@string/credit"
             android:id="@+id/textView5"
             android:layout_marginTop="92dp"
             android:layout_below="@+id/textView4"
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://github.com/YJoe/RaceCarsAndStuff"
+            android:text="@string/git_hub"
             android:id="@+id/textView6"
             android:layout_marginTop="31dp"
             android:layout_below="@+id/textView7"
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Source code can be found at"
+            android:text="@string/source_found"
             android:id="@+id/textView7"
             android:layout_marginTop="34dp"
             android:layout_below="@+id/textView5"
@@ -52,7 +52,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MAIN MENU"
+            android:text="@string/main_button"
             android:id="@+id/button4"
             android:width="200dp"
             android:layout_below="@+id/textView6"

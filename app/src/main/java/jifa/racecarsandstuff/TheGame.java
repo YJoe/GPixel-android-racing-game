@@ -56,7 +56,7 @@ public class TheGame extends GameThread{
                 id++;
                 int x = world.track.startCoords.get(i).get(1) * world.scale * 10 + (10 * world.scale) - 10;
                 int y = world.track.startCoords.get(i).get(0) * world.scale * 10 + (10 * world.scale) + 50;
-                world.carList.add(new AICar(view, world, x, y, points, id));
+                world.carList.add(new AICar(view, world, x, y, points, id, options));
             }
         }
         player.world = world;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RaceCarsAndStuff</string>
+    <string name="app_name">GP-IXEL</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="mode_ready">Ready</string>
@@ -11,4 +11,56 @@
     <string name="menu_stop">Stop</string>
     <string name="menu_resume">Resume</string>
     <string name="message_stopped">Stopped</string>
+
+    <!-- about layout -->
+    <string name="about">ABOUT</string>
+    <string name="credit">Created by Joe Pauley 2016</string>
+    <string name="git_hub">https://github.com/YJoe/RaceCarsAndStuff</string>
+    <string name="source_found">Source code can be found at</string>
+    <string name="main_button">MAIN MENU</string>
+
+    <!-- car picker layout-->
+    <string name="car_colour">CAR COLOUR</string>
+    <string name="blue">BLUE</string>
+    <string name="red">RED</string>
+    <string name="green">GREEN</string>
+    <string name="black">BLACK</string>
+    <string name="toothpaste">TOOTHPASTE</string>
+    <string name="pokeball">POKÉBALL</string>
+    <string name="herbie">HERBIE</string>
+    <string name="fire">FIRE</string>
+    <string name="random">RANDOM</string>
+
+    <!-- game layout-->
+    <string name="accelerate">Accelerate</string>
+    <string name="brake">Brake</string>
+
+    <!-- high scores layout-->
+    <string name="high_scores">HIGH SCORES</string>
+    <string name="track1">TRACK1</string>
+    <string name="track2">TRACK2</string>
+    <string name="track3">TRACK3</string>
+    <string name="main">TRACK3</string>
+
+    <!-- options layout-->
+    <string name="options">OPTIONS</string>
+    <string name="ai">AI</string>
+    <string name="oil">OIL</string>
+    <string name="cracks">CRACKS</string>
+    <string name="apply">APPLY</string>
+    <string name="laps">LAPS</string>
+
+    <!-- single player stats layout-->
+    <string name="lap_times">Lap times</string>
+    <string name="average_lap">Average lap</string>
+    <string name="score">Score</string>
+
+    <!-- start layout-->
+    <string name="play">PLAY</string>
+    <string name="tag_line">Block-filled racing car game</string>
+
+    <!-- track picker-->
+    <string name="track">TRACK</string>
+
+
 </resources>

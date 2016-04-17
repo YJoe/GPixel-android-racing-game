@@ -13,9 +13,9 @@ public class AICar extends Car{
     // The angle needed to turn in order to reach the next checkpoint
     public double desiredAngle;
 
-    public AICar(View view, World world, int x, int y, int[][] points, int id){
+    public AICar(View view, World world, int x, int y, int[][] points, int id, Options options){
         // Call the super constructor of a regular Car object
-        super(view, world, id, points);
+        super(view, world, id, points, options);
 
         // set x and y coordinates
         xPos = x;

@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OPTIONS"
+            android:text="@string/options"
             android:textSize="40sp"
             android:id="@+id/textView4"
             android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AI"
+            android:text="@string/ai"
             android:id="@+id/textView3"
             android:textSize="20sp"
             android:layout_below="@+id/textView4"
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OIL"
+            android:text="@string/oil"
             android:id="@+id/textView2"
             android:textSize="20sp"
             android:layout_below="@+id/toggleAI"
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CRACKS"
+            android:text="@string/cracks"
             android:id="@+id/textView"
             android:textSize="20sp"
             android:layout_below="@+id/toggleOil"
@@ -77,7 +77,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apply"
+            android:text="@string/apply"
             android:id="@+id/apply"
             android:layout_marginTop="114dp"
             android:layout_below="@+id/toggleCracks"
@@ -99,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LAPS"
+            android:text="@string/laps"
             android:id="@+id/textView8"
             android:textSize="20sp"
             android:layout_below="@+id/toggleCracks"

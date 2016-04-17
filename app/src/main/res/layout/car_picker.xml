@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="CAR COLOUR"
+            android:text="@string/car_colour"
             android:id="@+id/pick_car"
             android:textSize="40sp"
             android:layout_marginTop="18dp"
@@ -23,7 +23,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BLUE"
+            android:text="@string/blue"
             android:id="@+id/button"
             android:width="110dp"
             android:height="20dp"
@@ -37,7 +37,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RED"
+            android:text="@string/red"
             android:id="@+id/button2"
             android:width="110dp"
             android:height="20dp"
@@ -51,7 +51,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GREEN"
+            android:text="@string/green"
             android:id="@+id/button3"
             android:width="110dp"
             android:height="20dp"
@@ -65,7 +65,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TOOTHPASTE"
+            android:text="@string/toothpaste"
             android:id="@+id/button5"
             android:width="110dp"
             android:height="20dp"
@@ -78,7 +78,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="POKÉBALL"
+            android:text="@string/pokeball"
             android:id="@+id/button6"
             android:width="110dp"
             android:height="20dp"
@@ -92,7 +92,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HERBIE"
+            android:text="@string/herbie"
             android:id="@+id/button7"
             android:width="110dp"
             android:height="20dp"
@@ -106,7 +106,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BLACK"
+            android:text="@string/black"
             android:id="@+id/button8"
             android:width="110dp"
             android:height="20dp"
@@ -120,7 +120,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FIRE"
+            android:text="@string/fire"
             android:background="@drawable/button_fire"
             android:id="@+id/button9"
             android:width="110dp"
@@ -134,7 +134,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RANDOM"
+            android:text="@string/random"
             android:id="@+id/random"
             android:width="110dp"
             android:height="20dp"

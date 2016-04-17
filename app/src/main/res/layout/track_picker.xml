@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="TRACK"
+            android:text="@string/track"
             android:id="@+id/pick_car"
             android:textSize="40sp"
             android:layout_marginTop="18dp"
@@ -29,7 +29,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TRACK 1"
+            android:text="@string/track1"
             android:id="@+id/track1"
             android:width="200dp"
             android:height="50dp"
@@ -39,7 +39,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TRACK 2"
+            android:text="@string/track2"
             android:id="@+id/track2"
             android:textSize= "20sp"
             android:width="200dp"
@@ -52,7 +52,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TRACK 3"
+            android:text="@string/track3"
             android:id="@+id/track3"
             android:textSize= "20sp"
             android:width="200dp"
