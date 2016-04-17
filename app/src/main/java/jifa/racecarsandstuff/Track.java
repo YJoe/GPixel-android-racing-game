@@ -10,16 +10,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Track {
-    public Bitmap image;
+    private Bitmap image;
     public Bitmap colourImage;
-    public Rect scaleRect;
-    public float translateX;
-    public float translateY;
-    public Bitmap graphics;
+    private Rect scaleRect;
+    public float translateX, translateY;
+    private Bitmap graphics;
     public Bitmap colourGraphics;
-    public ArrayList<ArrayList<Rect>> graphicSpaces;
+    private ArrayList<ArrayList<Rect>> graphicSpaces;
     public ArrayList<ArrayList<Integer>> startCoords;
-    private Options options;
     public int scale;
 
     public Track(View view, int[][] points, int scale, Options options){
@@ -27,7 +25,6 @@ public class Track {
         graphicSpaces = new ArrayList<>();
         startCoords = new ArrayList<>();
         this.scale = scale;
-        this.options = options;
 
         // define a string to hold the string representation of the track
         String [][] track = new String[50][50];
@@ -59,10 +56,12 @@ public class Track {
         // entirely assumes the array will be square
         int count = track.length;
 
+        // define options in which to draw the track with such that it does not blur when scaled
         BitmapFactory.Options paintOptions = new BitmapFactory.Options();
         paintOptions.inDither = false;
         paintOptions.inScaled = false;
 
+        // load the graphics with the options
         graphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.graphics, paintOptions);
         colourGraphics = BitmapFactory.decodeResource(view.getResources(), R.drawable.colour_graphics, paintOptions);
 
@@ -74,24 +73,31 @@ public class Track {
             }
         }
 
+        // set the width and height of the individual graphic space sizes
         int indWidth = graphics.getWidth() / 8;
         int indHeight = graphics.getHeight() / 8;
 
+        // define a scale rect in which to print the track size
         scaleRect = new Rect(0, 0, indWidth*count, indHeight*count);
+
+        // define two image canvases in which the graphics can be drawn to
         image = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
         Canvas imageCanv = new Canvas(image);
-
         colourImage = Bitmap.createBitmap(indWidth*count, indHeight*count, Bitmap.Config.RGB_565);
         Canvas colourCanv = new Canvas(colourImage);
 
+        // define paint options that will allow the graphics to be drawn correctly to the canvases
         Paint paint = new Paint();
         paint.setFilterBitmap(false);
         paint.setAntiAlias(false);
         paint.setDither(false);
 
+        // cycle for the array size in x and y
         for(int x = 0; x < count; x++){
             for(int y = 0; y < count; y++) {
+                // define the space in which to print the texture
                 Rect rect = new Rect(indWidth * y, indHeight * x, indWidth*y + indWidth, indHeight * x + indHeight);
+                // get the texture needed and draw it to the canvas
                 getTexture(track[x][y], imageCanv, colourCanv, rect, paint);
             }
         }
@@ -99,10 +105,13 @@ public class Track {
 
     public void formOil(String[][]track){
         Random rand = new Random();
+        // cycle for the size of the array in x and y
         for(int i = 0; i < track.length; i++){
             for(int j = 0; j < track.length; j++){
+                // if the array at the following four places is "track"
                 if(track[i][j].equals("track") && track[i+1][j+1].equals("track") &&
                         track[i][j+1].equals("track") && track[i+1][j].equals("track")){
+                    // a one in 300 chance that oil will be placed on the track
                     if (rand.nextInt(300) == 0){
                         track[i][j] = "1_oil";
                         track[i][j+1] = "2_oil";
@@ -116,10 +125,13 @@ public class Track {
 
     public void formCracks(String[][]track){
         Random rand = new Random();
+        // cycle for the size of the array on x and y
         for(int i = 0; i < track.length; i++){
             for(int j = 0; j < track.length; j++){
+                // if the index of the track is "track"
                 if(track[i][j].equals("track")){
-                    if(rand.nextInt(100) == 0) {
+                    // one in 50 chance of cracks being set
+                    if(rand.nextInt(50) == 0) {
                         track[i][j] = "crack";
                     }
                 }
@@ -128,10 +140,14 @@ public class Track {
     }
 
     public void formStart(String[][] track, int[][]points){
+        // draw a section of track as the start line
         drawTrackSection(track, points[0][0], points[0][1], points[0][0] + points[0][2], points[0][1] + 1, "start");
+        // draw the starting positions of the track spaces
         for(int y = 0; y < 16; y+=4){
             for(int x = 0; x < 6; x+= 3) {
+                // if the x is on the right side of the track shuffle the y axis down
                 if (x == 3){y += 2;}
+                // add the coordinates of the starting position to the array
                 startCoords.add(new ArrayList<Integer>());
                 startCoords.get(startCoords.size()-1).add(points[0][1] + 2 + y);
                 startCoords.get(startCoords.size()-1).add(points[0][0] + x);
@@ -139,6 +155,7 @@ public class Track {
                 track[points[0][1] + 3 + y][points[0][0] + x] = "sp180";
                 track[points[0][1] + 2 + y][points[0][0] + 1 + x] = "sp090";
                 track[points[0][1] + 3 + y][points[0][0] + 1 + x] = "sp270";
+                // shuffle the y index is back
                 if (x == 3){y -= 2;}
             }
         }
@@ -193,6 +210,7 @@ public class Track {
     }
 
     public void formWorldBorders(String[][]track){
+        // draw lines of tires around the entire track
         drawTrackSection(track, 0, 0, track.length, 1, "tires");
         drawTrackSection(track, track.length-1, 0, track.length, track.length, "tires");
         drawTrackSection(track, 0, track.length-1, track.length, track.length, "tires");
@@ -200,9 +218,12 @@ public class Track {
     }
 
     public void formTrack(String[][]track, int[][]p, boolean link){
+        // for the length of the points list
         for(int i = 0; i < p.length - 1; i++){
+            // draw a track line from a point to the next
             drawTrackLine(track, p[i][0], p[i][1], p[i+1][0], p[i+1][1], p[i][2]);
         }
+        // if the track should be linked, draw the last line from the end to the start point
         if(link)
             drawTrackLine(track, p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1], p[p.length - 1][2]);
     }
@@ -220,28 +241,36 @@ public class Track {
                 if (zz) {
                     if (zo) {
                         if (!oz && oo){
+                            // insert a small corner rotated 270 degrees
                             track[j + 1][i] = "cs270";
                         } else if (oz && !oo){
+                            // insert a small corner rotated 180 degrees
                             track[j + 1][i + 1] = "cs180";
                         }
                     } else {
                         if (!oz && !oo){
+                            // insert a big corner rotated 180 degrees
                             track[j + 1][i + 1] = "cb180";
                         } else if (oz && oo){
+                            // insert a small corner rotated 90 degrees
                             track[j][i + 1] = "cs090";
                         }
                     }
                 } else {
                     if (zo) {
                         if (!oz && !oo){
+                            // insert a big corner rotated 270 degrees
                             track[j + 1][i] = "cb270";
                         } else if (oz && oo){
+                            // insert a small corner rotated 0 degrees
                             track[j][i] = "cs000";
                         }
                     } else {
                         if (oz && !oo){
+                            // insert a big corner rotated 90 degrees
                             track[j][i + 1] = "cb090";
                         } else if (!oz && oo){
+                            // insert the big corner rotated 0 degrees
                             track[j][i] = "cb000";
                         }
                     }
@@ -263,11 +292,13 @@ public class Track {
                 if(zz){
                     if(zo){
                         if(!oz && !oo){
+                            // insert two edges rotated 270 degrees
                             track[j+1][i] = "ed270";
                             track[j+1][i+1] = "ed270";
                         }
                     } else {
                         if (oz && !oo){
+                            // insert two edges rotated 180 degrees
                             track[j][i+1] = "ed180";
                             track[j+1][i+1] = "ed180";
                         }
@@ -275,10 +306,12 @@ public class Track {
                 } else {
                     if(oz){
                         if(!zo && oo){
+                            // insert two edges rotated 90 degrees
                             track[j][i] = "ed090";
                             track[j][i+1] = "ed090";
                         }
                     } else if(zo && oo){
+                        // insert two edges rotated 0 degrees
                         track[j][i] = "ed000";
                         track[j+1][i] = "ed000";
                     }
@@ -289,9 +322,11 @@ public class Track {
 
     public void drawTrackLine(String[][]track, int x,int y,int x2, int y2, int stroke) {
         // http://tech-algorithm.com/articles/drawing-line-using-bresenham-algorithm/
+        // get the difference between the two points in x and y
         int w = x2 - x ;
         int h = y2 - y ;
         int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
+        // solve the orientation of the line
         if (w<0) dx1 = -1 ; else if (w>0) dx1 = 1 ;
         if (h<0) dy1 = -1 ; else if (h>0) dy1 = 1 ;
         if (w<0) dx2 = -1 ; else if (w>0) dx2 = 1 ;
@@ -305,6 +340,7 @@ public class Track {
         }
         int numerator = longest >> 1 ;
         for (int i=0;i<=longest;i++) {
+            // draw a section of track dependent on the stroke width
             for(int k = 0; k < stroke; k++){
                 for(int l = 0; l < stroke; l++){
                     track[y + k][x + l] = "track";
@@ -323,8 +359,10 @@ public class Track {
     }
 
     public void drawTrackSection(String[][]track, int x0, int y0, int x1, int y1, String tag){
+        // for the start to the end of both x and y sizes passed
         for(int y = y0; y < y1; y++){
             for(int x = x0; x < x1; x++){
+                // insert the string passed to the track location
                 track[y][x] = tag;
             }
         }
@@ -332,16 +370,23 @@ public class Track {
 
     public void getTexture(String str, Canvas canvas, Canvas colourCanvas, Rect rect, Paint paint){
         int rowIndex = 0, colIndex = 0;
+        // if the last character is a digit
         if (Character.isDigit(str.charAt(str.length() - 1))){
+            // switch the beginning of the string to determine the row index needed for loading the
+            // correct graphics space
             switch(str.substring(0, 2)){
                 case "ed": rowIndex = 1; break;
                 case "cb": rowIndex = 2; break;
                 case "cs": rowIndex = 3; break;
                 case "sp": rowIndex = 5; break;
             }
+            // parse the rest of the string to an integer and divide it by 90 in order to get the
+            // correct column index need to load the correct graphics space
             colIndex += Integer.parseInt(str.substring(2, 5)) / 90;
         } else {
             Random rand = new Random();
+            // switch the entire string and set the row index in which the graphic can be found
+            // also set a random column index in order to provide the track variation
             switch(str){
                 case "grass": rowIndex = 0; colIndex = rand.nextInt(3); break;
                 case "track": rowIndex = 4; colIndex = rand.nextInt(3); break;
@@ -354,7 +399,9 @@ public class Track {
                 case "crack": rowIndex = 6; colIndex = rand.nextInt(2) + 2; break;
             }
         }
+        // draw the graphic found at the graphic space index with the paint defined earlier
         canvas.drawBitmap(graphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
+        // draw the colour graphic found in the same location
         colourCanvas.drawBitmap(colourGraphics, graphicSpaces.get(rowIndex).get(colIndex), rect, paint);
     }
 
@@ -364,6 +411,7 @@ public class Track {
     }
 
     public void draw(Canvas canvas){
+        // draw the track
         canvas.save(Canvas.MATRIX_SAVE_FLAG);
         canvas.translate(translateX, translateY);
         canvas.scale(scale, scale);

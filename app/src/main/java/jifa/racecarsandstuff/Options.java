@@ -1,6 +1,7 @@
 package jifa.racecarsandstuff;
 
 public class Options {
+    // public variables storing all rules for the current race
     public int trackFlag, lapCount;
     public boolean oil, cracks, ai;
     public String car;

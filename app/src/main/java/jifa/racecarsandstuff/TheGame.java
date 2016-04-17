@@ -42,7 +42,7 @@ public class TheGame extends GameThread{
         // this would not be the case as 9 may scale too much or too little, so by doing
         // 9 / the width of the screen tested on (1080) 120 is the factor that is needed
         // to divide the screen width by in order to get the correct scale for the phone.
-        int scale = activity.width / 120;
+        int scale = Math.round((float)activity.width / 120);
 
         world = new World(new Track(gameView, points, scale, options), scale, mCanvasWidth, mCanvasHeight);
         int id = 0;
