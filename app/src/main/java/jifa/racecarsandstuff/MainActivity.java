@@ -483,16 +483,4 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        menu.add(0, MENU_START, 0, R.string.menu_start);
-        menu.add(0, MENU_STOP, 0, R.string.menu_stop);
-        menu.add(0, MENU_RESUME, 0, R.string.menu_resume);
-
-        return true;
-    }
-
 }

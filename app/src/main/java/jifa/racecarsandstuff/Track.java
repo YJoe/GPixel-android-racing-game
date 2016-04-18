@@ -185,6 +185,12 @@ public class Track {
             drawTrackSection(track, 12, 12, 14, 14, "tires");
             drawTrackSection(track, 12, 14, 13, 20, "tires");
         }
+        else if(trackFlag == 1){
+            drawTrackSection(track, 21, 11, 39, 24, "tires");
+            drawTrackSection(track, 23, 13, 37, 22, "grass");
+
+            drawTrackSection(track, 11, 31, 14, 39, "tires");
+        }
         else if (trackFlag == 2){
             drawTrackSection(track, 20, 21, 21, 23, "tires");
             drawTrackSection(track, 21, 22, 22, 34, "tires");
@@ -201,7 +207,6 @@ public class Track {
             drawTrackSection(track, 24, 33, 25, 36, "tires");
             drawTrackSection(track, 25, 33, 26, 36, "tires");
             drawTrackSection(track, 26, 34, 27, 37, "tires");
-
             drawTrackSection(track, 27, 35, 38, 37, "tires");
             drawTrackSection(track, 36, 34, 39, 35, "tires");
             drawTrackSection(track, 39, 29, 40, 35, "tires");

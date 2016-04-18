@@ -48,14 +48,6 @@ public abstract class GameThread extends Thread {
     //Last time we updated the game physics
     protected long mLastTime = 0;
 
-    protected Bitmap mBackgroundImage;
-
-    protected String score = "0";
-
-    //Used for time keeping
-    private long now;
-    private float elapsed;
-
     //Rotation vectors used to calculate orientation
     float[] mGravity;
     float[] mGeomagnetic;
