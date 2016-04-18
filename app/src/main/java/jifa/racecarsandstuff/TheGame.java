@@ -45,6 +45,8 @@ public class TheGame extends GameThread{
         // to divide the screen width by in order to get the correct scale for the phone.
         int scale = Math.round((float)activity.width / 120);
 
+        System.out.println(scale);
+
         // create a world from a new track
         world = new World(new Track(gameView, points, scale, options), scale, mCanvasWidth, mCanvasHeight);
         int id = 0;

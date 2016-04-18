@@ -26,10 +26,10 @@ public class Player extends Car{
         lapTimes = new ArrayList<>();
         checkPointIndex = 1;
         angleDeg = 0;
-        trackTopSpeed = 20;
-        grassTopSpeed = 5;
+        trackTopSpeed = (int)(2.22 * world.scale);
+        grassTopSpeed = (int)(0.55 * world.scale);
         turningRate = 1.5;
-        accelerationRate = 0.1;
+        accelerationRate = (0.011 * world.scale);
         currentTopSpeed = trackTopSpeed;
 
         // define the text's paint

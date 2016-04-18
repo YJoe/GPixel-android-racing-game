@@ -47,7 +47,7 @@ public abstract class Car {
         collisionVoidTime = 0;
         damage = 0;
         this.world = world;
-        decelerationRate = 0.08;
+        decelerationRate = 0.00888 * world.scale;
         lapCount = 0;
 
         // define options allowing for the pixel art to be scaled without loss of sharp edges

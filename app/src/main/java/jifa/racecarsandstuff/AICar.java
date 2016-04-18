@@ -27,10 +27,10 @@ public class AICar extends Car{
 
         // Pick random speed, acceleration and turning angle attributes
         Random rand = new Random();
-        trackTopSpeed = 14 + rand.nextInt(5);
+        trackTopSpeed = (((14 + rand.nextInt(5)) / 9) * world.scale);
         grassTopSpeed = trackTopSpeed/4;
         turningRate = 1.5 + rand.nextInt(7) * 0.1;
-        accelerationRate = 0.04 + rand.nextInt(7) * 0.02;
+        accelerationRate = (((0.04 + rand.nextInt(7) * 0.02) / 9 )  * world.scale);
 
         // define the possible colour choices
         String[] colours = {"blue", "red", "green", "flame", "toothpaste",
