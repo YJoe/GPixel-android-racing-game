@@ -19,6 +19,8 @@ public class Player extends Car{
     public long lapStartTime, lastLapTime;
     // a paint object for the text fonts
     private Paint paint;
+    // array list for storing all text that needs to be displayed
+    ArrayList<String>textDrawList;
 
     public Player(View view, World world, int id, int[][]points, Options options){
         // call the super constructor
@@ -31,6 +33,8 @@ public class Player extends Car{
         turningRate = 1.5;
         accelerationRate = (0.011 * world.scale);
         currentTopSpeed = trackTopSpeed;
+
+        textDrawList = new ArrayList<>();
 
         // define the text's paint
         paint = new Paint();
@@ -107,7 +111,7 @@ public class Player extends Car{
 
         // draw player information
         double time = (System.currentTimeMillis() / 1000.0) - (lapStartTime / 1000.0);
-        ArrayList<String>textDrawList = new ArrayList<>();
+        textDrawList.clear();
         textDrawList.add("Latest lap time: " + lastLapTime / 1000.0);
         textDrawList.add("Current lap time: " + (double)Math.round(time * 100) / 100);
         textDrawList.add("Lap: " + (lapCount + 1) + " / " + options.lapCount);
