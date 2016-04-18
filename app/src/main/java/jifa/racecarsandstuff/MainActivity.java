@@ -52,7 +52,6 @@ public class MainActivity extends Activity {
         display.getSize(size);
         width = size.x;
         height = size.y;
-        System.out.println(width + " " + height);
 
         options = new Options();
 
@@ -390,28 +389,12 @@ public class MainActivity extends Activity {
             longHighScores.add(Long.parseLong(highScores.get(i)));
         }
 
-        System.out.println("Starting");
-        for(int i = 0; i < longHighScores.size(); i++) {
-            System.out.println(longHighScores.get(i));
-        }
-
         // add all lap times
         for(int i = 0; i < lapTimes.size(); i++){
             longHighScores.add(lapTimes.get(i));
         }
 
-        System.out.println("Pre sort");
-        for(int i = 0; i < longHighScores.size(); i++) {
-            System.out.println(longHighScores.get(i));
-        }
-
         Collections.sort(longHighScores);
-
-        System.out.println("Post sort");
-        for(int i = 0; i < longHighScores.size(); i++) {
-            System.out.println(longHighScores.get(i));
-        }
-
 
         // remove lowest high scores
         while(longHighScores.size() > 5){
