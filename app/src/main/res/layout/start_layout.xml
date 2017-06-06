@@ -65,6 +65,16 @@
             android:layout_alignRight="@+id/highScores"
             android:layout_alignEnd="@+id/highScores" />
 
+        <Button
+            android:id="@+id/MyAccountButton"
+            android:layout_width="70sp"
+            android:layout_height="50sp"
+            android:layout_alignLeft="@+id/about"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/about"
+            android:background="@drawable/button_black"
+            android:text="Account" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -28,6 +28,8 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
 
+    private static final String TAG = "MAIN_MENU";
+
     private static final int MENU_RESUME = 1;
     private static final int MENU_START = 2;
     private static final int MENU_STOP = 3;
@@ -65,6 +67,8 @@ public class MainActivity extends Activity {
         mGameThread = null;
         mGameView = null;
 
+
+
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rel_layout);
         TransitionDrawable transition = (TransitionDrawable) rl.getBackground();
         transition.startTransition(500);
@@ -100,6 +104,20 @@ public class MainActivity extends Activity {
                 highScoresScreen();
             }
         });
+
+        final Button myAccount = (Button) findViewById(R.id.MyAccountButton);
+        myAccount.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                myAccountScreen();
+            }
+        });
+
+    }
+
+    public void myAccountScreen(){
+        System.out.println("My Account Screen");
+        setContentView(R.layout.my_account);
 
     }
 
